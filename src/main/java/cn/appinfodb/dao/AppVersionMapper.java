@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.AppVersion;
-import com.ap.pojo.AppVersionExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.AppVersion;
+import cn.appinfodb.pojo.AppVersionExample;
 
 public interface AppVersionMapper {
     long countByExample(AppVersionExample example);

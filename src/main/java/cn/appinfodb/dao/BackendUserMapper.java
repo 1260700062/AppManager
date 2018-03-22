@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.BackendUser;
-import com.ap.pojo.BackendUserExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.BackendUser;
+import cn.appinfodb.pojo.BackendUserExample;
 
 public interface BackendUserMapper {
     long countByExample(BackendUserExample example);

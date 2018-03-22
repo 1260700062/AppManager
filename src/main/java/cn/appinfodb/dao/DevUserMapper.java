@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.DevUser;
-import com.ap.pojo.DevUserExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.DevUser;
+import cn.appinfodb.pojo.DevUserExample;
 
 public interface DevUserMapper {
     long countByExample(DevUserExample example);

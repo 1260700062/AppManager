@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.AppCategory;
-import com.ap.pojo.AppCategoryExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.AppCategory;
+import cn.appinfodb.pojo.AppCategoryExample;
 
 public interface AppCategoryMapper {
     long countByExample(AppCategoryExample example);

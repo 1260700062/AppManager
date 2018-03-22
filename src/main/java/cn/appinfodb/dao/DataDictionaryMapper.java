@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.DataDictionary;
-import com.ap.pojo.DataDictionaryExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.DataDictionary;
+import cn.appinfodb.pojo.DataDictionaryExample;
 
 public interface DataDictionaryMapper {
     long countByExample(DataDictionaryExample example);

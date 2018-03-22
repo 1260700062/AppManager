@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.AppInfo;
-import com.ap.pojo.AppInfoExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.AppInfo;
+import cn.appinfodb.pojo.AppInfoExample;
 
 public interface AppInfoMapper {
     long countByExample(AppInfoExample example);

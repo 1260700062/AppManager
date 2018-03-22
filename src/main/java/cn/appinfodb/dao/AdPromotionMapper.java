@@ -1,9 +1,11 @@
 package cn.appinfodb.dao;
 
-import com.ap.pojo.AdPromotion;
-import com.ap.pojo.AdPromotionExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
+
+import cn.appinfodb.pojo.AdPromotion;
+import cn.appinfodb.pojo.AdPromotionExample;
 
 public interface AdPromotionMapper {
     long countByExample(AdPromotionExample example);
