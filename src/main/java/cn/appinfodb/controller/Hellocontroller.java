@@ -8,5 +8,9 @@ public class Hellocontroller {
 	public String hello() {
 		return "bUser/bUserLoginIn";
 	}
-	
+
+	@RequestMapping("/list")
+	public String list() {
+		return "bUser/appList";
+	}
 }
