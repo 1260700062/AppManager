@@ -4,7 +4,7 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <title>APP--信息管理平台</title>
+    <title>APP信息管理平台</title>
     <link type="text/css" rel="stylesheet" href="${pageContext.request.contextPath }/statics/css/style.css" />
     <script type="text/javascript">
 	/* if(top.location!=self.location){
