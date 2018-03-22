@@ -19,6 +19,9 @@
         </header>
         <section class="loginCont">
 	        <form class="loginForm" action="${pageContext.request.contextPath }/login"  name="actionForm" id="actionForm"  method="post" >
+				<div style="margin:0 0 5px 180px;">
+				<a href="#">没有账号，注册！</a>
+				</div>
 				<div class="inputbox">
                     <label for="user">用户名：</label>
 					<input type="text" class="input-text" id="userCode" name="userCode" placeholder="请输入用户名" required/>

@@ -29,4 +29,6 @@ public interface DevUserMapper {
     int updateByPrimaryKeySelective(DevUser record);
 
     int updateByPrimaryKey(DevUser record);
+    
+    DevUser getDevUserBydevCode(String devCode);
 }

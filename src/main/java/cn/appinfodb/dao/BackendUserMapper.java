@@ -29,4 +29,6 @@ public interface BackendUserMapper {
     int updateByPrimaryKeySelective(BackendUser record);
 
     int updateByPrimaryKey(BackendUser record);
+    
+    BackendUser getBackendUserByBackendCode(String BackendCode);
 }
