@@ -27,15 +27,13 @@ public class LoginController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}*/
-	@Resource
-	private DevUserService dus;
-	private BackendUserService bus;
 	
-
+	private DevUserService dus;
 	public void setDus(DevUserService dus) {
 		this.dus = dus;
 	}
-
+	
+	private BackendUserService bus;
 	public void setBus(BackendUserService bus) {
 		this.bus = bus;
 	}
