@@ -47,19 +47,12 @@ public class LoginController {
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login2(HttpSession session,String userCode,String userPassword,Model model) {
-				/*User user = userService.login(userCode,userPassword);
-				if(null != user){//登录成功
-					session.setAttribute(Constants.USER_SESSION, user);
-					return "frame";
-				}else{
-					model.addAttribute("error", "用户名或密码不正确");
-					return "login";
-				}*/
 		int a=0,b=0;
 		DevUser du = new DevUser();
 		BackendUser bu = new BackendUser();
 		a = dus.DevUserLogin(userCode, userPassword);
 		b = bus.BackendUserLogin(userCode, userPassword);
+		System.out.println("a=="+a+"B=="+b);
 		if(a==0&&b==0) {
 			return "login";
 		}else if(a==1){

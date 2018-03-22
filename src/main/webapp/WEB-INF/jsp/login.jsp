@@ -9,7 +9,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Gentellela Alela! | </title>
+    <title>AppManager! | </title>
 
     <!-- Bootstrap -->
     <link href="${pageContext.request.contextPath }/statics/vendors/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -31,23 +31,23 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form>
-              <h1>登陆</h1>
+            <form action="${pageContext.request.contextPath }/login" method="post">
+              <h1>登		陆</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" />
+                <input type="text" class="form-control" placeholder="Username" required name="userCode"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" class="form-control" placeholder="Password" required name="userPassword"/>
               </div>
               <div>
-                <a class="btn btn-default submit" href="index.html">登陆</a>
+                <input type="submit" class="btn btn-default submit" value="登陆" style="margin-left:150px;"/>
                 <a class="reset_pass" href="#">忘记密码?</a>
               </div>
 
               <div class="clearfix"></div>
 
               <div class="separator">
-                <p class="change_link">New to site?
+                <p class="change_link">新用户?
                   <a href="#signup" class="to_register"> 创建账号 </a>
                 </p>
 
