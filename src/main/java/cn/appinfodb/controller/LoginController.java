@@ -35,17 +35,31 @@ public class LoginController {
 	public void setBus(BackendUserService bus) {
 		this.bus = bus;
 	}
-
+	
+	
+	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login() {
-		int i= 1;
-        System.out.println("jinr======"+ i);
 		return "login";
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login2(HttpSession session,String userCode,String userPassword,Model model) {
-		return "login";
+		String identify = session.getAttribute("identify").toString();
+		if(identify.equals("manager")) {
+			bus.BackendUserLogin(userCode, userPassword);
+		}
+		System.out.println("identify======"+identify);
+		return "frame";
 		
+	}
+	
+	@RequestMapping(value="/beforeLogin",method=RequestMethod.GET)
+	public String login3() {		
+		return "beforeLogin";
+	}
+	@RequestMapping(value="/beforeLogin",method=RequestMethod.POST)
+	public String login4() {		
+		return "beforeLogin";
 	}
 }

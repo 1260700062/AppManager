@@ -26,15 +26,16 @@
   </head>
 <body class="login">
 <%
-out.print("1");
-	/* Object id = request.getParameter("identify");
+
+	Object id = request.getParameter("identify");
 	String identify = null;
 	if(id == null){
 		response.sendRedirect("beforeLogin");
 	}else{
 		identify = id.toString();
+		session.setAttribute("identify", identify);
 	} 
-	*/
+	
 
 %>
     <div>
@@ -45,7 +46,7 @@ out.print("1");
         <div class="animate form login_form">
           <section class="login_content">
             <form action="${pageContext.request.contextPath }/login" method="post">
-              <h1>欢迎登陆</h1>
+              <h1>欢迎<%=identify==null?"":identify.equals("manager")?"管理员":"开发者" %>登陆</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Username" required name="userCode"/>
               </div>
