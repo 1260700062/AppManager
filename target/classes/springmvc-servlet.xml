@@ -8,10 +8,10 @@
         http://www.springframework.org/schema/beans/spring-beans.xsd
         http://www.springframework.org/schema/mvc
         http://www.springframework.org/schema/mvc/spring-mvc.xsd
-        http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 		
-	<context:component-scan base-package="cn.appinfodb.controller"/>
+	<context:component-scan base-package="cn.appinfodb"/>
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 		
