@@ -12,4 +12,17 @@ public class BUserController {
 		
 		return "bUser/appList";
 	}
+	
+	/**
+	 * 
+	 * @return
+	 * 
+	 * 实现app开发者添加新的APP
+	 * 
+	 */
+	@RequestMapping("/addApp")
+	public String addApp() {
+		
+		return "";
+	}
 }
