@@ -204,7 +204,7 @@
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
-                    <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addApp" method="post" >
+                    <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addApp" method="post" enctype="multipart/form-data">
 
                       <div class="item form-group">
                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
@@ -311,14 +311,14 @@
                         <span class="fontColor"></span>
                         </div>
                       </div>
-                     <!--  <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logopicpath">LOGO图片 <span class="required">*</span>
+                      <div class="item form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">LOGO图片 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        	<input type="file" id="logopicpath"  name="logopicpath"/>
+                        	<input type="file" id="picture"  name="picture"/>
                         <span class="fontColor"></span>
                         </div>
-                      </div> -->
+                      </div>
                       <div class="ln_solid"></div>
                       <div class="form-group">
                       	<span  class="fontColor"></span>
