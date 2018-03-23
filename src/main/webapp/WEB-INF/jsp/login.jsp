@@ -1,3 +1,4 @@
+<%@page import="org.apache.coyote.Adapter"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -24,6 +25,18 @@
     <link href="${pageContext.request.contextPath }/statics/build/css/custom.min.css" rel="stylesheet">
   </head>
 <body class="login">
+<%
+out.print("1");
+	/* Object id = request.getParameter("identify");
+	String identify = null;
+	if(id == null){
+		response.sendRedirect("beforeLogin");
+	}else{
+		identify = id.toString();
+	} 
+	*/
+
+%>
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -32,7 +45,7 @@
         <div class="animate form login_form">
           <section class="login_content">
             <form action="${pageContext.request.contextPath }/login" method="post">
-              <h1>登		陆</h1>
+              <h1>欢迎登陆</h1>
               <div>
                 <input type="text" class="form-control" placeholder="Username" required name="userCode"/>
               </div>
@@ -56,7 +69,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i> App信息管理平台!</h1>
-                  <p>©2016 All Rights Reserved. AppManager! is a Bootstrap 3 template. Privacy and Terms</p>
+                  <p>©2016 All Rights Reserved. AppManager is a system to manage applications.</p>
                 </div>
               </div>
             </form>

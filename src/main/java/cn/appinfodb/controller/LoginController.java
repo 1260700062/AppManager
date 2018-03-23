@@ -1,6 +1,11 @@
 package cn.appinfodb.controller;
 
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.accessibility.AccessibleRelation;
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.omg.CORBA.ORBPackage.InconsistentTypeCode;
@@ -20,19 +25,12 @@ import cn.appinfodb.tools.Constants;
 
 @Controller
 public class LoginController {
-	
-	/*@Resource
-	private UserService userService;
-	
-	public void setUserService(UserService userService) {
-		this.userService = userService;
-	}*/
-	
+	@Autowired
 	private DevUserService dus;
 	public void setDus(DevUserService dus) {
 		this.dus = dus;
 	}
-	
+	@Autowired
 	private BackendUserService bus;
 	public void setBus(BackendUserService bus) {
 		this.bus = bus;
@@ -40,31 +38,14 @@ public class LoginController {
 
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login() {
+		int i= 1;
+        System.out.println("jinr======"+ i);
 		return "login";
 	}
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login2(HttpSession session,String userCode,String userPassword,Model model) {
-		int a=0,b=0;
-		DevUser du = new DevUser();
-		BackendUser bu = new BackendUser();
-		a = dus.DevUserLogin(userCode, userPassword);
-		b = bus.BackendUserLogin(userCode, userPassword);
-		System.out.println("a=="+a+"B=="+b);
-		if(a==0&&b==0) {
-			return "login";
-		}else if(a==1){
-			du.setDevname(userCode);
-			session.setAttribute("devUser", du);
-			return "frame";
-		}else if(b==1) {
-			bu.setUsername(userCode);
-			session.setAttribute("BackendUser", bu);
-			return "frame";
-		}else {
-			return "login";
-		}
+		return "login";
 		
 	}
-
 }
