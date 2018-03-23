@@ -14,8 +14,8 @@ $(function(){
 	var countSta = false;
 	var nameSta = false;
 	
-	$("#name").blur(function(){
-		var  name = $("#name");
+	$("#softwarename").blur(function(){
+		var  name = $("#softwarename");
 		if(name.val() == null || name.val() == "") {
 			$(this).next().html(message.empty);
 			nameSta = false;
@@ -25,7 +25,7 @@ $(function(){
 		}
 	});
 	
-	$("#apk").blur(function(){
+	$("#apkname").blur(function(){
 		if($(this).val() == null || $(this).val() == "") {
 			$(this).next().html(message.empty);
 			apkSta = false;
@@ -37,7 +37,7 @@ $(function(){
 		}
 	});
 	
-	$("#rom").blur(function(){
+	$("#supportrom").blur(function(){
 		if($(this).val() == null || $(this).val() == "") {
 			$(this).next().html(message.empty);
 			romSta = false;
@@ -47,7 +47,7 @@ $(function(){
 		}
 	});
 	
-	$("#language").blur(function(){
+	$("#interfacelanguage").blur(function(){
 		if($(this).val() == null || $(this).val() == "") {
 			$(this).next().html(message.empty);
 			languageSta = false;
@@ -57,7 +57,7 @@ $(function(){
 		}
 	});
 	
-	$("#appSize").blur(function(){
+	$("#softwaresize").blur(function(){
 		if($(this).val() == null || $(this).val() == "") {
 			$(this).next().html(message.empty);
 			appSizeSta = false;
@@ -67,7 +67,7 @@ $(function(){
 		}
 	});
 	
-	$("#count").blur(function(){
+	$("#downloads").blur(function(){
 		if($(this).val() == null || $(this).val() == "") {
 			$(this).next().html(message.empty);
 			countSta = false;

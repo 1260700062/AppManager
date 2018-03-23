@@ -3,6 +3,8 @@ package cn.appinfodb.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import cn.appinfodb.pojo.AppInfo;
+
 @Controller
 public class DeveloperController {
 	@RequestMapping("/appSearch")
@@ -17,12 +19,18 @@ public class DeveloperController {
 	 * 
 	 * @return
 	 * 
-	 * 实现app开发者添加新的APP
+	 * 跳转addApp页面
 	 * 
 	 */
-	@RequestMapping("/addApp")
-	public String addApp() {
+	@RequestMapping("/addAppPage")
+	public String addAppPage() {
 		
 		return "developer/addApp";
+	}
+	
+	@RequestMapping("/addApp")
+	public String addApp(AppInfo appInfo) {
+		System.out.println("appName ==========="+appInfo.getSoftwarename());
+		return "";
 	}
 }

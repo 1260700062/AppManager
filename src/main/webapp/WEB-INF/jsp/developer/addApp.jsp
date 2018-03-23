@@ -207,55 +207,55 @@
                     <form class="form-horizontal form-label-left" novalidate action="calendar.html" method="post" enctype="multipart/form-data">
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="name">软件名称 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="name" class="form-control col-md-7 col-xs-12"   name="name" placeholder="请输入APP名称" required="required" type="text">
+                          <input id="softwarename" class="form-control col-md-7 col-xs-12"   name="softwareName" placeholder="请输入APP名称" required="required" type="text">
                           <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apk">APK名称 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkname">APK名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="apk" name="apk" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="apkname" name="apkname" required="required" class="form-control col-md-7 col-xs-12">
                           <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="rom">支持ROM <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supportrom">支持ROM <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="rom" name="rom"  required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="supportrom" name="supportrom"  required="required" class="form-control col-md-7 col-xs-12">
                           <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="language">界面语言 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="interfacelanguage">界面语言 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="language" name="language" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
+                          <input type="text" id="interfacelanguage" name="interfacelanguage" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appSize">软件大小 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwaresize">软件大小 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="appSize" name="appSize" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
+                          <input type="number" id="softwaresize" name="softwaresize" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="count">下载次数 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="downloads">下载次数 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="count" type="number" name="count"  class="optional form-control col-md-7 col-xs-12"><span class="fontColor"></span>
+                          <input id="downloads" type="number" name="downloads"  class="optional form-control col-md-7 col-xs-12"><span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label for="platform" class="control-label col-md-3">所属平台</label>
+                        <label for="flatformid" class="control-label col-md-3">所属平台</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
-                       		<select id="platform" style="width: 415px;height: 40px; ">
+                       		<select id="flatformid" style="width: 415px;height: 40px; ">
                        		<option style="text-align: center;" value="commen" selected="selected">通用平台</option>
                        		<option style="text-align: center;" value="phone">手机平台</option>
                        		<option style="text-align: center;" value="plus">平板平台</option>
@@ -264,34 +264,33 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label for="sort1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
+                        <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="sort1" style="width: 415px;height: 40px; ">
+                       	<select id="categorylevel1" style="width: 415px;height: 40px; ">
                        		<option style="text-align: center;" value="">--请选择--</option>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort2">二级分类 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
-                        <select id="sort2" style="width: 415px;height: 40px; ">
+                        <select id="categorylevel2" style="width: 415px;height: 40px; ">
                        		<!--<option style="text-align: center;" value="">--请选择--</option>-->
                        	</select>
                         <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="sort3">三级分类 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-											<select id="sort3" style="width: 415px;height: 40px; ">
-                       		<!--<option style="text-align: center;" value="">--请选择--</option>-->
+						<select id="categorylevel3" style="width: 415px;height: 40px; ">
                        	</select>
-											<span class="fontColor"></span>                        
+						<span class="fontColor"></span>                        
                         </div>
                       </div>
                       <div class="item form-group">
@@ -305,18 +304,18 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="introduction">应用简介 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appinfo">应用简介 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="introduction" required="required" name="introduction" class="form-control col-md-7 col-xs-12"></textarea>
+                          <textarea id="appinfo" required="required" name="appinfo" class="form-control col-md-7 col-xs-12"></textarea>
                         <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logo">LOGO图片 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logopicpath">LOGO图片 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        	<input type="file" id="logo" />
+                        	<input type="file" id="logopicpath"  name="logopicpath"/>
                         <span class="fontColor"></span>
                         </div>
                       </div>
@@ -360,7 +359,7 @@
     <!-- validator -->
     <!--<script src="../vendors/validator/validator.js"></script>-->
 <!--自定义js表单验证-->
-	<script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script>
+	<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script> --%>
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>
   </body>
