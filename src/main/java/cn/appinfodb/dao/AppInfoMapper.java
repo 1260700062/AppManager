@@ -29,4 +29,6 @@ public interface AppInfoMapper {
     int updateByPrimaryKeySelective(AppInfo record);
 
     int updateByPrimaryKey(AppInfo record);
+    
+    public List<AppInfo> getAppInfo() throws Exception;
 }
