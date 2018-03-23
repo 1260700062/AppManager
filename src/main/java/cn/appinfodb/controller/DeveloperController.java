@@ -23,6 +23,6 @@ public class DeveloperController {
 	@RequestMapping("/addApp")
 	public String addApp() {
 		
-		return "";
+		return "developer/addApp";
 	}
 }
