@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import cn.appinfodb.dao.AppInfoMapper;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.service.developer.DeveloperService;
+
 @Service("developerService")
 public class DeveloperServiceImpl implements DeveloperService {
 
@@ -28,6 +29,19 @@ public class DeveloperServiceImpl implements DeveloperService {
 			e.printStackTrace();
 		}
 		return appInfo;
+	}
+
+
+	@Override
+	public int addApp(AppInfo appInfo) {
+		int flag = 0;
+		try {
+			flag = appInfoMapper.addApp(appInfo);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return flag;
 	}
 
 }

@@ -32,7 +32,7 @@ http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 		<property name="basePackage" value="cn.appinfodb.dao"></property>
 	</bean>
 	
-	<context:component-scan base-package="cn.appinfodb.dao,cn.appinfodb.service" />
+	<context:component-scan base-package="cn.appinfodb" />
 	
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>

@@ -51,8 +51,18 @@ public class AppInfo {
     private String logolocpath;
 
     private Long versionid;
+    
+    
 
-    public Long getId() {
+    public AppInfo() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+    
+	
+
+	public Long getId() {
         return id;
     }
 
