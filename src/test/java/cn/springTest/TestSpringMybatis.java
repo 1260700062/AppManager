@@ -1,11 +1,16 @@
 package cn.springTest;
 
 
+import java.util.List;
+
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+
+import cn.appinfodb.pojo.AppCategory;
+import cn.appinfodb.service.AppCategoryService;
 
 
 public class TestSpringMybatis {
@@ -17,5 +22,15 @@ public class TestSpringMybatis {
 		User user = us.login("admin", "1234567");
 		*/
 		/*log.info(user.getUserName());*/
+	}
+
+	@Test
+	public void test2() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		AppCategoryService acs = ac.getBean(AppCategoryService.class);
+		List<AppCategory> list = acs.getAppByParentId(0);
+		for(AppCategory l:list) {
+			System.out.println(l.getCategoryname());
+		}
 	}
 }
