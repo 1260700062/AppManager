@@ -1,5 +1,6 @@
 package cn.appinfodb.service.developer.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.junit.Test;
@@ -21,6 +22,18 @@ public class DeveloperServiceImplTest {
 		for(AppInfo a : appInfo) {
 			log.info("name===={}",a.getApkname());
 		}
+	}
+	
+	
+	@Test
+	public void testAddApp() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
+		AppInfo appInfo = new AppInfo();
+		appInfo.setSoftwarename("aaaaa");
+		appInfo.setCreationdate(new Date());
+		int flag = ds.addApp(appInfo);
+		System.out.println(flag);
 	}
 
 }

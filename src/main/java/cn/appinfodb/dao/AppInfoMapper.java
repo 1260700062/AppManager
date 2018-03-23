@@ -30,5 +30,8 @@ public interface AppInfoMapper {
 
     int updateByPrimaryKey(AppInfo record);
     
+    //查询app_info，获取所有APP信息，保存到list中
     public List<AppInfo> getAppInfo() throws Exception;
+    //添加APP信息
+    public int addApp(AppInfo appInfo) throws Exception;
 }

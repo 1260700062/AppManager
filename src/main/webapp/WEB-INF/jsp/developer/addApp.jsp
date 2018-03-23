@@ -203,14 +203,14 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_content">
-
-                    <form class="form-horizontal form-label-left" novalidate action="calendar.html" method="post" enctype="multipart/form-data">
+<!-- enctype="multipart/form-data" -->
+                    <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addApp" method="post" >
 
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
+                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="softwarename" class="form-control col-md-7 col-xs-12"   name="softwareName" placeholder="请输入APP名称" required="required" type="text">
+                          <input id="softwarename" class="form-control col-md-7 col-xs-12"   name="softwarename" placeholder="请输入APP名称" required="required" type="text" />
                           <span class="fontColor"></span>
                         </div>
                       </div>
@@ -218,7 +218,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkname">APK名称 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="apkname" name="apkname" required="required" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="apkname" name="apkname" required="required" class="form-control col-md-7 col-xs-12" value="">
                           <span class="fontColor"></span>
                         </div>
                       </div>
@@ -311,14 +311,14 @@
                         <span class="fontColor"></span>
                         </div>
                       </div>
-                      <div class="item form-group">
+                     <!--  <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="logopicpath">LOGO图片 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                         	<input type="file" id="logopicpath"  name="logopicpath"/>
                         <span class="fontColor"></span>
                         </div>
-                      </div>
+                      </div> -->
                       <div class="ln_solid"></div>
                       <div class="form-group">
                       	<span  class="fontColor"></span>

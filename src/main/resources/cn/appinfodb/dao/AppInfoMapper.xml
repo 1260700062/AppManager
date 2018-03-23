@@ -1,7 +1,140 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.appinfodb.dao.AppInfoMapper">
+<resultMap id="BaseResultMap" type="cn.appinfodb.pojo.AppInfo">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="softwareName" jdbcType="VARCHAR" property="softwarename" />
+    <result column="APKName" jdbcType="VARCHAR" property="apkname" />
+    <result column="supportROM" jdbcType="VARCHAR" property="supportrom" />
+    <result column="interfaceLanguage" jdbcType="VARCHAR" property="interfacelanguage" />
+    <result column="softwareSize" jdbcType="DECIMAL" property="softwaresize" />
+    <result column="updateDate" jdbcType="DATE" property="updatedate" />
+    <result column="devId" jdbcType="BIGINT" property="devid" />
+    <result column="appInfo" jdbcType="VARCHAR" property="appinfo" />
+    <result column="status" jdbcType="BIGINT" property="status" />
+    <result column="onSaleDate" jdbcType="TIMESTAMP" property="onsaledate" />
+    <result column="offSaleDate" jdbcType="TIMESTAMP" property="offsaledate" />
+    <result column="flatformId" jdbcType="BIGINT" property="flatformid" />
+    <result column="categoryLevel3" jdbcType="BIGINT" property="categorylevel3" />
+    <result column="downloads" jdbcType="BIGINT" property="downloads" />
+    <result column="createdBy" jdbcType="BIGINT" property="createdby" />
+    <result column="creationDate" jdbcType="TIMESTAMP" property="creationdate" />
+    <result column="modifyBy" jdbcType="BIGINT" property="modifyby" />
+    <result column="modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
+    <result column="categoryLevel1" jdbcType="BIGINT" property="categorylevel1" />
+    <result column="categoryLevel2" jdbcType="BIGINT" property="categorylevel2" />
+    <result column="logoPicPath" jdbcType="VARCHAR" property="logopicpath" />
+    <result column="logoLocPath" jdbcType="VARCHAR" property="logolocpath" />
+    <result column="versionId" jdbcType="BIGINT" property="versionid" />
+  </resultMap>
+  
+  
   <select id="getAppInfo" resultType="cn.appinfodb.pojo.AppInfo">
   	select * from app_info
   </select>
+  
+  <insert id="addApp" parameterType="cn.appinfodb.pojo.AppInfo">
+  	INSERT INTO app_info
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  	<if test="softwarename != null">
+  	`softwareName`,
+  	</if>
+  	<if test="apkname != null">
+  	`APKName`,
+  	</if>
+  	<if test="supportrom != null">
+  	`supportROM`,
+  	</if>
+  	<if test="interfacelanguage != null">
+  	`interfaceLanguage`,
+  	</if>
+  	<if test="softwaresize != null">
+  	`softwareSize`,
+  	</if>
+  	<if test="appinfo != null">
+  	`appInfo`,
+  	</if>
+  	<if test="status != null">
+  	`status`,
+  	</if>
+  	<if test="flatformid != null">
+  	`flatformId`,
+  	</if>
+  	<if test="categorylevel3 != null">
+  	`categoryLevel3`,
+  	</if>
+  	<if test="categorylevel2 != null">
+  	`categoryLevel2`,
+  	</if>
+  	<if test="categorylevel1 != null">
+  	`categoryLevel1`,
+  	</if>
+  	<if test="downloads != null">
+  	`downloads`,
+  	</if>
+  	<if test="createdby != null">
+  	`createdBy`,
+  	</if>
+  	<if test="logopicpath != null">
+  	`logoPicPath`,
+  	</if>
+  	<if test="logolocpath != null">
+  	`logoLocPath`,
+  	</if>
+  	<if test="creationdate != null">
+  	`creationDate`,
+  	</if>
+  	</trim>
+  	VALUES
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  		<if test="softwarename != null">
+  	#{softwarename},
+  	</if>
+  	<if test="apkname != null">
+  	#{apkname},
+  	</if>
+  	<if test="supportrom != null">
+  	#{supportrom},
+  	</if>
+  	<if test="interfacelanguage != null">
+  	#{interfacelanguage},
+  	</if>
+  	<if test="softwaresize != null">
+  	#{softwaresize},
+  	</if>
+  	<if test="appinfo != null">
+  	#{appinfo},
+  	</if>
+  	<if test="status != null">
+  	#{status},
+  	</if>
+  	<if test="flatformid != null">
+  	#{flatformid},
+  	</if>
+  	<if test="categorylevel3 != null">
+  	#{categorylevel3},
+  	</if>
+  	<if test="categorylevel2 != null">
+  	#{categorylevel2},
+  	</if>
+  	<if test="categorylevel1 != null">
+  	#{categorylevel1},
+  	</if>
+  	<if test="downloads != null">
+  	#{downloads},
+  	</if>
+  	<if test="createdby != null">
+  	#{createdby},
+  	</if>
+  	<if test="logopicpath != null">
+  	#{logopicpath},
+  	</if>
+  	<if test="logolocpath != null">
+  	#{logolocpath},
+  	</if>
+  	<if test="creationdate != null">
+  	#{creationdate},
+  	</if>
+  	</trim>
+  </insert>
 </mapper>
