@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.appinfodb.dao.AppCategoryMapper;
 import cn.appinfodb.dao.AppInfoMapper;
+import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.service.developer.DeveloperService;
 
@@ -13,12 +15,23 @@ import cn.appinfodb.service.developer.DeveloperService;
 public class DeveloperServiceImpl implements DeveloperService {
 
 	private AppInfoMapper appInfoMapper;
+	
+	private AppCategoryMapper appCategoryMapper;
+	
+
+
 	@Autowired
 	public void setAppInfoMapper(AppInfoMapper appInfoMapper) {
 		this.appInfoMapper = appInfoMapper;
 	}
 
 	
+	@Autowired
+	public void setAppCategoryMapper(AppCategoryMapper appCategoryMapper) {
+		this.appCategoryMapper = appCategoryMapper;
+	}
+
+
 	//获取所用APP的信息
 	@Override
 	public List<AppInfo> getAppInfo() {
@@ -42,6 +55,20 @@ public class DeveloperServiceImpl implements DeveloperService {
 			e.printStackTrace();
 		}
 		return flag;
+	}
+
+
+	@Override
+	public List<AppCategory> getCategoryByParentId(Long parentId) {
+		// TODO Auto-generated method stub
+		List<AppCategory> appCategorys = null;
+		try {
+			appCategorys = appCategoryMapper.getAppCategoryByParentId(parentId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return appCategorys;
 	}
 
 }

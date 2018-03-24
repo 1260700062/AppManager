@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppInfoExample;
 
@@ -34,4 +35,6 @@ public interface AppInfoMapper {
     public List<AppInfo> getAppInfo() throws Exception;
     //添加APP信息
     public int addApp(AppInfo appInfo) throws Exception;
+    //根据parendid获取CategoryName
+    public List<AppCategory> getAppCategoryByParentId(Long parentId) throws Exception;
 }

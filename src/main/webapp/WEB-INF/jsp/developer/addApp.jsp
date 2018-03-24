@@ -255,10 +255,10 @@
                         <label for="flatformid" class="control-label col-md-3">所属平台</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
-                       		<select id="flatformid" style="width: 415px;height: 40px; ">
-                       		<option style="text-align: center;" value="commen" selected="selected">通用平台</option>
-                       		<option style="text-align: center;" value="phone">手机平台</option>
-                       		<option style="text-align: center;" value="plus">平板平台</option>
+                       		<select id="flatformid" class="optional form-control col-md-7 col-xs-12">
+                       		<option value="1" selected="selected">通用平台</option>
+                       		<option  value="2">手机平台</option>
+                       		<option  value="3">平板平台</option>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
@@ -267,8 +267,8 @@
                         <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="categorylevel1" style="width: 415px;height: 40px; ">
-                       		<option style="text-align: center;" value="">--请选择--</option>
+                       	<select id="categorylevel1">
+                       		<option  value="1">--请选择--</option>
                        	</select>
                        <span class="fontColor"></span>
                         </div>

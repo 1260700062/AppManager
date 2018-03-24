@@ -3,6 +3,7 @@ package cn.appinfodb.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -13,8 +14,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.service.developer.DeveloperService;
 
@@ -50,10 +53,20 @@ public class DeveloperController {
 		return "developer/addApp";
 	}
 	
+	/**
+	 * 获取addApp页面的信息，并向数据库添加信息
+	 * @param appInfo
+	 * @param session
+	 * @param model
+	 * @param image
+	 * @return
+	 */
+	
 	@RequestMapping(value="/addApp", method=RequestMethod.POST)
 	public String addApp(AppInfo appInfo, HttpSession session, Model model, 
 			@RequestParam(value="picture",required = false) MultipartFile image) {
 		System.out.println("==========addApp ===========");
+		System.out.println("appInfo"+appInfo.getFlatformid());
 		File file = null;
 		int flag = -1;
 		if(image.isEmpty()) {
@@ -62,7 +75,7 @@ public class DeveloperController {
 		String fileName = image.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
 		if(image.getSize() >= 500000) {
-			model.addAttribute("fileSize","文件大小不能超过500k！");
+			model.addAttribute("imgError","文件大小不能超过500k！");
 			return "developer/addApp";
 		}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
         		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
@@ -74,7 +87,9 @@ public class DeveloperController {
 			appInfo.setLogopicpath(logoPicPath);
 			
 		}else {
+			model.addAttribute("imgError", "文件格式不正确！！~~");
 			
+			return "developer/addApp";
 		}
 		
 		appInfo.setCreationdate(new Date());
@@ -92,5 +107,20 @@ public class DeveloperController {
 		}else {
 			return "forward:/addAppPage";
 		}
+	}
+	
+	@RequestMapping("/categoryLevel")
+	@ResponseBody
+	public Object getCategoryLevel(String id) {
+		Long parentId = null;
+		if(id != null) {
+			parentId = Long.parseLong(id);
+		}else {
+			
+		}
+		
+		System.out.println("categoryLevel=========");
+		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
+		return AppCategorys;
 	}
 }

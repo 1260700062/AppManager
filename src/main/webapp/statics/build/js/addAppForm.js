@@ -86,4 +86,63 @@ $(function(){
 		}
 		
 	});
+//	获取一级分类
+	$.ajax({
+		url:"categoryLevel",
+		type:"get",
+		data:{},
+		datatype:"json",
+		success:function(data){
+			for(var i=0; i<data.length; i++) {
+				var $option1 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
+				$("#categorylevel1").append($option1);
+			}
+		},
+		error:function(){
+			alert("error");
+		}
+	});
+	
+	$("#categorylevel1").change(function(){
+		var parentId = $("#categorylevel1").val();
+		$.ajax({
+			url:"categoryLevel",
+			type:"get",
+			data:{id:parentId},
+			datatype:"json",
+			success:function(data){
+				$("#categorylevel2").find("option").remove();
+				$("#categorylevel3").find("option").remove();
+				$("#categorylevel2").append("<option value='0'></option>");
+				for(var i=0; i<data.length; i++) {
+					var $option2 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
+					$("#categorylevel2").append($option2);
+				}
+			},
+			error:function(){
+				alert("error!!~~~~");
+			}
+		});
+	});
+	
+	$("#categorylevel2").change(function(){
+		var parentId = $("#categorylevel2").val();
+		$.ajax({
+			url:"categoryLevel",
+			type:"get",
+			data:{id:parentId},
+			datatype:"json",
+			success:function(data){
+				$("#categorylevel3").find("option").remove();
+				$("#categorylevel2 option[value='0']").remove();
+				for(var i=0; i<data.length; i++) {
+					var $option3 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
+					$("#categorylevel3").append($option3);
+				}
+			},
+			error:function(){
+				alert("error!!~~~~");
+			}
+		});
+	});
 })
