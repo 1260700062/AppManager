@@ -138,13 +138,8 @@
   	</trim>
   </insert>
   
-  <select id="getAppCategoryByParentId" parameterType="long" resultType="cn.appinfodb.pojo.AppCategory">
-  	SELECT * FROM `app_category` WHERE 
-  	<if test="parentid == null">
-  		parentId IS NULL
-  	</if>
-  	<if test="parentid != null">
-  		parentId = #{parentid}
-  	</if>
+  
+  <select id="getAppInfoByAPKName" parameterType="string" resultType="cn.appinfodb.pojo.AppInfo">
+  	SELECT * FROM `app_info` WHERE `APKName` LIKE #{apkname}
   </select>
 </mapper>

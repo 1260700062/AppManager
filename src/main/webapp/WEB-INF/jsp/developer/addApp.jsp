@@ -255,7 +255,7 @@
                         <label for="flatformid" class="control-label col-md-3">所属平台</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
-                       		<select id="flatformid" class="optional form-control col-md-7 col-xs-12">
+                       		<select id="flatformid" name="flatformid" class="optional form-control col-md-7 col-xs-12">
                        		<option value="1" selected="selected">通用平台</option>
                        		<option  value="2">手机平台</option>
                        		<option  value="3">平板平台</option>
@@ -267,18 +267,18 @@
                         <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="categorylevel1">
+                       	<select id="categorylevel1" class="form-control col-md-7 col-xs-12">
                        		<option  value="1">--请选择--</option>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
                       </div>
-                      <div class="item form-group">
+                      <div class="item form-group" >
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
-                        <select id="categorylevel2" style="width: 415px;height: 40px; ">
+                        <select id="categorylevel2" class="form-control col-md-7 col-xs-12">
                        		<!--<option style="text-align: center;" value="">--请选择--</option>-->
                        	</select>
                         <span class="fontColor"></span>
@@ -288,7 +288,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-						<select id="categorylevel3" style="width: 415px;height: 40px; ">
+						<select id="categorylevel3" class="form-control col-md-7 col-xs-12">
                        	</select>
 						<span class="fontColor"></span>                        
                         </div>
@@ -316,7 +316,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                         	<input type="file" id="picture"  name="picture"/>
-                        <span class="fontColor"></span>
+                        <span class="fontColor">${imgError }</span>
                         </div>
                       </div>
                       <div class="ln_solid"></div>
@@ -359,7 +359,7 @@
     <!-- validator -->
     <!--<script src="../vendors/validator/validator.js"></script>-->
 <!--自定义js表单验证-->
-	<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script> --%>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script>
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>
   </body>

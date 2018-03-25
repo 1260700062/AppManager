@@ -11,6 +11,8 @@ public interface DeveloperService {
 	
 	//添加APP
 	public int addApp(AppInfo appInfo);
-	
+	//通过父id 下的所有子分类
 	public List<AppCategory> getCategoryByParentId(Long parendId);
+	//通过apkname获取APP信息
+	public AppInfo getAppInfoByAPKName(String apkname);
 }

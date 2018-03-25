@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -108,7 +109,11 @@ public class DeveloperController {
 			return "forward:/addAppPage";
 		}
 	}
-	
+	/**
+	 * addApp页面添加APP信息时，使用Ajax获取一级、二级、三级分类，用于选择分类级别
+	 * @param id
+	 * @return
+	 */
 	@RequestMapping("/categoryLevel")
 	@ResponseBody
 	public Object getCategoryLevel(String id) {
@@ -119,8 +124,19 @@ public class DeveloperController {
 			
 		}
 		
-		System.out.println("categoryLevel=========");
 		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
 		return AppCategorys;
+	}
+	
+	@RequestMapping("/virafyApkName")
+	@ResponseBody
+	public String virafyApkName(@RequestParam("apkname")String apkname) {
+		System.out.println("virafyApkName======================");
+		System.out.println(apkname);
+		AppInfo appInfo = developerService.getAppInfoByAPKName(apkname);
+		if(appInfo == null) {
+			return "true";
+		}
+		return "false";
 	}
 }

@@ -71,4 +71,17 @@ public class DeveloperServiceImpl implements DeveloperService {
 		return appCategorys;
 	}
 
+
+	@Override
+	public AppInfo getAppInfoByAPKName(String apkname) {
+		AppInfo appInfo = null;
+		try {
+			appInfo = appInfoMapper.getAppInfoByAPKName(apkname);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return appInfo;
+	}
+
 }

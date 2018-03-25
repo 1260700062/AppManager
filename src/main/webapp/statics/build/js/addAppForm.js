@@ -32,8 +32,28 @@ $(function(){
 		}else {
 			$(this).next().html("");
 			//ajax 验证唯一性
+			var name = $(this).val();
+			var $span = $(this).next();
+			alert(name.trim());
+			$.ajax({
+				url:"virafyApkName",
+				type:"get",
+				data:{apkname:name},
+				datatype:"text",
+				success:function(data){
+					if(data == "true"){
+						apkSta = true;
+					}else {
+						apkSta = false;
+						$span.html("用户名已存在！");
+						alert("Aaa");
+					}
+				},
+				error: function(){
+					alert("error~~~~~~");
+				}
+			});
 			
-			apkSta = true;
 		}
 	});
 	

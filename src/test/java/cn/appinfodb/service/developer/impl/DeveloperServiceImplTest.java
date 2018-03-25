@@ -47,5 +47,14 @@ public class DeveloperServiceImplTest {
 			log.info("id {}, ====name: {}",a.getId(),a.getCategoryname());
 		}
 	}
+	
+	@Test
+	public void testgetAppInfoByAPKName() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
+		String apkname = "";
+		boolean flag = ds.getAppInfoByAPKName(apkname );
+		log.info("flag:============ {}=======", flag );
+	}
 
 }

@@ -37,4 +37,6 @@ public interface AppInfoMapper {
     public int addApp(AppInfo appInfo) throws Exception;
     //根据parendid获取CategoryName
     public List<AppCategory> getAppCategoryByParentId(Long parentId) throws Exception;
+    //通过apkname获取APP信息
+    public AppInfo getAppInfoByAPKName(String apkname) throws Exception;
 }
