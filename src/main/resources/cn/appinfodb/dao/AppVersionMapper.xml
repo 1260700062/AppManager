@@ -5,5 +5,85 @@
 	<select id="selectVersionNoByVersionId" parameterType="long" resultType="String">
         select versionNo from app_version where id = #{id }
     </select>
-
+	
+	<insert id="addVersion" parameterType="cn.appinfodb.pojo.AppVersion">
+  	INSERT INTO app_version
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  	<if test="appid != null">
+  	`appId`,
+  	</if>
+  	<if test="versionno != null">
+  	`versionNo`,
+  	</if> 
+  	<if test="versioninfo != null">
+  	`versionInfo`,
+  	</if>
+  	<if test="publishstatus != null">
+  	`publishStatus`,
+  	</if>
+  	<if test="downloadlink != null">
+  	`downloadLink`,
+  	</if>
+  	<if test="versionsize != null">
+  	`versionSize`,
+  	</if>
+  	<if test="createdby != null">
+  	`createdBy`,
+  	</if>
+  	<if test="creationdate != null">
+  	`creationDate`,
+  	</if>
+  	<if test="modifyby != null">
+  	`modifyBy`,
+  	</if>
+  	<if test="modifydate != null">
+  	`modifyDate`,
+  	</if>
+  	<if test="apklocpath != null">
+  	`apkLocPath`,
+  	</if>
+  	<if test="apkfilename != null">
+  	`apkFileName`,
+  	</if>
+  	</trim>
+  	VALUES
+  	<trim prefix="(" suffix=")" suffixOverrides=",">
+  		<if test="appid != null">
+  	#{appid},
+  	</if>
+  	<if test="versionno != null">
+  	#{versionno},
+  	</if>
+  	<if test="versioninfo != null">
+  	#{versioninfo},
+  	</if>
+  	<if test="publishstatus != null">
+  	#{publishstatus},
+  	</if>
+  	<if test="downloadlink != null">
+  	#{downloadlink},
+  	</if>
+  	<if test="versionsize != null">
+  	#{versionsize},
+  	</if>
+  	<if test="createdby != null">
+  	#{createdby},
+  	</if>
+  	<if test="creationdate != null">
+  	#{creationdate},
+  	</if>
+  	<if test="modifyby != null">
+  	#{modifyby},
+  	</if>
+  	<if test="modifydate != null">
+  	#{modifydate},
+  	</if>
+  	<if test="apklocpath != null">
+  	#{apklocpath},
+  	</if>
+  	<if test="apkfilename != null">
+  	#{apkfilename},
+  	</if>
+  	</trim>
+  </insert>
 </mapper>
