@@ -24,4 +24,10 @@ public class AppVersionServiceImpl implements AppVersionService {
 		return i;
 	}
 
+	@Override
+	public AppVersion getAppVersionByVersionNo(String versionNo,Long appId) {
+		AppVersion appVersion = appVersionMapper.selectVersionByVersionNo(versionNo,appId);
+		return appVersion;
+	}
+
 }

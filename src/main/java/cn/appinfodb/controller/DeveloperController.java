@@ -112,10 +112,11 @@ public class DeveloperController {
 		}
 		String fileName = apk.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
+		System.out.println(suffix);
 		if(apk.getSize() >= 500000000) {
 			model.addAttribute("imgError","apk文件不得大于500Mb");
 			return "developer/addVersion";
-		}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar")) {
+		}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
 			String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
 			System.out.println("====path==========: "+path);
 			
@@ -133,18 +134,32 @@ public class DeveloperController {
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
 		
-		try {
+		/*try {
 			apk.transferTo(file);
 		}  catch (IOException e) {
 			flag = -1;
 			e.printStackTrace();
-		}
+		}*/
 		
 		if(flag > 0) {
 			return "redirect:/appSearch";
 		}else {
 			return "forward:/addVersionPage";
 		}
+	}
+	
+
+	
+	@RequestMapping("/virafyVersionNo")
+	@ResponseBody
+	public String virafyVersionNo(@RequestParam("appId")Long appId,@RequestParam("versionNo")String versionNo) {
+		System.out.println("virafyApkName======================");
+		System.out.println(versionNo);
+		AppVersion appVersion = appVersionService.getAppVersionByVersionNo(versionNo, appId);
+		if(appVersion == null) {
+			return "true";
+		}
+		return "false";
 	}
 	
 	/**

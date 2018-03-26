@@ -86,4 +86,8 @@
   	</if>
   	</trim>
   </insert>
+  
+  <select id="selectVersionByVersionNo" resultType="AppVersion">
+        select * from app_version where versionNo =#{versionNo} and appId = #{appId}
+    </select>
 </mapper>

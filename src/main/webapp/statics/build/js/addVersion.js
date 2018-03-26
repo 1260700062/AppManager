@@ -16,13 +16,12 @@ $(function(){
 		}else {
 			$(this).next().html("");
 			//ajax 验证唯一性
-			var name = $(this).val();
+			var verNo = $(this).val();
 			var $span = $(this).next();
-			alert(name.trim());
 			$.ajax({
-				url:"virafyApkName",
+				url:"virafyVersionNo",
 				type:"get",
-				data:{apkname:name},
+				data:{versionNo:verNo},
 				datatype:"text",
 				success:function(data){
 					if(data == "true"){
