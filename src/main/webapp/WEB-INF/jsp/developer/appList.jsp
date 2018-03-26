@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,7 +26,7 @@
 <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col" style="width:300px">
+        <div class="col-md-3 left_col" style="width:200px">
           <div class="left_col scroll-view"">
             <div class="navbar nav_title" style="border: 0;">
               <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
@@ -48,7 +49,7 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="position: absolute;top:180px;">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="position: absolute;top:180px;width:200px;">
               <div class="menu_section">
                 <h3>General</h3>
                 <ul class="nav side-menu">
@@ -116,23 +117,29 @@
         <!-- /top navigation -->
         
         <div id="top-app-form" style="position: absolute;top: 150px;right:700px;">
-					<form id="select_app" method="post" action="#" >
+					<form id="select_app" method="post" action="${pageContext.request.contextPath }/appSearch" >
 						软件名称:<input type="text" name="appName" /> 
-						所属平台: 
-						<select name="appName">
-							<option selected="">--请选择--</option>
+						所属平台:
+						<select id="flatform" name="flatform">
+							<option selected value="0">--请选择--</option>
+						   	<option value="1">手机</option>
+						   	<option value="2">平板</option>
+						   	<option value="3">通用</option>
 						</select>
 						一级分类: 
-						<select name="category1">
-							<option selected="">--请选择--</option>
+						<select id="appLevel1" name="category1" onchange="getListLevel2()">
+							<option selected>--请选择--</option>
+							<c:forEach var="appLevel1" items="${appLevel1}">
+						   		<option value="${appLevel1.id}">${appLevel1.categoryname}</option>
+						   </c:forEach>
 						</select>
 						二级分类: 
-						<select name="category2">
-							<option selected="">--请选择--</option>
+						<select id="appLevel2" name="category2" onchange="getListLevel3()">
+							<option selected="selected">--请选择--</option>
 						</select> 
 						三级分类: 
-						<select name="category3">
-							<option selected="">--请选择--</option>
+						<select id="appLevel3" name="category3">
+							<option selected="selected" value="0">--请选择--</option>
 						</select>
 						<input type="submit" value="查询" />
 					</form>
@@ -140,7 +147,7 @@
 				</div>
         
         <div class="col-md-12 col-sm-12 col-xs-12"
-				style="width: 1400px;position: absolute;top: 230px;right:200px;">
+				style="width: 1200px;position: absolute;top: 230px;right:400px;">
 				<div class="x_panel">
 					<div class="x_title">
 						<h2>
@@ -172,7 +179,6 @@
 										<th class="column-title">软件名称</th>
 										<th class="column-title">ADK名称</th>
 										<th class="column-title">软件大小(单位:M)</th>
-										<th class="column-title">所属平台</th>
 										<th class="column-title">所属分类(一级,二级,三级)</th>
 										<th class="column-title">状态</th>
 										<th class="column-title no-link last"><span class="nobr">下载次数</span>
@@ -181,19 +187,19 @@
 										</th>
 									</tr>
 								</thead>
-								<c:forEach items="app_infoList" var="app_info">
+								<c:forEach items="${appList }" var="appinfo">
 									<tbody>
 										<tr class="even pointer">
 											<td class="a-center "><input type="checkbox"
 												class="flat" name="table_records"></td>
-											<td class=" ">app_info.</td>
-											<td class=" ">app_info</td>
-											<td class=" ">app_info</td>
-											<td class=" ">app_info</td>
-											<td class=" ">app_info</td>
-											<td class=" ">app_info</td>
-											<td class="">app_info</td>
-											<td class=" ">app_info</td>
+											<td class=" ">${appinfo.softwarename }</td>
+											<td class=" ">${appinfo.apkname }</td>
+											<td class=" ">${appinfo.softwaresize }</td>
+											<td class=" ">${level1 }-${level2 }-${level3 }</td>
+											<td class=" ">${appinfo.status }</td>
+											<td class=" ">${appinfo.downloads }</td>
+											<td class="">${version }</td>
+											<td class=" ">${appinfo.softwarename }</td>
 											<div class="btn-group">
 											</div>
 										</tr>
@@ -205,6 +211,7 @@
 				</div>
 			</div>
 
+     <input type="hidden" id="path" name="path" value="${pageContext.request.contextPath }"/>
 
         <!-- footer content -->
         <footer>
@@ -230,5 +237,56 @@
 
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>
+    
+    <script type="text/javascript">
+    	function getListLevel2(){ 
+    		var path = $("#path").val();
+    		var appLevel1 = $("#appLevel1").val();
+    		$("#appLevel2").empty();
+    		$("#appLevel3").empty();
+    		$("#appLevel2").append("<option value = \"--请选择--\">--请选择--</option>");
+    		$("#appLevel3").append("<option value = \"--请选择--\">--请选择--</option>");
+    		if(appLevel1 != "--请选择--"){
+    				$.post({
+        				type:"post",
+        				url:path+"/getAppList",
+        				data:{"parentId":appLevel1},
+        				dataType:"json",
+        				success:function(data){
+        					for(i=0;i<data.length;i++){
+        						$("#appLevel2").append("<option value = \"" + data[i].id + "\">"+ data[i].categoryname +"</option>");
+        					}
+        				},
+        				error:function(data){
+        					alert($("#appLevel1").val());
+        				}
+        			});	
+    		}
+    	} 
+    	 
+    	function getListLevel3(){
+     		var appLevel2 = $("#appLevel2").val();
+     		var path = $("#path").val();
+    		$("#appLevel3").empty();
+    		$("#appLevel3").append("<option value = \"--请选择--\">--请选择--</option>");
+     		
+     		if(appLevel2 != "--请选择--"){
+     			$.post({
+     				type:"post",
+     				url:path+"/getAppList",
+     				data:{"parentId":appLevel2},
+     				dataType:"json",
+     				success:function(data){
+     					for(i=0;i<data.length;i++){
+     						$("#appLevel3").append("<option value = \"" + data[i].id + "\">"+ data[i].categoryname +"</option>");
+     					}
+     				},
+     				error:function(data){
+     					alert("bbbbb");
+     				}
+     			});	
+     		}
+     	} 
+    </script>
   </body>
 </html>

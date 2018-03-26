@@ -31,12 +31,14 @@ public interface AppInfoMapper {
 
     int updateByPrimaryKey(AppInfo record);
     
-    //查询app_info，获取所有APP信息，保存到list中
+    //閺屻儴顕梐pp_info閿涘矁骞忛崣鏍ㄥ閺堝牽PP娣団剝浼呴敍灞肩箽鐎涙ê鍩宭ist娑擄拷
     public List<AppInfo> getAppInfo() throws Exception;
-    //添加APP信息
+    //濞ｈ濮濧PP娣団剝浼�
     public int addApp(AppInfo appInfo) throws Exception;
-    //根据parendid获取CategoryName
+    //閺嶈宓乸arendid閼惧嘲褰嘋ategoryName
     public List<AppCategory> getAppCategoryByParentId(Long parentId) throws Exception;
-    //通过apkname获取APP信息
+    //闁俺绻僡pkname閼惧嘲褰嘇PP娣団剝浼�
     public AppInfo getAppInfoByAPKName(String apkname) throws Exception;
+    
+    public List<AppInfo> selectAppByName(@Param("name")String softwareName,@Param("level3")Long categorylevel3,@Param("flatformId")Long flatformid);
 }

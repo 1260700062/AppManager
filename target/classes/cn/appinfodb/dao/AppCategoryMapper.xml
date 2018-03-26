@@ -14,12 +14,7 @@
     <result column="modifyDate" jdbcType="TIMESTAMP" property="modifydate" />
   </resultMap>
   
-  
-	<select id="selectAppByParentId" resultType="AppCategory">
-  		SELECT categoryName FROM app_category WHERE parentId = 0 
-    </select>
-    
-    <select id="getAppCategoryByParentId" resultType="cn.appinfodb.pojo.AppCategory">
+    <select id="getAppCategoryByParentId" parameterType="Long" resultType="cn.appinfodb.pojo.AppCategory">
     	SELECT * FROM app_category WHERE 
     	<if test="parentid == null">
     	parentId  is null
@@ -27,5 +22,9 @@
     	<if test="parentid != null">
     		parentId  = #{parentid}
     	</if>
+    </select>
+    
+	<select id="selectAppByLevel" parameterType="Long" resultType="String">
+  		SELECT categoryName FROM app_category WHERE id = #{level}
     </select>
 </mapper>

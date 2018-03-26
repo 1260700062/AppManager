@@ -11,16 +11,24 @@ import cn.appinfodb.service.AppCategoryService;
 @Service
 public class AppCategoryServiceImpl implements AppCategoryService {
 	@Autowired
-	private AppCategoryMapper acm;
+	private AppCategoryMapper appCategoryMapper;
 	
-	public void setAcm(AppCategoryMapper acm) {
-		this.acm = acm;
+	@Override
+	public List<AppCategory> getAppByParentId(Long parentId) {
+		List<AppCategory> appList = null;
+		try {
+			appList = appCategoryMapper.getAppCategoryByParentId(parentId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return appList;
 	}
 
 	@Override
-	public List<AppCategory> getAppByParentId(int parentId) {
-		List<AppCategory> appList = acm.selectAppByParentId(parentId);
-		return appList;
+	public List<String> getAppByLevel(Long level) {
+		List<String> list = appCategoryMapper.selectAppByLevel(level);
+		return list;
 	}
+
 
 }

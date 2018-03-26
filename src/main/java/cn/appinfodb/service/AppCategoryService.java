@@ -5,5 +5,6 @@ import java.util.List;
 import cn.appinfodb.pojo.AppCategory;
 
 public interface AppCategoryService {
-	public List<AppCategory> getAppByParentId(int parentId);
+	public List<AppCategory> getAppByParentId(Long parentId);
+	public List<String> getAppByLevel(Long level);
 }

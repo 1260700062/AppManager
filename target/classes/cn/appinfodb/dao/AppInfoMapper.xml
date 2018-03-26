@@ -142,4 +142,20 @@
   <select id="getAppInfoByAPKName" parameterType="string" resultType="cn.appinfodb.pojo.AppInfo">
   	SELECT * FROM `app_info` WHERE `APKName` LIKE #{apkname}
   </select>
+  
+    <select id="selectAppByName" resultType="AppInfo">
+        select * from app_info 
+        <where>
+        <if test="name != null">
+        	softwareName like CONCAT("%","${name }","%")
+        </if>
+        <if test="flatformId != null &amp;&amp; flatformId >0">
+        	and flatformId = ${flatformId }
+        </if>
+        <if test="level3 != null &amp;&amp; level3 >0">
+        	and categoryLevel3 = #{level3 }
+        </if>
+        </where>
+        
+    </select>
 </mapper>

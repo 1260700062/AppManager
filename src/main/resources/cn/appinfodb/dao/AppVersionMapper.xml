@@ -2,4 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.appinfodb.dao.AppVersionMapper">
 
+	<select id="selectVersionNoByVersionId" parameterType="long" resultType="String">
+        select versionNo from app_version where id = #{id }
+    </select>
+
 </mapper>
