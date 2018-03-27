@@ -59,7 +59,8 @@ public class RegisterController {
 		du.setDevinfo(info);
 		int result = dus.addDevUser(du);
 		log.info("result==="+result);
-		return "frame";
+		session.setAttribute("DevUser", du);
+		return "developer/dUserLoginIn";
 	}
 	@ResponseBody
 	@RequestMapping(value="/registeryz",method=RequestMethod.GET)

@@ -39,7 +39,7 @@
             <!-- menu profile quick info -->
             <div class="profile">
               <div class="profile_pic">
-                <img src="../statics/img/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="${pageContext.request.contextPath }/statics/img/img1.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
@@ -108,7 +108,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="${pageContext.request.contextPath }/logOut"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -122,7 +122,7 @@
         <div class="right_col" role="main" >
 			    <div class="right">
 			          <div class="wFont">
-			          	<h2>欢迎开发者:${sessionScope.BackendUser.username }${sessionScope.DevUser.devname }!</h2>
+			          	<h2>欢迎开发者:${sessionScope.DevUser.devname }!</h2>
 			          </div>
 			        </div>
 			    </div>
