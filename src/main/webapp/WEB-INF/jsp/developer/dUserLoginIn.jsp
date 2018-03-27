@@ -122,7 +122,7 @@
         <div class="right_col" role="main" >
 			    <div class="right">
 			          <div class="wFont">
-			          	<h2>欢迎您，XXX!用户角色：XXX</h2>
+			          	<h2>欢迎开发者:${sessionScope.BackendUser.username }${sessionScope.DevUser.devname }!</h2>
 			          </div>
 			        </div>
 			    </div>

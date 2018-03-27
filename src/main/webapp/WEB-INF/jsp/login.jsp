@@ -41,7 +41,7 @@
 	}else{
 		identify = idt.toString();
 	}
-	out.print("identify==="+identify);
+	
 	
 %>
     <div>

@@ -16,7 +16,7 @@ public class AppInfoServiceImpl implements AppInfoService {
 
 	@Override
 	public List<AppInfo> getApp(String name,Long level3,Long flatformid) {
-		List<AppInfo> list = appInfoMapper.selectAppByName(name,level3,flatformid);
+		List<AppInfo> list = appInfoMapper.selectApp(name, level3, flatformid);
 		return list;
 	}
 
