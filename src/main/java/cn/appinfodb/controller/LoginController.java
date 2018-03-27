@@ -83,7 +83,8 @@ public class LoginController {
 	
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.GET)
 	public String login3(HttpSession session) {
-		session.removeAttribute("identify");
+		
+		//session.removeAttribute("identify");
 		return "beforeLogin";
 	}
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.POST)
@@ -100,12 +101,12 @@ public class LoginController {
 		return "login";
 	}
 	
-	@RequestMapping(value="/loginIdChange",method=RequestMethod.GET)
+	/*@RequestMapping(value="/loginIdChange",method=RequestMethod.GET)
 	public String logout(HttpSession session) {
 		String identify =  (String)session.getAttribute("identify");
 		identify = identify.equals("manager")?"developper":"manager";
 		session.setAttribute("identify", identify);
 		System.out.println("identify===Controller==="+identify);
 		return "login";
-	}
+	}*/
 }
