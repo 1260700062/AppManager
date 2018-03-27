@@ -44,4 +44,6 @@ public interface AppInfoMapper {
     
   //通过APP id 获取APP信息
     public AppInfo getAppInfoById(Long id) throws Exception;
+    
+    public int modifyApp(AppInfo appInfo) throws Exception;
 }
