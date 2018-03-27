@@ -199,7 +199,7 @@
 											<td class=" ">${appinfo.status }</td>
 											<td class=" ">${appinfo.downloads }</td>
 											<td class="">${version }</td>
-											<td class=" ">${appinfo.softwarename }</td>
+											<td class=" ">敬请期待</td>
 											<div class="btn-group">
 											</div>
 										</tr>

@@ -11,8 +11,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
+import cn.appinfodb.pojo.AppVersion;
 import cn.appinfodb.service.AppCategoryService;
 import cn.appinfodb.service.AppInfoService;
+import cn.appinfodb.service.AppVersionService;
 
 
 public class TestSpringMybatis {
@@ -46,5 +48,13 @@ public class TestSpringMybatis {
 		for(AppInfo l:list) {
 			System.out.println(l.getSoftwarename());
 		}
+	}
+
+	@Test
+	public void test4() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		AppVersionService acs = ac.getBean(AppVersionService.class);
+		AppVersion appVersion = acs.getAppVersionByVersionNo("v1.1.1",55l);
+		System.out.println(appVersion.getApkfilename());
 	}
 }
