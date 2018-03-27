@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-	欢迎进入APP信息管理系统！！！
+	欢迎${sessionScope.identify },${sessionScope.BackendUser.username }${sessionScope.DevUser.devname }进入APP信息管理系统！！！
 </body>
 </html>

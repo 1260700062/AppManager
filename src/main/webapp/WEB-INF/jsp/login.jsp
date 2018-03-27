@@ -26,17 +26,23 @@
   </head>
 <body class="login">
 <%
-
-	Object id = request.getParameter("identify");
+	/* Object bu = session.getAttribute("BackendUser");
+	Object du = session.getAttribute("DevUser"); */
 	String identify = null;
-	if(id == null){
-		response.sendRedirect("beforeLogin");
+	Object idt = session.getAttribute("identify");		
+	if(idt==null){
+		Object id = request.getParameter("identify");		
+		if(id == null){
+			response.sendRedirect("beforeLogin");
+		}else{
+			identify = id.toString();
+			session.setAttribute("identify", identify);
+		} 
 	}else{
-		identify = id.toString();
-		session.setAttribute("identify", identify);
-	} 
+		identify = idt.toString();
+	}
+	out.print("identify==="+identify);
 	
-
 %>
     <div>
       <a class="hiddenanchor" id="signup"></a>
@@ -51,7 +57,7 @@
                 <input type="text" class="form-control" placeholder="Username" required name="userCode"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required name="userPassword"/>
+                <input type="password" class="form-control" placeholder="Password" required name="userPassword"/><div class="info" style="display:inline;color:red;">${error }</div>
               </div>
               <div>
                 <input type="submit" class="btn btn-default submit" value="登陆" style="margin-left:150px;"/>
@@ -62,7 +68,7 @@
 
               <div class="separator">
                 <p class="change_link">新用户?
-                  <a href="#signup" class="to_register"> 创建账号 </a>
+                  <a href="${pageContext.request.contextPath }/register" class="to_register"> 创建账号 </a>
                 </p>
 
                 <div class="clearfix"></div>
@@ -70,7 +76,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i> App信息管理平台!</h1>
-                  <p>©2016 All Rights Reserved. AppManager is a system to manage applications.</p>
+                  <p>©2018 All Rights Reserved. AppManager is a system to manage applications.</p>
                 </div>
               </div>
             </form>

@@ -24,7 +24,7 @@ public class BackendUserServiceImpl implements BackendUserService {
 		int i = 0;
 		BackendUser bku = bum.getBackendUserByBackendCode(userCode);
 		if(bku != null) {
-			if(bku.getUserpassword() == userPassword) {
+			if(bku.getUserpassword() .equals(userPassword) ) {
 				i=1;
 			}
 		}

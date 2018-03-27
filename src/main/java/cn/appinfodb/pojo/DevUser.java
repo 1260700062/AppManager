@@ -31,11 +31,11 @@ public class DevUser {
         this.id = id;
     }
 
-    public String getDevcode() {
+    public String getdevcode() {
         return devcode;
     }
 
-    public void setDevcode(String devcode) {
+    public void setdevcode(String devcode) {
         this.devcode = devcode == null ? null : devcode.trim();
     }
 

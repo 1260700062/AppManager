@@ -53,7 +53,7 @@
 
                 <div>
                   <h1><i class="fa fa-paw"></i> App信息管理平台!</h1>
-                  <p>©2016 All Rights Reserved. AppManager is a system to manage applications.</p>
+                  <p>©2018 All Rights Reserved. AppManager is a system to manage applications.</p>
                 </div>
               </div>
             </form>

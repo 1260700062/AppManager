@@ -1,30 +1,27 @@
 package cn.appinfodb.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.accessibility.AccessibleRelation;
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.omg.CORBA.ORBPackage.InconsistentTypeCode;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+import com.mysql.jdbc.log.Log;
 
 import cn.appinfodb.pojo.BackendUser;
 import cn.appinfodb.pojo.DevUser;
 import cn.appinfodb.service.BackendUserService;
 import cn.appinfodb.service.DevUserService;
-import cn.appinfodb.tools.Constants;
 
 @Controller
 public class LoginController {
+	private Logger log = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	private DevUserService dus;
 	public void setDus(DevUserService dus) {
@@ -36,8 +33,6 @@ public class LoginController {
 		this.bus = bus;
 	}
 	
-	
-	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
 	public String login() {
 		return "login";
@@ -46,12 +41,40 @@ public class LoginController {
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login2(HttpSession session,String userCode,String userPassword,Model model) {
 		String identify = session.getAttribute("identify").toString();
-		if(identify.equals("manager")) {
-			bus.BackendUserLogin(userCode, userPassword);
-		}
-		System.out.println("identify======"+identify);
-		return "frame";
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		
+		int confirm=0;
+		if(identify.equals("manager")) {
+			BackendUserService bus =ac.getBean(BackendUserService.class);
+			 confirm = bus.BackendUserLogin(userCode, userPassword);
+			if (confirm==1) {
+				BackendUser bu = new BackendUser();
+				bu.setUsername(userCode);
+				bu.setUserpassword(userPassword);
+				session.setAttribute("BackendUser", bu);
+				session.setMaxInactiveInterval(10*60);
+			} 
+		}else {
+			DevUserService dus = ac.getBean(DevUserService.class);
+			confirm = dus.DevUserLogin(userCode, userPassword);
+			if(confirm==1) {
+				DevUser du = new DevUser();
+				du.setDevname(userCode);
+				du.setDevpassword(userPassword);
+				session.setAttribute("DevUser", du);
+				session.setMaxInactiveInterval(10*60);
+			}
+		}
+		System.out.println("test");
+		System.out.println("identify======"+identify);
+		if(confirm==1) {
+			
+			return "frame";
+		}else {
+			model.addAttribute("error", "用户名或密码不正确");
+			return "login";
+		}		
+				
 	}
 	
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.GET)

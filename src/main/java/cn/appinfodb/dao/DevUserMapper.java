@@ -31,4 +31,6 @@ public interface DevUserMapper {
     int updateByPrimaryKey(DevUser record);
     
     DevUser getDevUserBydevCode(String devCode);
+    DevUser selectByuserCode(String userCode);
+    int addDevUser(DevUser du);
 }
