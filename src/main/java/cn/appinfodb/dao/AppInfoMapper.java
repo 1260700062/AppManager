@@ -41,4 +41,7 @@ public interface AppInfoMapper {
     public AppInfo getAppInfoByAPKName(String apkname) throws Exception;
     
     public List<AppInfo> selectAppByName(@Param("name")String softwareName,@Param("level3")Long categorylevel3,@Param("flatformId")Long flatformid);
+    
+  //通过APP id 获取APP信息
+    public AppInfo getAppInfoById(Long id) throws Exception;
 }

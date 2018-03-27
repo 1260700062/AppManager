@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import cn.appinfodb.dao.AppCategoryMapper;
 import cn.appinfodb.dao.AppInfoMapper;
+import cn.appinfodb.dao.DataDictionaryMapper;
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.service.developer.DeveloperService;
@@ -18,8 +19,13 @@ public class DeveloperServiceImpl implements DeveloperService {
 	
 	private AppCategoryMapper appCategoryMapper;
 	
+	private DataDictionaryMapper dataDictionaryMapper;
 
-
+	@Autowired
+	public void setDataDictionaryMapper(DataDictionaryMapper dataDictionaryMapper) {
+		this.dataDictionaryMapper = dataDictionaryMapper;
+	}
+	
 	@Autowired
 	public void setAppInfoMapper(AppInfoMapper appInfoMapper) {
 		this.appInfoMapper = appInfoMapper;
@@ -83,5 +89,53 @@ public class DeveloperServiceImpl implements DeveloperService {
 		}
 		return appInfo;
 	}
+	
+	@Override
+	public AppInfo getAppInfoById(String id) {
+		// TODO Auto-generated method stub
+		if(id == null) {
+			
+		}
+		
+		Long apkId = Long.parseLong(id);
+		AppInfo appInfo = null;
+		try {
+			appInfo = appInfoMapper.getAppInfoById(apkId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return appInfo;
+	}
+
+
+	@Override
+	public AppCategory getAppCategoryById(Long id) {
+		// TODO Auto-generated method stub
+		AppCategory appCategory = null;
+		try {
+			appCategory = appCategoryMapper.getAppCategoryById(id);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return appCategory;
+	}
+
+
+	@Override
+	public String getNameByStatusValue(Long status) {
+		String statusName = null;
+		try {
+			statusName = dataDictionaryMapper.getNameByStatus(status);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+		return statusName;
+	}
+
 
 }

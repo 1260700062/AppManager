@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.appinfodb.dao.DataDictionaryMapper">
-	
+<select id="getNameByStatus" parameterType="java.lang.Long" resultType="java.lang.String">
+  	SELECT valueName FROM `data_dictionary` WHERE `typeCode` = 'APP_STATUS' AND valueId= #{valueId}
+  </select>
 </mapper>

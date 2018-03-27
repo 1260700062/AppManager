@@ -2,17 +2,22 @@ package cn.appinfodb.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -259,5 +264,67 @@ public class DeveloperController {
 			return "true";
 		}
 		return "false";
+	}
+	
+	/**
+	 * 跳转modifyAPP页面，显示所选APP的相关信息
+	 * @param id
+	 * @param session
+	 * @param model
+	 * @return
+	 */
+	@RequestMapping("/modifyAppPage")
+	public String modifyAppPage(String id, HttpSession session, Model model) {
+		System.out.println("=========appInfo==========");
+		System.out.println("id : "+id);
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
+		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
+		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
+		
+		model.addAttribute("level1",level1);
+		model.addAttribute("level2",level2);
+		model.addAttribute("level3",level3);
+		model.addAttribute("statusName",statusName);
+		model.addAttribute("appInfo", appInfo);
+		return "developer/modifyApp";
+	}
+	
+	@RequestMapping("/modifyPic")
+	@ResponseBody
+	public Object modifyPic(String path) {
+		System.out.println("path : ==== "+ path);
+		if(path.isEmpty()) {
+			
+		}
+		
+		String[] split = path.split("\\\\");
+    	String filename = split[split.length-1];
+    	System.out.println(filename);
+    	path = "";
+    	for(int i=0; i<split.length; i++) {
+    		path = path + split[i]+"\\\\";
+    	}
+    	System.out.println("path : ==== " + path);
+    	path = path.substring(0, path.length()-2);
+    	System.out.println("path : ==== " + path);
+//		 String path="D:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\springMVC\\WEB-INF\\upload\\图片10（定价后）.xlsx";  
+	        File file=new File(path); 
+	        ResponseEntity<byte[]> entity = null;
+	        try {
+				HttpHeaders headers = new HttpHeaders();    
+				String fileName=new String(filename.getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
+				headers.setContentDispositionFormData("attachment", fileName);   
+				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
+				entity = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),    
+				                                  headers, HttpStatus.CREATED);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}    
+	        
+		return entity;
 	}
 }

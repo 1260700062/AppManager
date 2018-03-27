@@ -27,4 +27,8 @@
 	<select id="selectAppByLevel" parameterType="Long" resultType="String">
   		SELECT categoryName FROM app_category WHERE id = #{level}
     </select>
+    
+    <select id="getAppCategoryById" resultType="cn.appinfodb.pojo.AppCategory">
+    	SELECT * FROM app_category WHERE id = #{id}
+    </select>
 </mapper>

@@ -158,4 +158,8 @@
         </where>
         
     </select>
+    
+    <select id="getAppInfoById" parameterType="java.lang.Long" resultType="cn.appinfodb.pojo.AppInfo">
+  	SELECT * FROM `app_info` WHERE id = #{id}
+  </select>
 </mapper>
