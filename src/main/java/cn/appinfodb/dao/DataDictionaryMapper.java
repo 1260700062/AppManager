@@ -29,4 +29,6 @@ public interface DataDictionaryMapper {
     int updateByPrimaryKeySelective(DataDictionary record);
 
     int updateByPrimaryKey(DataDictionary record);
+    
+    public String getNameByStatus(Long valueId) throws Exception;
 }

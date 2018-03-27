@@ -29,4 +29,12 @@ public interface AppVersionMapper {
     int updateByPrimaryKeySelective(AppVersion record);
 
     int updateByPrimaryKey(AppVersion record);
+    
+    
+
+    String selectVersionNoByVersionId(long id);
+    
+    int addVersion(AppVersion appVersion);
+    
+    AppVersion selectVersionByVersionNo(@Param("versionNo")String versionno,@Param("appId")Long appid);
 }

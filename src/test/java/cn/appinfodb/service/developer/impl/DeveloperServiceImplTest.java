@@ -9,6 +9,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.service.developer.DeveloperService;
 
@@ -34,6 +35,26 @@ public class DeveloperServiceImplTest {
 		appInfo.setCreationdate(new Date());
 		int flag = ds.addApp(appInfo);
 		System.out.println(flag);
+	}
+	
+	@Test
+	public void testAddgetCategoryByParentId() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
+		Long parendId =  (long) 1;
+		List<AppCategory> categorys = ds.getCategoryByParentId(parendId);
+		for(AppCategory a:categorys ) {
+			log.info("id {}, ====name: {}",a.getId(),a.getCategoryname());
+		}
+	}
+	
+	@Test
+	public void testgetAppInfoByAPKName() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
+		String apkname = "";
+		boolean flag = ds.getAppInfoByAPKName(apkname );
+		log.info("flag:============ {}=======", flag );
 	}
 
 }

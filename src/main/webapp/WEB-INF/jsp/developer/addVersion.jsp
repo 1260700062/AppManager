@@ -193,7 +193,7 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>添加APP信息</h3>
+                <h3>添加APP版本信息</h3>
               </div>
 
             </div>
@@ -204,118 +204,46 @@
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
-                    <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addApp" method="post" enctype="multipart/form-data">
+                    <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addVersion" method="post" enctype="multipart/form-data">
 
                       <div class="item form-group">
-                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
+                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionno">版本号 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="softwarename" class="form-control col-md-7 col-xs-12"   name="softwarename" placeholder="请输入APP名称" required="required" type="text" />
+                          <input id="versionno" class="form-control col-md-7 col-xs-12"   name="versionno" placeholder="请输入版本号" required="required" type="text" />
                           <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apkname">APK名称 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="                                                                                                                                                                                                                                                                                                                                                                       ">版本大小 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="apkname" name="apkname" required="required" class="form-control col-md-7 col-xs-12" value="">
+                          <input type="text" id="versionsize" name="versionsize" placeholder="请输入版本大小，单位为Mb" required="required" class="form-control col-md-7 col-xs-12" value="">
                           <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="supportrom">支持ROM <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="supportrom" name="supportrom"  required="required" class="form-control col-md-7 col-xs-12">
-                          <span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="interfacelanguage">界面语言 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="interfacelanguage" name="interfacelanguage" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwaresize">软件大小 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="number" id="softwaresize" name="softwaresize" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="downloads">下载次数 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input id="downloads" type="number" name="downloads"  class="optional form-control col-md-7 col-xs-12"><span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label for="flatformid" class="control-label col-md-3">所属平台</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
-                       		<select id="flatformid" name="flatformid" class="optional form-control col-md-7 col-xs-12">
-                       		<option value="1" selected="selected">通用平台</option>
-                       		<option  value="2">手机平台</option>
-                       		<option  value="3">平板平台</option>
-                       	</select>
-                       <span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="categorylevel1" class="form-control col-md-7 col-xs-12">
-                       		<option  value="1">--请选择--</option>
-                       	</select>
-                       <span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group" >
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
-                        <select id="categorylevel2" class="form-control col-md-7 col-xs-12">
-                       		<!--<option style="text-align: center;" value="">--请选择--</option>-->
-                       	</select>
-                        <span class="fontColor"></span>
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-						<select id="categorylevel3" class="form-control col-md-7 col-xs-12">
-                       	</select>
-						<span class="fontColor"></span>                        
-                        </div>
-                      </div>
-                      <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">APP状态 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publishstatus">发布状态 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                          <select id="status" style="width: 415px;height: 40px; ">
-                       		<option style="text-align: center;" value="">待审核</option>
+                       		<option style="text-align: center;" value="3">预发布</option>
                        	</select>
                         <span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="appinfo">应用简介 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versioninfo">版本简介 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <textarea id="appinfo" required="required" name="appinfo" class="form-control col-md-7 col-xs-12"></textarea>
-                        <span class="fontColor"></span>
+                          <input type="text" id="versioninfo" name="versioninfo" placeholder="请输入该版本相关信息" required="required"  class="form-control col-md-7 col-xs-12"><span class="fontColor"></span>
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">LOGO图片 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="apk">apk文件 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                        	<input type="file" id="picture"  name="picture"/>
+                        	<input type="file" id="apk"  name="apk"/>
                         <span class="fontColor">${imgError }</span>
                         </div>
                       </div>
@@ -359,7 +287,7 @@
     <!-- validator -->
     <!--<script src="../vendors/validator/validator.js"></script>-->
 <!--自定义js表单验证-->
-	<script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addVersion.js" ></script>
     <!-- Custom Theme Scripts -->
     <script src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>
   </body>
