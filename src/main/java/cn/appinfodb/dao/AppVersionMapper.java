@@ -36,5 +36,5 @@ public interface AppVersionMapper {
     
     int addVersion(AppVersion appVersion);
     
-    AppVersion selectVersionByVersionNo(@Param("versionNo")String versionno,@Param("appId")Long appid);
+    AppVersion selectVersion(@Param("versionNo")String versionno,@Param("appId")Long appid);
 }

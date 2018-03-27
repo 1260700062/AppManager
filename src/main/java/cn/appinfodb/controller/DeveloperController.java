@@ -7,7 +7,9 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
@@ -18,6 +20,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -54,11 +57,14 @@ public class DeveloperController {
 	@RequestMapping("/appList")
 	public String appList(Model model) {
 		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
+		List<AppInfo> appList = appInfoService.getAllApp();
 		model.addAttribute("appLevel1", appLevel1);
+		model.addAttribute("appList", appList);
+		
 		return "developer/appList";
 	}
 	
-	//ajax鑾峰彇category
+	//ajax获取category
 	@RequestMapping(value="/getAppList",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getAppList1(Long parentId) {
@@ -76,16 +82,16 @@ public class DeveloperController {
 	@RequestMapping("/appSearch")
 	public String appSearch(Model model,
 			@RequestParam(value="appName",required=false)String appName,
-			@RequestParam(value="category3",required=false)long level3,
-			@RequestParam(value="flatform",required=false)long flatform) {
+			@RequestParam(value="category3",required=false)Long level3,
+			@RequestParam(value="flatform",required=false)Long flatform) {
 		List<AppCategory> appLevel1 = appCategoryService.getAppByParentId(null);
-		List<AppInfo> appList = appInfoService.getAppByName(appName, level3,flatform);
+		List<AppInfo> appList = appInfoService.getApp(appName, level3,flatform);
 		for(AppInfo app:appList) {
 			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
 			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
 			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
 			if(app.getVersionid() == null) {
-				model.addAttribute("version", "鏆傛棤鐗堟湰淇℃伅");
+				model.addAttribute("version", "暂无版本信息");
 			} else {
 				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
 				model.addAttribute("version", appVersion);
@@ -101,13 +107,8 @@ public class DeveloperController {
 		return "developer/addVersion";
 	}
 	
-	@RequestMapping("/addVersion")
-	public String addVersion() {
-		return "developer/addVersion";
-	}
-	
 	@RequestMapping(value="/addVersion", method=RequestMethod.POST)
-	public String addAppPage(AppVersion appVersion,HttpSession session,Model model,
+	public String addVersion(AppVersion appVersion,HttpSession session,Model model,
 			@RequestParam(value="apk",required = false) MultipartFile apk) {
 		System.out.println(appVersion.getVersionno());
 		File file = null;
@@ -139,15 +140,15 @@ public class DeveloperController {
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
 		
-		/*try {
+		try {
 			apk.transferTo(file);
 		}  catch (IOException e) {
 			flag = -1;
 			e.printStackTrace();
-		}*/
+		}
 		
 		if(flag > 0) {
-			return "redirect:/appSearch";
+			return "redirect:/appList";
 		}else {
 			return "forward:/addVersionPage";
 		}
@@ -158,9 +159,11 @@ public class DeveloperController {
 	@RequestMapping("/virafyVersionNo")
 	@ResponseBody
 	public String virafyVersionNo(@RequestParam("appId")Long appId,@RequestParam("versionNo")String versionNo) {
-		System.out.println("virafyApkName======================");
+		System.out.println("versionNo======================");
 		System.out.println(versionNo);
-		AppVersion appVersion = appVersionService.getAppVersionByVersionNo(versionNo, appId);
+		System.out.println("appId======================");
+		System.out.println(appId);
+		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
 		if(appVersion == null) {
 			return "true";
 		}
@@ -210,8 +213,11 @@ public class DeveloperController {
 			System.out.println("====path==========: "+path);
 			
 			file = new File(path, fileName);
-			String logoPicPath = path + File.separator+fileName;
-			appInfo.setLogopicpath(logoPicPath);
+			String logolocpath = path + File.separator+fileName;
+			appInfo.setLogolocpath(logolocpath);
+			String logopicpath = session.getServletContext().getContextPath()+"/statics/img/"+fileName;
+			appInfo.setLogopicpath(logopicpath);
+			
 			
 		}else {
 			model.addAttribute("imgError", "闁哄倸娲ｅ▎銏ゅ冀閻撳海纭�濞戞挸绉甸婊呮兜椤曞棛纾奸柨娑楃哎~");
@@ -230,7 +236,7 @@ public class DeveloperController {
 		}
 		
 		if(flag > 0) {
-			return "redirect:/appSearch";
+			return "redirect:/appList";
 		}else {
 			return "forward:/addAppPage";
 		}
@@ -275,7 +281,7 @@ public class DeveloperController {
 	 */
 	@RequestMapping("/modifyAppPage")
 	public String modifyAppPage(String id, HttpSession session, Model model) {
-		System.out.println("=========appInfo==========");
+		System.out.println("=========modifyAppPage==========");
 		System.out.println("id : "+id);
 		AppInfo appInfo = developerService.getAppInfoById(id);
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
@@ -291,9 +297,15 @@ public class DeveloperController {
 		return "developer/modifyApp";
 	}
 	
+	/**
+	 * 通过Ajax选择图片并在jsp显示
+	 * @param path
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/modifyPic")
 	@ResponseBody
-	public Object modifyPic(String path) {
+	public Object modifyPic(String path, HttpSession session) {
 		System.out.println("path : ==== "+ path);
 		if(path.isEmpty()) {
 			
@@ -302,29 +314,63 @@ public class DeveloperController {
 		String[] split = path.split("\\\\");
     	String filename = split[split.length-1];
     	System.out.println(filename);
-    	path = "";
-    	for(int i=0; i<split.length; i++) {
-    		path = path + split[i]+"\\\\";
-    	}
-    	System.out.println("path : ==== " + path);
-    	path = path.substring(0, path.length()-2);
-    	System.out.println("path : ==== " + path);
-//		 String path="D:\\workspace\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\springMVC\\WEB-INF\\upload\\图片10（定价后）.xlsx";  
-	        File file=new File(path); 
-	        ResponseEntity<byte[]> entity = null;
-	        try {
-				HttpHeaders headers = new HttpHeaders();    
-				String fileName=new String(filename.getBytes("UTF-8"),"iso-8859-1");//为了解决中文名称乱码问题  
-				headers.setContentDispositionFormData("attachment", fileName);   
-				headers.setContentType(MediaType.APPLICATION_OCTET_STREAM);   
-				entity = new ResponseEntity<byte[]>(FileUtils.readFileToByteArray(file),    
-				                                  headers, HttpStatus.CREATED);
-			} catch (UnsupportedEncodingException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}    
+    	
 	        
-		return entity;
+		return "";
+	}
+	
+	@RequestMapping(value = "/modifyApp", method= RequestMethod.POST)
+	public String modifyApp(AppInfo appInfo, HttpSession session, Model model, 
+			@RequestParam(value="picture",required = false) MultipartFile picture) {
+		System.out.println("==========modifyApp ===========");
+		System.out.println("appInfo:    ===="+appInfo.getFlatformid());
+		File file = null;
+		int flag = -1;
+		
+		if(picture == null || picture.isEmpty()) {
+			appInfo.setLogopicpath(null);
+			appInfo.setLogolocpath(null);
+		}else {
+			String fileName = picture.getOriginalFilename();
+			String suffix = FilenameUtils.getExtension(fileName);
+			if(picture.getSize() >= 500000) {
+				model.addAttribute("imgError","文件不能超过500k");
+				return "forward:/modifyAppPage?id="+appInfo.getId();
+			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
+	        		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
+				String path = session.getServletContext().getRealPath("statics"+File.separator+"img");
+				System.out.println("====path==========: "+path);
+				
+				file = new File(path, fileName);
+				String logolocpath = path + File.separator+fileName;
+				appInfo.setLogolocpath(logolocpath);
+				String logopicpath = session.getServletContext().getContextPath()+"/statics/img/"+fileName;
+				appInfo.setLogopicpath(logopicpath);
+				appInfo.setUpdatedate(new Date());
+				flag = appInfoService.modifyAppById(appInfo);
+				try {
+					picture.transferTo(file);
+				}  catch (IOException e) {
+					flag = -1;
+					e.printStackTrace();
+				}
+				
+			}else {
+				model.addAttribute("imgError", "文件格式不正确");
+				System.out.println("文件格式不正确");
+				return "forward:/modifyAppPage?id="+appInfo.getId();
+			}
+		}
+		
+		appInfo.setUpdatedate(new Date());
+		flag = appInfoService.modifyAppById(appInfo);
+		
+		if(flag > 0) {
+			System.out.println("re11111~~~~~~~~~~");
+			return "redirect:/appList";
+		}else {
+			System.out.println("error=================查询出错");
+			return "forward:/modifyAppPageid="+appInfo.getId();
+		}
 	}
 }

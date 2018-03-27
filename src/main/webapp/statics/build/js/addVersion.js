@@ -3,7 +3,7 @@ $(function(){
 		empty : "输入内容不能为空！",
 		aa : "格式不对~"
 	};
-	
+	var id = $("#appId").val();
 	//表单元素的验证是否通过的状态
 	var vno = false;
 	var vsize = false;
@@ -20,8 +20,7 @@ $(function(){
 			var $span = $(this).next();
 			$.ajax({
 				url:"virafyVersionNo",
-				type:"get",
-				data:{versionNo:verNo,appId:},
+				data:{versionNo:verNo,appId:id},
 				datatype:"text",
 				success:function(data){
 					if(data == "true"){
@@ -29,7 +28,6 @@ $(function(){
 					}else {
 						vno = false;
 						$span.html("版本号已存在！");
-						alert("Aaa");
 					}
 				},
 				error: function(){

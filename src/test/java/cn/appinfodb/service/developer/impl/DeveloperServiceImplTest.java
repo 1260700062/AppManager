@@ -1,5 +1,6 @@
 package cn.appinfodb.service.developer.impl;
 
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
@@ -11,6 +12,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
+import cn.appinfodb.service.AppInfoService;
 import cn.appinfodb.service.developer.DeveloperService;
 
 public class DeveloperServiceImplTest {
@@ -53,8 +55,30 @@ public class DeveloperServiceImplTest {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
 		String apkname = "";
-		boolean flag = ds.getAppInfoByAPKName(apkname );
-		log.info("flag:============ {}=======", flag );
+		 ds.getAppInfoByAPKName(apkname );
+	}
+	
+	@Test
+	public void testmodifyById() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		AppInfoService ds = (AppInfoService)ac.getBean("appInfoService");
+		
+		AppInfo appInfo = new AppInfo();
+		appInfo.setId(65L);
+		appInfo.setSoftwarename("bbb");
+		appInfo.setAppinfo("b");
+		appInfo.setCategorylevel1(2L);
+		appInfo.setCategorylevel2(2L);
+		appInfo.setFlatformid(2L);
+		appInfo.setInterfacelanguage("简体中文");
+		appInfo.setLogolocpath("bb");
+		BigDecimal b = new BigDecimal(11);
+		appInfo.setSoftwaresize(b);
+		appInfo.setCategorylevel3(2L);
+		appInfo.setSupportrom("2.2及更高版本");
+		appInfo.setUpdatedate(new Date());
+		int modifyAppById = ds.modifyAppById(appInfo );
+		log.info("==============={}==============",modifyAppById);
 	}
 
 }
