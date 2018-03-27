@@ -54,11 +54,14 @@ public class DeveloperController {
 	@RequestMapping("/appList")
 	public String appList(Model model) {
 		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
+		List<AppInfo> appList = appInfoService.getAllApp();
 		model.addAttribute("appLevel1", appLevel1);
+		model.addAttribute("appList", appList);
+		
 		return "developer/appList";
 	}
 	
-	//ajax鑾峰彇category
+	//ajax获取category
 	@RequestMapping(value="/getAppList",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getAppList1(Long parentId) {
@@ -76,16 +79,16 @@ public class DeveloperController {
 	@RequestMapping("/appSearch")
 	public String appSearch(Model model,
 			@RequestParam(value="appName",required=false)String appName,
-			@RequestParam(value="category3",required=false)long level3,
-			@RequestParam(value="flatform",required=false)long flatform) {
+			@RequestParam(value="category3",required=false)Long level3,
+			@RequestParam(value="flatform",required=false)Long flatform) {
 		List<AppCategory> appLevel1 = appCategoryService.getAppByParentId(null);
-		List<AppInfo> appList = appInfoService.getAppByName(appName, level3,flatform);
+		List<AppInfo> appList = appInfoService.getApp(appName, level3,flatform);
 		for(AppInfo app:appList) {
 			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
 			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
 			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
 			if(app.getVersionid() == null) {
-				model.addAttribute("version", "鏆傛棤鐗堟湰淇℃伅");
+				model.addAttribute("version", "暂无版本信息");
 			} else {
 				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
 				model.addAttribute("version", appVersion);
@@ -101,13 +104,8 @@ public class DeveloperController {
 		return "developer/addVersion";
 	}
 	
-	@RequestMapping("/addVersion")
-	public String addVersion() {
-		return "developer/addVersion";
-	}
-	
 	@RequestMapping(value="/addVersion", method=RequestMethod.POST)
-	public String addAppPage(AppVersion appVersion,HttpSession session,Model model,
+	public String addVersion(AppVersion appVersion,HttpSession session,Model model,
 			@RequestParam(value="apk",required = false) MultipartFile apk) {
 		System.out.println(appVersion.getVersionno());
 		File file = null;
@@ -139,15 +137,15 @@ public class DeveloperController {
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
 		
-		/*try {
+		try {
 			apk.transferTo(file);
 		}  catch (IOException e) {
 			flag = -1;
 			e.printStackTrace();
-		}*/
+		}
 		
 		if(flag > 0) {
-			return "redirect:/appSearch";
+			return "redirect:/appList";
 		}else {
 			return "forward:/addVersionPage";
 		}
@@ -158,9 +156,11 @@ public class DeveloperController {
 	@RequestMapping("/virafyVersionNo")
 	@ResponseBody
 	public String virafyVersionNo(@RequestParam("appId")Long appId,@RequestParam("versionNo")String versionNo) {
-		System.out.println("virafyApkName======================");
+		System.out.println("versionNo======================");
 		System.out.println(versionNo);
-		AppVersion appVersion = appVersionService.getAppVersionByVersionNo(versionNo, appId);
+		System.out.println("appId======================");
+		System.out.println(appId);
+		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
 		if(appVersion == null) {
 			return "true";
 		}

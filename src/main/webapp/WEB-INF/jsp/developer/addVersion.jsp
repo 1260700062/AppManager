@@ -187,15 +187,25 @@
           </div>
         </div>
         <!-- /top navigation -->
+        
 
         <!-- page content -->
         <div class="right_col" role="main">
           <div class="">
             <div class="page-title">
               <div class="title_left">
+                <h3>历代版本信息</h3>
+              </div>
+            <div class="clearfix"></div>
+            
+            
+            
+          	</div>
+          <div class="">
+            <div class="page-title">
+              <div class="title_left">
                 <h3>添加APP版本信息</h3>
               </div>
-
             </div>
             <div class="clearfix"></div>
 
@@ -203,7 +213,6 @@
               <div class="col-md-12 col-sm-12 col-xs-12">
                 <div class="x_panel">
                   <div class="x_content">
-<!-- enctype="multipart/form-data" -->
                     <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addVersion" method="post" enctype="multipart/form-data">
 
                       <div class="item form-group">
@@ -275,6 +284,7 @@
         <!-- /footer content -->
       </div>
     </div>
+     <input type="hidden" id="appId" name="appId" value="${sessionScope.appId }"/>
 
     <!-- jQuery -->
     <script src="${pageContext.request.contextPath }/statics/vendors/jquery/dist/jquery.min.js"></script>

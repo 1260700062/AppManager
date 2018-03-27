@@ -143,7 +143,7 @@
   	SELECT * FROM `app_info` WHERE `APKName` LIKE #{apkname}
   </select>
   
-    <select id="selectAppByName" resultType="AppInfo">
+    <select id="selectApp" resultType="AppInfo">
         select * from app_info 
         <where>
         <if test="name != null">
@@ -161,5 +161,9 @@
     
     <select id="getAppInfoById" parameterType="java.lang.Long" resultType="cn.appinfodb.pojo.AppInfo">
   	SELECT * FROM `app_info` WHERE id = #{id}
+  </select>
+    
+    <select id="selectAllApp" resultType="cn.appinfodb.pojo.AppInfo">
+  	SELECT * FROM `app_info`
   </select>
 </mapper>

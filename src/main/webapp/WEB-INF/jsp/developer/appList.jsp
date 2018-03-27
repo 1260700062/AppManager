@@ -169,7 +169,6 @@
 									</tr>
 								</thead>
 								<c:forEach items="${appList }" var="appinfo">
-								<c:set var="appId" value="${appinfo.id }" scope="session"></c:set>
 									<tbody>
 										<tr class="even pointer">
 											<td class="a-center "><input type="checkbox"
@@ -190,7 +189,7 @@
 												            <a href="#">修改信息</a>
 												        </li>
 												        <li>
-												            <a href="${pageContext.request.contextPath }/addVersion">增加版本</a>
+												            <a href="${pageContext.request.contextPath }/addVersionPage">增加版本</a>
 												        </li>
 												        <li>
 												            <a href="#">修改版本</a>
