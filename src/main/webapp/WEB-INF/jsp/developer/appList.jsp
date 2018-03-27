@@ -149,25 +149,6 @@
         <div class="col-md-12 col-sm-12 col-xs-12"
 				style="width: 1200px;position: absolute;top: 230px;right:400px;">
 				<div class="x_panel">
-					<div class="x_title">
-						<h2>
-							Table design <small>Custom design</small>
-						</h2>
-						<ul class="nav navbar-right panel_toolbox">
-							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-							</li>
-							<li class="dropdown"><a href="#" class="dropdown-toggle"
-								data-toggle="dropdown" role="button" aria-expanded="false"><i
-									class="fa fa-wrench"></i></a>
-								<ul class="dropdown-menu" role="menu">
-									<li><a href="#">Settings 1</a></li>
-									<li><a href="#">Settings 2</a></li>
-								</ul></li>
-							<li><a class="close-link"><i class="fa fa-close"></i></a></li>
-						</ul>
-						<div class="clearfix"></div>
-					</div>
-
 					<div class="x_content">
 
 						<div class="table-responsive">
@@ -188,6 +169,7 @@
 									</tr>
 								</thead>
 								<c:forEach items="${appList }" var="appinfo">
+								<c:set var="appId" value="${appinfo.id }" scope="session"></c:set>
 									<tbody>
 										<tr class="even pointer">
 											<td class="a-center "><input type="checkbox"
@@ -199,7 +181,26 @@
 											<td class=" ">${appinfo.status }</td>
 											<td class=" ">${appinfo.downloads }</td>
 											<td class="">${version }</td>
-											<td class=" ">敬请期待</td>
+											<td class=" ">
+												<div class="btn-group">
+												    <button type="button" class="btn btn-success dropdown-toggle btn-xs" data-toggle="dropdown">点击操作
+												        <span class="caret"></span></button>
+												    <ul class="dropdown-menu" role="menu">
+												        <li>
+												            <a href="#">修改信息</a>
+												        </li>
+												        <li>
+												            <a href="${pageContext.request.contextPath }/addVersion">增加版本</a>
+												        </li>
+												        <li>
+												            <a href="#">修改版本</a>
+												        </li>
+												        <li>
+												            <a href="#">删除</a>
+												        </li>
+												    </ul>
+												</div>
+											</td>
 											<div class="btn-group">
 											</div>
 										</tr>

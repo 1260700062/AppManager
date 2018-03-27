@@ -21,7 +21,7 @@ $(function(){
 			$.ajax({
 				url:"virafyVersionNo",
 				type:"get",
-				data:{versionNo:verNo},
+				data:{versionNo:verNo,appId:},
 				datatype:"text",
 				success:function(data){
 					if(data == "true"){
