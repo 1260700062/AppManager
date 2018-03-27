@@ -218,6 +218,7 @@ public class DeveloperController {
 			String logopicpath = session.getServletContext().getContextPath()+"/statics/img/"+fileName;
 			appInfo.setLogopicpath(logopicpath);
 			
+			
 		}else {
 			model.addAttribute("imgError", "闁哄倸娲ｅ▎銏ゅ冀閻撳海纭�濞戞挸绉甸婊呮兜椤曞棛纾奸柨娑楃哎~");
 			
@@ -256,9 +257,6 @@ public class DeveloperController {
 		}
 		
 		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
-		for(AppCategory ac:AppCategorys) {
-			System.out.println(ac.getCategoryname());
-		}
 		return AppCategorys;
 	}
 	
@@ -290,10 +288,6 @@ public class DeveloperController {
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
 		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
 		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
-		
-		System.out.println(appInfo.getCategorylevel1());
-		System.out.println(appInfo.getCategorylevel2());
-		System.out.println(appInfo.getCategorylevel3());
 		
 		model.addAttribute("level1",level1);
 		model.addAttribute("level2",level2);
@@ -379,7 +373,4 @@ public class DeveloperController {
 			return "forward:/modifyAppPageid="+appInfo.getId();
 		}
 	}
-	
-	
-	
 }
