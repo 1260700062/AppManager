@@ -189,7 +189,7 @@
 												            <a href="#">修改信息</a>
 												        </li>
 												        <li>
-												            <a href="addVersion.jsp?appId=${appinfo.id }">增加版本</a>
+												            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
 												        </li>
 												        <li>
 												            <a href="#">修改版本</a>

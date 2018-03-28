@@ -3,7 +3,7 @@ $(function(){
 		empty : "输入内容不能为空！",
 		aa : "格式不对~"
 	};
-	var id = $("#appId").val();
+	var appId = $("#appId").val();
 	//表单元素的验证是否通过的状态
 	var vno = false;
 	var vsize = false;
@@ -19,14 +19,14 @@ $(function(){
 			var verNo = $(this).val();
 			var $span = $(this).next();
 			$.ajax({
-				url:"virafyVersionNo",
-				data:{versionNo:verNo,appId:id},
-				datatype:"text",
+				url:"/AppManager/virafyVersionNo",
+				data:{id:appId,versionNo:verNo},
+				datatype:"json",
 				success:function(data){
-					if(data == "true"){
-						vno = true;
+					if(data.length == 0){
+						vno = true;alert(vno);
 					}else {
-						vno = false;
+						vno = false;alert(vno);alert(data.length);
 						$span.html("版本号已存在！");
 					}
 				},
@@ -59,7 +59,7 @@ $(function(){
 	});
 	
 	$("form").submit(function(){
-		if(vno && vsize &&vinfo) {
+		if(vno &&vsize &&vinfo) {
 			return true;
 		}else {
 			$("#send").parent().prev().html("请填写完整信息");

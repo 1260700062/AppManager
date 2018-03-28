@@ -102,14 +102,16 @@ public class DeveloperController {
 		return "developer/appList";
 	}
 	
-	@RequestMapping("/addVersionPage")
-	public String addVersionPage() {
+	@RequestMapping("/addVersionPage/{id}")
+	public String addVersionPage(@PathVariable Long id,Model model) {
+		model.addAttribute("appId", id);
 		return "developer/addVersion";
 	}
 	
 	@RequestMapping(value="/addVersion", method=RequestMethod.POST)
 	public String addVersion(AppVersion appVersion,HttpSession session,Model model,
-			@RequestParam(value="apk",required = false) MultipartFile apk) {
+			@RequestParam(value="apk",required = false) MultipartFile apk,
+			@RequestParam(value="appId",required = false) Long appId) {
 		System.out.println(appVersion.getVersionno());
 		File file = null;
 		int flag = -1;
@@ -118,7 +120,7 @@ public class DeveloperController {
 		}
 		String fileName = apk.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
-		System.out.println(suffix);
+		System.out.println(fileName);
 		if(apk.getSize() >= 500000000) {
 			model.addAttribute("imgError","apk文件不得大于500Mb");
 			return "developer/addVersion";
@@ -126,16 +128,16 @@ public class DeveloperController {
 			String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
 			System.out.println("====path==========: "+path);
 			
-			file = new File(path, fileName);
+			file = new File(path);
+			System.out.println(file.getPath());
 			String apklocpath = path + File.separator+fileName;
 			appVersion.setApklocpath(apklocpath);
-			
 		}else {
 			model.addAttribute("imgError", "请上传正确文件");
 			
 			return "developer/addVersion";
 		}
-		
+		appVersion.setAppid(appId);
 		appVersion.setCreationdate(new Date());
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
@@ -158,16 +160,9 @@ public class DeveloperController {
 	
 	@RequestMapping("/virafyVersionNo")
 	@ResponseBody
-	public String virafyVersionNo(@RequestParam("appId")Long appId,@RequestParam("versionNo")String versionNo) {
-		System.out.println("versionNo======================");
-		System.out.println(versionNo);
-		System.out.println("appId======================");
-		System.out.println(appId);
-		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
-		if(appVersion == null) {
-			return "true";
-		}
-		return "false";
+	public Object virafyVersionNo(Long id,String versionNo) {
+		AppVersion appVersion = appVersionService.getAppVersion(versionNo, id);
+		return appVersion;
 	}
 	
 	/**
