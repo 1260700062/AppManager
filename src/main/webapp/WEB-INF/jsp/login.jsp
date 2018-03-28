@@ -39,6 +39,7 @@
 			session.setAttribute("identify", identify);
 		} 
 	}else{
+		
 		identify = idt.toString();
 	}
 	
@@ -69,6 +70,9 @@
               <div class="separator">
                 <p class="change_link">新用户?
                   <a href="${pageContext.request.contextPath }/register" class="to_register"> 创建账号 </a>
+                </p>
+                <p class="change_link">
+                  <a href="${pageContext.request.contextPath }/loginIdChange" class="to_register"> 切换身份 </a>
                 </p>
 
                 <div class="clearfix"></div>

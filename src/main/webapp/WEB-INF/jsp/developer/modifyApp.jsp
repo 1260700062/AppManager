@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -204,8 +205,15 @@
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
-                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addApp" method="post" enctype="multipart/form-data">
-
+                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/modifyApp" method="post" enctype="multipart/form-data">
+					<div class="item form-group">
+                     <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id">软件名称 <span class="required">*</span>
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input id="id" value="${appInfo.id }" class="form-control col-md-7 col-xs-12"   name="id"  required="required" type="text" />
+                          <span class="fontColor"></span>
+                        </div>
+                      </div>
                       <div class="item form-group">
                      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="softwarename">软件名称 <span class="required">*</span>
                         </label>
@@ -256,9 +264,15 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
                        		<select id="flatformid" name="flatformid" class="optional form-control col-md-7 col-xs-12">
-                       		 <option value="${appInfo.flatformid }" selected="selected">通用平台</option>
-                       		<!--<option  value="2">手机平台</option>
-                       		<option  value="3">平板平台</option> -->
+                       		 <%-- <option value="${appInfo.flatformid }" selected="selected">通用平台</option> --%>
+              				<c:forEach items="${allFolatform }" var="flatform" varStatus="varSta">
+              					{flatform.valueid == appInfo.flatformid }<c:if test="${flatform.valueid == appInfo.flatformid }">
+              					<option value="${flatform.valueid }" selected>${flatform.valueid } ${flatform.valuename } </option>
+              					</c:if>
+              					<c:if test="${flatform.valueid != appInfo.flatformid }">
+                       		 	 <option value="${flatform.valueid }">${flatform.valuename }</option>
+              					</c:if>
+                       		 </c:forEach>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
@@ -267,19 +281,21 @@
                         <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="categorylevel1" class="form-control col-md-7 col-xs-12">
-                       		<option  value="${appInfo.categorylevel1 }">${level1.categoryname }</option>
+                       		<span id="categorylevel1_id" hidden>${appInfo.categorylevel1 }</span>
+                      	<select id="categorylevel1" class="form-control col-md-7 col-xs-12" name="categorylevel1">
+                       		<%-- <option  value="${appInfo.categorylevel1 }" hidden>${level1.categoryname }</option> --%>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
                       </div>
-                      <div class="item form-group">
+                      <div class="item form-group" >
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span class="required">*</span>
                         </label>
+                        <span id="categorylevel2_id" hidden>${appInfo.categorylevel2 }</span>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
-                        <select id="categorylevel2" class="form-control col-md-7 col-xs-12">
-                       		<option  value="${appInfo.categorylevel2 }">${level2.categoryname }</option>
+                        <select id="categorylevel2" class="form-control col-md-7 col-xs-12" name="categorylevel2">
+                       		<%-- <option  value="${appInfo.categorylevel2 }">${level2.categoryname }</option> --%>
                        	</select>
                         <span class="fontColor"></span>
                         </div>
@@ -287,9 +303,10 @@
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
                         </label>
+                        <span id="categorylevel3_id" hidden>${appInfo.categorylevel3 }</span>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-						<select id="categorylevel3" class="form-control col-md-7 col-xs-12">
-						<option  value="${appInfo.categorylevel3 }">${level3.categoryname }</option>
+						<select id="categorylevel3" class="form-control col-md-7 col-xs-12" name="categorylevel3">
+						<%-- <option  value="${appInfo.categorylevel3 }">${level3.categoryname }</option> --%>
                        	</select>
 						<span class="fontColor"></span>                        
                         </div>
@@ -315,7 +332,8 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="picture">LOGO图片 <span class="required">*</span>
                         </label>
                       <div class="col-md-6 col-sm-6 col-xs-12" id="imageDiv"><img alt="qqq" src="${appInfo.logopicpath }" width="100px" height="100px" id="image">
-                      <a  id="del">删除</a><img alt="aaa" src="C:\Users\TS\Pictures\lovewallpaper\295652-106.jpg"></div>
+                      <a  id="del">删除</a>
+                      </div>
                       <div class="col-md-6 col-sm-6 col-xs-12" style="display:none" id="pictureDiv">
                         	<input type="file" id="picture"  name="picture" value=""/>
                         <span class="fontColor"></span>
@@ -326,7 +344,7 @@
                       	<span  class="fontColor"></span>
                         <div class="col-md-6 col-md-offset-3">
                           <button type="submit" class="btn btn-primary">取消</button>
-                          <button id="send" type="submit" class="btn btn-success">提交</button>
+                          <button id="send" type="submit" class="btn btn-success">保存</button>
                         </div>
                       </div>
                     </form>
@@ -361,7 +379,7 @@
     <!-- validator -->
     <!--<script src="../vendors/validator/validator.js"></script>-->
 <!--自定义js表单验证-->
-	<%-- <script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/addAppForm.js" ></script> --%>
+
     <!-- Custom Theme Scripts -->
     <script type="text/javascript" src="${pageContext.request.contextPath }/statics/build/js/modifyApp.js"></script>
     <script src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>

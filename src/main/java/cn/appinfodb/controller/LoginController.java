@@ -1,6 +1,7 @@
 package cn.appinfodb.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -37,6 +38,7 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
+	
 
 	@RequestMapping(value="/login",method=RequestMethod.POST)
 	public String login2(HttpSession session,String userCode,String userPassword,Model model) {
@@ -81,11 +83,30 @@ public class LoginController {
 	
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.GET)
 	public String login3(HttpSession session) {
-		session.removeAttribute("identify");
+		
+		//session.removeAttribute("identify");
 		return "beforeLogin";
 	}
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.POST)
 	public String login4() {		
 		return "beforeLogin";
 	}
+	
+	@RequestMapping(value="/loginIdChange",method=RequestMethod.GET)
+	public String login5(HttpSession session) {
+		String identify =  (String)session.getAttribute("identify");
+		identify = identify.equals("manager")?"developper":"manager";
+		session.setAttribute("identify", identify);
+		System.out.println("identify===Controller==="+identify);
+		return "login";
+	}
+	
+	/*@RequestMapping(value="/loginIdChange",method=RequestMethod.GET)
+	public String logout(HttpSession session) {
+		String identify =  (String)session.getAttribute("identify");
+		identify = identify.equals("manager")?"developper":"manager";
+		session.setAttribute("identify", identify);
+		System.out.println("identify===Controller==="+identify);
+		return "login";
+	}*/
 }

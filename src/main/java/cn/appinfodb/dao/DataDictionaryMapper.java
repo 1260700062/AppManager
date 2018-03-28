@@ -29,6 +29,8 @@ public interface DataDictionaryMapper {
     int updateByPrimaryKeySelective(DataDictionary record);
 
     int updateByPrimaryKey(DataDictionary record);
-    
+    //根据APPinfo的flatformid获取平台name
     public String getNameByStatus(Long valueId) throws Exception;
+    //获取所有的平台name
+    public List<DataDictionary> getFlatformName();
 }

@@ -46,34 +46,34 @@
               <h1>${idtf }注册</h1>
               <div >
                	<b style="display:inline-block;width:72px;">用户编码：</b>
-               	<input type="text"  placeholder="用户编码" required name="userCode" id="userCode" style="width:200px;margin-bottom: 0;"/>   
+               	<input type="text"   required name="userCode" id="userCode" style="width:200px;margin-bottom: 0;"/>   
                	<div class="info"></div>    	
               </div>
              
               <div>
               <b style="display:inline-block;width:72px;">用户名：</b>
-               <input type="text" placeholder="用户名" required name="userName" id="userName" style="width:200px;margin-bottom: 0;"/>
+               <input type="text"  required name="userName" id="userName" style="width:200px;margin-bottom: 0;"/>
 				<div class="info"></div> 
               </div>
               <div>
               <b style="display:inline-block;width:72px;">密码：</b>
-                <input type="password" placeholder="密码" required name="userPassword" id="userPassword" style="width:200px;margin-bottom: 0;"/>
+                <input type="password"  required name="userPassword" id="userPassword" style="width:200px;margin-bottom: 0;"/>
               	<div class="info"></div>
               </div>
               <div>
               	<b style="display:inline-block;width:72px;">确认密码：</b>
-                <input type="password" placeholder="确认密码" required name="confirmUserPassword" id="confirmUserPassword" style="width:200px;margin-bottom: 0;"/>
+                <input type="password"  required name="confirmUserPassword" id="confirmUserPassword" style="width:200px;margin-bottom: 0;"/>
               	<div class="info"></div>
               </div>
               
               <div>
               <b style="display:inline-block;width:72px;">邮箱地址：</b>
-                <input type="email"  placeholder="邮箱" required name="email" id="email" style="width:200px;margin-bottom: 0;"/>
+                <input type="email"   required name="email" id="email" style="width:200px;margin-bottom: 0;"/>
               	<div class="info"></div>
               </div>
               <div>
               <b style="display:inline-block;width:72px;">用户信息：</b>
-                <input type="text" placeholder="备注信息" required name="info" id="info" style="width:200px;margin-bottom: 0;"/>
+                <input type="text"  required name="info" id="info" style="width:200px;margin-bottom: 0;"/>
               <div class="info"></div>
               </div>
               <div>

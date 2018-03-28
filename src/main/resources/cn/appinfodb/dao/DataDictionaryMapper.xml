@@ -4,4 +4,8 @@
 <select id="getNameByStatus" parameterType="java.lang.Long" resultType="java.lang.String">
   	SELECT valueName FROM `data_dictionary` WHERE `typeCode` = 'APP_STATUS' AND valueId= #{valueId}
   </select>
+  
+  <select id="getFlatformName" resultType="cn.appinfodb.pojo.DataDictionary">
+  	SELECT * FROM `data_dictionary` WHERE `typeCode` = 'APP_FLATFORM' 
+  </select>
 </mapper>
