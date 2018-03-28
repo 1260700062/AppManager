@@ -59,7 +59,7 @@
                     <ul class="nav child_menu">
                       <li><a href="index.html">App基础信息维护</a></li>
                       <li><a href="index.html">App版权信息维护</a></li>
-                      <li><a href="index.html">App发布</a></li>
+                      <li><a href="${pageContext.request.contextPath }/appPublish">App发布</a></li>
                     </ul>
                   </li>
                 </ul>

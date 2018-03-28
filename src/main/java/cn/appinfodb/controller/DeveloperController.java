@@ -2,6 +2,7 @@ package cn.appinfodb.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.List;
 
@@ -387,5 +388,10 @@ public class DeveloperController {
 		model.addAttribute("appInfo", appInfo);
 		model.addAttribute("flatformName", flatformName);
 		return "developer/showAPPInfo";
+	}
+	@RequestMapping(value="/appPublish",method=RequestMethod.GET)
+	public String appPublish() {
+		
+		return "developer/appPublish";
 	}
 }
