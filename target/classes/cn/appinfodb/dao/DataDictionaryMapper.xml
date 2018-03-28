@@ -8,4 +8,8 @@
   <select id="getFlatformName" resultType="cn.appinfodb.pojo.DataDictionary">
   	SELECT * FROM `data_dictionary` WHERE `typeCode` = 'APP_FLATFORM' 
   </select>
+  
+  <select id="getNameByFlatformid" resultType="java.lang.String">
+  SELECT * FROM `data_dictionary` WHERE `typeCode` = 'APP_FLATFORM' AND valueId= #{valueId}
+  </select>
 </mapper>

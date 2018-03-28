@@ -93,5 +93,12 @@ public class DeveloperServiceImplTest {
 			log.info("valueid:  {}=====valuename {}===",a.getValueid(), a.getValuename());
 		}
 	}
-
+	@Test
+	public void testFlatform() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DataDictionaryService ds = (DataDictionaryService)ac.getBean("dataDictionaryService");
+		Long l = new Long(3);
+			String nameByFlatformid = ds.getNameByFlatformid(3L);
+			log.info("valueid:  {}=====valuename",nameByFlatformid);
+	}
 }

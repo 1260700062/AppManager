@@ -363,11 +363,29 @@ public class DeveloperController {
 		flag = appInfoService.modifyAppById(appInfo);
 		
 		if(flag > 0) {
-			System.out.println("re11111~~~~~~~~~~");
 			return "redirect:/appList";
 		}else {
 			System.out.println("error=================查询出错");
 			return "forward:/modifyAppPageid="+appInfo.getId();
 		}
+	}
+	
+	@RequestMapping("/showAppInfo")
+	public String showAppInfo(String id, Model model) {
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
+		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
+		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
+		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
+		String flatformName = dataDictionaryService.getNameByFlatformid(appInfo.getFlatformid());
+		model.addAttribute("level1",level1);
+		model.addAttribute("level2",level2);
+		model.addAttribute("level3",level3);
+		model.addAttribute("statusName",statusName);
+		model.addAttribute("allFolatform",allFolatform);
+		model.addAttribute("appInfo", appInfo);
+		model.addAttribute("flatformName", flatformName);
+		return "developer/showAPPInfo";
 	}
 }

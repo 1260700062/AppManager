@@ -27,4 +27,12 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 		return flatform;
 	}
 
+
+	@Override
+	public String getNameByFlatformid(Long valueId) {
+		// TODO Auto-generated method stub
+		String flatformName = dataDictionaryMapper.getNameByFlatformid(valueId);
+		return flatformName;
+	}
+
 }
