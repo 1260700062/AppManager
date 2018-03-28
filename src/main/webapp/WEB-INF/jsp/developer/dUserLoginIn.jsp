@@ -31,7 +31,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>APP信息管理</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -43,7 +43,7 @@
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>${sessionScope.DevUser.devname }</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -53,11 +53,13 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>开发者</h3>
                 <ul class="nav side-menu">
                   <li><a><i class="fa fa-home"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="index.html">App维护</a></li>
+                      <li><a href="index.html">App基础信息维护</a></li>
+                      <li><a href="index.html">App版权信息维护</a></li>
+                      <li><a href="index.html">App发布</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -96,7 +98,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../statics/img/img.jpg" alt="">John Doe
+                    <img src="${pageContext.request.contextPath }/statics/img/img1.jpg" alt="">${sessionScope.DevUser.devname }
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -120,12 +122,12 @@
 
         <!-- page content -->
         <div class="right_col" role="main" >
-			    <div class="right">
-			          <div class="wFont">
-			          	<h2>欢迎开发者:${sessionScope.DevUser.devname }!</h2>
-			          </div>
-			        </div>
-			    </div>
+		    <div class="right">
+	          <div class="wFont">
+	          	<h2>APP</h2>
+	          </div>
+		     </div>
+		</div>
         <!-- /page content -->
 
         <!-- footer content -->

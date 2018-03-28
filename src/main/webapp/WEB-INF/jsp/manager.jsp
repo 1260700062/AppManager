@@ -7,17 +7,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <script type="text/javascript">
-/* function gotourl()
-{
- var url = "http://192.168.199.171:8081/index"; 
- var localurl = document.url; 
- if( localurl.substring(0,url.length) != url )
- {
-  location.href=url;
- }
-};
- */
-
 window.location="http://192.168.199.171:8081/index";
 </script>
 <title>Insert title here</title>

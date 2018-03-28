@@ -57,12 +57,15 @@ public class LoginController {
 				session.setMaxInactiveInterval(10*60);
 				return "manager";
 			}else {
+				System.out.println("用户名或密码不正确");
 				model.addAttribute("error", "用户名或密码不正确");
 				return "login";
 			} 
-		}else if(identify.equals("developper")){
+		}
+		if(identify.equals("developper")){
 			DevUserService dus = ac.getBean(DevUserService.class);
 			confirm = dus.DevUserLogin(userCode, userPassword);
+			System.out.println("confirm===="+confirm);
 			if(confirm==1) {
 				DevUser du = new DevUser();
 				du.setDevname(userCode);
@@ -71,14 +74,12 @@ public class LoginController {
 				session.setMaxInactiveInterval(10*60);
 				return "developer/dUserLoginIn";
 			}else {
+				System.out.println("用户名或密码不正确");
 				model.addAttribute("error", "用户名或密码不正确");
 				return "login";
 			}
-		}else {
-			
-			return "beforeLogin";
-		}	
-				
+		}
+		return "beforeLogin";				
 	}
 	
 	@RequestMapping(value="/beforeLogin",method=RequestMethod.GET)
@@ -101,12 +102,11 @@ public class LoginController {
 		return "login";
 	}
 	
-	/*@RequestMapping(value="/loginIdChange",method=RequestMethod.GET)
+	@RequestMapping(value="/logOut",method=RequestMethod.GET)
 	public String logout(HttpSession session) {
-		String identify =  (String)session.getAttribute("identify");
-		identify = identify.equals("manager")?"developper":"manager";
-		session.setAttribute("identify", identify);
-		System.out.println("identify===Controller==="+identify);
+		session.removeAttribute("identify");
+		session.removeAttribute("DevUser");
+		System.out.println("logOut===Controller===");
 		return "login";
-	}*/
+	}
 }
