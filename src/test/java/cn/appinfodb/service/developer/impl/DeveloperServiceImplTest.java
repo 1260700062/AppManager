@@ -12,7 +12,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
+import cn.appinfodb.pojo.DataDictionary;
 import cn.appinfodb.service.AppInfoService;
+import cn.appinfodb.service.DataDictionaryService;
 import cn.appinfodb.service.developer.DeveloperService;
 
 public class DeveloperServiceImplTest {
@@ -70,15 +72,26 @@ public class DeveloperServiceImplTest {
 		appInfo.setCategorylevel1(2L);
 		appInfo.setCategorylevel2(2L);
 		appInfo.setFlatformid(2L);
-		appInfo.setInterfacelanguage("¼òÌåÖÐÎÄ");
+		appInfo.setInterfacelanguage("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");
 		appInfo.setLogolocpath("bb");
 		BigDecimal b = new BigDecimal(11);
 		appInfo.setSoftwaresize(b);
 		appInfo.setCategorylevel3(2L);
-		appInfo.setSupportrom("2.2¼°¸ü¸ß°æ±¾");
+		appInfo.setSupportrom("2.2ï¿½ï¿½ï¿½ï¿½ï¿½ß°æ±¾");
 		appInfo.setUpdatedate(new Date());
 		int modifyAppById = ds.modifyAppById(appInfo );
 		log.info("==============={}==============",modifyAppById);
+	}
+	
+	@Test
+	public void testgetAllDataDictionaryFlatform() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DataDictionaryService ds = (DataDictionaryService)ac.getBean("dataDictionaryService");
+		List<DataDictionary> all = ds.getAllDataDictionaryFlatform();
+		for(DataDictionary a : all) {
+			
+			log.info("valueid:  {}=====valuename {}===",a.getValueid(), a.getValuename());
+		}
 	}
 
 }

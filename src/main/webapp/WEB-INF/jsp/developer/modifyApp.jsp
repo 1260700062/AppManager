@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -263,9 +264,15 @@
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="platform" type="text" name="platform" data-validate-length="6,8" class="form-control col-md-7 col-xs-12" required="required">-->
                        		<select id="flatformid" name="flatformid" class="optional form-control col-md-7 col-xs-12">
-                       		 <option value="${appInfo.flatformid }" selected="selected">通用平台</option>
-                       		<!--<option  value="2">手机平台</option>
-                       		<option  value="3">平板平台</option> -->
+                       		 <%-- <option value="${appInfo.flatformid }" selected="selected">通用平台</option> --%>
+              				<c:forEach items="${allFolatform }" var="flatform" varStatus="varSta">
+              					{flatform.valueid == appInfo.flatformid }<c:if test="${flatform.valueid == appInfo.flatformid }">
+              					<option value="${flatform.valueid }" selected>${flatform.valueid } ${flatform.valuename } </option>
+              					</c:if>
+              					<c:if test="${flatform.valueid != appInfo.flatformid }">
+                       		 	 <option value="${flatform.valueid }">${flatform.valuename }</option>
+              					</c:if>
+                       		 </c:forEach>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
@@ -274,8 +281,9 @@
                         <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
+                       		<span id="categorylevel1_id" hidden>${appInfo.categorylevel1 }</span>
                       	<select id="categorylevel1" class="form-control col-md-7 col-xs-12" name="categorylevel1">
-                       		<option  value="${appInfo.categorylevel1 }">${level1.categoryname }</option>
+                       		<%-- <option  value="${appInfo.categorylevel1 }" hidden>${level1.categoryname }</option> --%>
                        	</select>
                        <span class="fontColor"></span>
                         </div>
@@ -283,10 +291,11 @@
                       <div class="item form-group" >
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel2">二级分类 <span class="required">*</span>
                         </label>
+                        <span id="categorylevel2_id" hidden>${appInfo.categorylevel2 }</span>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
                         <select id="categorylevel2" class="form-control col-md-7 col-xs-12" name="categorylevel2">
-                       		<option  value="${appInfo.categorylevel2 }">${level2.categoryname }</option>
+                       		<%-- <option  value="${appInfo.categorylevel2 }">${level2.categoryname }</option> --%>
                        	</select>
                         <span class="fontColor"></span>
                         </div>
@@ -294,9 +303,10 @@
                       <div class="item form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
                         </label>
+                        <span id="categorylevel3_id" hidden>${appInfo.categorylevel3 }</span>
                         <div class="col-md-6 col-sm-6 col-xs-12">
 						<select id="categorylevel3" class="form-control col-md-7 col-xs-12" name="categorylevel3">
-						<option  value="${appInfo.categorylevel3 }">${level3.categoryname }</option>
+						<%-- <option  value="${appInfo.categorylevel3 }">${level3.categoryname }</option> --%>
                        	</select>
 						<span class="fontColor"></span>                        
                         </div>

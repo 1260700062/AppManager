@@ -2,25 +2,16 @@ package cn.appinfodb.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.http.HttpSession;
-import javax.websocket.server.PathParam;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -32,9 +23,11 @@ import com.alibaba.fastjson.JSONArray;
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppVersion;
+import cn.appinfodb.pojo.DataDictionary;
 import cn.appinfodb.service.AppCategoryService;
 import cn.appinfodb.service.AppInfoService;
 import cn.appinfodb.service.AppVersionService;
+import cn.appinfodb.service.DataDictionaryService;
 import cn.appinfodb.service.developer.DeveloperService;
 
 @Controller
@@ -47,6 +40,13 @@ public class DeveloperController {
 	@Autowired
 	private AppVersionService appVersionService;
 	
+	private DataDictionaryService dataDictionaryService;
+	
+	@Resource(name="dataDictionaryService")
+	public void setDataDictionaryService(DataDictionaryService dataDictionaryService) {
+		this.dataDictionaryService = dataDictionaryService;
+	}
+
 	@Resource(name="developerService")
 //	@Autowired
 	public void setDeveloperService(DeveloperService developerService) {
@@ -288,11 +288,12 @@ public class DeveloperController {
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
 		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
 		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
-		
+		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
 		model.addAttribute("level1",level1);
 		model.addAttribute("level2",level2);
 		model.addAttribute("level3",level3);
 		model.addAttribute("statusName",statusName);
+		model.addAttribute("allFolatform",allFolatform);
 		model.addAttribute("appInfo", appInfo);
 		return "developer/modifyApp";
 	}

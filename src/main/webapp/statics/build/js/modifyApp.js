@@ -107,6 +107,10 @@ $(function(){
 		$("#imageDiv").show();
 	});
 	
+	var $categorylevel1 = $("#categorylevel1_id").html();
+	var $categorylevel2 = $("#categorylevel2_id").html();
+	var $categorylevel3 = $("#categorylevel3_id").html();
+	//一级分类
 	$.ajax({
 		url:"categoryLevel",
 		type:"get",
@@ -116,74 +120,55 @@ $(function(){
 			for(var i=0; i<data.length; i++) {
 				var $option1 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
 				$("#categorylevel1").append($option1);
+				if(parseInt($categorylevel1) == data[i].id) {
+					$("#categorylevel1").val($categorylevel1);
+				}
 			}
 		},
 		error:function(){
 			alert("error");
 		}
 	});
+	//二级分类
+	$.ajax({
+		url:"categoryLevel",
+		type:"get",
+		data:{id:$categorylevel1},
+		datatype:"json",
+		success:function(data){
+			for(var i=0; i<data.length; i++) {
+				var $option2 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
+				$("#categorylevel2").append($option2);
+				if(parseInt($categorylevel2) == data[i].id) {
+					$("#categorylevel2").val($categorylevel2);
+				}
+			}
+		},
+		error:function(){
+			alert("error!!~~~~");
+		}
+	});
+	//三级分类
+	$.ajax({
+		url:"categoryLevel",
+		type:"get",
+		data:{id:$categorylevel3},
+		datatype:"json",
+		success:function(data){
+			for(var i=0; i<data.length; i++) {
+				var $option3 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
+				$("#categorylevel3").append($option3);
+				if(parseInt($categorylevel3) == data[i].id) {
+					$("#categorylevel3").val($categorylevel3);
+				}
+			}
+		},
+		error:function(){
+			alert("error!!~~~~");
+		}
+	});
+});
 	
-	//获取一级分类
-	$("#categorylevel1").on("click",function(){
-		
-		$.ajax({
-			url:"categoryLevel",
-			type:"get",
-			data:{},
-			datatype:"json",
-			success:function(data){
-				$("#categorylevel1").empty();
-				for(var i=0; i<data.length; i++) {
-					var $option1 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
-					$("#categorylevel1").append($option1);
-				}
-			},
-			error:function(){
-				alert("error");
-			}
-		});
-		
-	});
-	$("#categorylevel2").click(function(){
-		var parentId = $("#categorylevel1").val();
-		$("#categorylevel2").find("option").remove();
-		$.ajax({
-			url:"categoryLevel",
-			type:"get",
-			data:{id:parentId},
-			datatype:"json",
-			success:function(data){
-				for(var i=0; i<data.length; i++) {
-					var $option2 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
-					$("#categorylevel2").append($option2);
-				}
-			},
-			error:function(){
-				alert("error");
-			}
-		});
-		
-	});
-	$("#categorylevel3").click(function(){
-		var parentId = $("#categorylevel2").val();
-		$("#categorylevel3").find("option").remove();
-		$.ajax({
-			url:"categoryLevel",
-			type:"get",
-			data:{id:parentId},
-			datatype:"json",
-			success:function(data){
-				for(var i=0; i<data.length; i++) {
-					var $option3 = "<option value="+data[i].id+">"+data[i].categoryname+"</option>";
-					$("#categorylevel3").append($option3);
-				}
-			},
-			error:function(){
-				alert("error");
-			}
-		});
-		
-	});
 	
 	
 	$("#categorylevel1").change(function(){
@@ -229,6 +214,4 @@ $(function(){
 			}
 		});
 	});
-	
-	
-})
+
