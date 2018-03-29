@@ -4,9 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FilenameUtils;
@@ -26,6 +29,7 @@ import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppVersion;
 import cn.appinfodb.pojo.DataDictionary;
+import cn.appinfodb.pojo.DevUser;
 import cn.appinfodb.service.AppCategoryService;
 import cn.appinfodb.service.AppInfoService;
 import cn.appinfodb.service.AppVersionService;
@@ -55,11 +59,25 @@ public class DeveloperController {
 		this.developerService = developerService;
 	}
 	
-	//娴嬭瘯鐢�
+	
 	@RequestMapping("/appList")
-	public String appList(Model model) {
+	public String appList(HttpSession session,Model model) {
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
-		List<AppInfo> appList = appInfoService.getAllApp();
+		List<AppInfo> appList = appInfoService.getAllApp(devUser.getId());
+		Map<Long,String> map = new HashMap<Long,String>();
+		for(AppInfo app:appList) {
+			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
+			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
+			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
+			if(app.getVersionid() == null) {
+				map.put(null, "暂无版本信息");
+			} else {
+				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
+				map.put(app.getVersionid(), appVersion);
+			}
+		}
+		model.addAttribute("map", map);
 		model.addAttribute("appLevel1", appLevel1);
 		model.addAttribute("appList", appList);
 		
@@ -80,25 +98,28 @@ public class DeveloperController {
 		return json;
 	}
 	
-	//app鏌ヨ
+	//app查询
 	@RequestMapping("/appSearch")
-	public String appSearch(Model model,
+	public String appSearch(HttpSession session,Model model,
 			@RequestParam(value="appName",required=false)String appName,
 			@RequestParam(value="category3",required=false)Long level3,
 			@RequestParam(value="flatform",required=false)Long flatform) {
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		List<AppCategory> appLevel1 = appCategoryService.getAppByParentId(null);
-		List<AppInfo> appList = appInfoService.getApp(appName, level3,flatform);
+		List<AppInfo> appList = appInfoService.getApp(devUser.getId(),appName, level3,flatform);
+		Map<Long,String> map = new HashMap<Long,String>();
 		for(AppInfo app:appList) {
 			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
 			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
 			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
 			if(app.getVersionid() == null) {
-				model.addAttribute("version", "暂无版本信息");
+				map.put(null, "暂无版本信息");
 			} else {
 				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
-				model.addAttribute("version", appVersion);
+				map.put(app.getVersionid(), appVersion);
 			}
 		}
+		model.addAttribute("map", map);
 		model.addAttribute("appList", appList);
 		model.addAttribute("appLevel1", appLevel1);
 		return "developer/appList";
@@ -111,7 +132,7 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping(value="/addVersion", method=RequestMethod.POST)
-	public String addVersion(AppVersion appVersion,HttpSession session,Model model,
+	public String addVersion(AppVersion appVersion,HttpSession session,Model model,HttpServletRequest request,
 			@RequestParam(value="apk",required = false) MultipartFile apk,
 			@RequestParam(value="appId",required = false) Long appId) {
 		System.out.println(appVersion.getVersionno());
@@ -128,9 +149,13 @@ public class DeveloperController {
 			return "developer/addVersion";
 		}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
 			String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
+			file=new File(path);
+			if(!file.exists()){//如果不存在该文件夹
+			file.mkdir();//新建
+			}
 			System.out.println("====path==========: "+path);
 			
-			file = new File(path);
+			file = new File(path,fileName);
 			System.out.println(file.getPath());
 			String apklocpath = path + File.separator+fileName;
 			appVersion.setApklocpath(apklocpath);
@@ -141,15 +166,18 @@ public class DeveloperController {
 		}
 		appVersion.setAppid(appId);
 		appVersion.setCreationdate(new Date());
+		appVersion.setApkfilename(fileName);
+		appVersion.setDownloadlink(request.getContextPath());
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
 		
 		try {
-			apk.transferTo(file);
+			file.createNewFile();
 		}  catch (IOException e) {
 			flag = -1;
 			e.printStackTrace();
 		}
+		System.out.println("=======1========"+flag+"================");
 		
 		if(flag > 0) {
 			return "redirect:/appList";
@@ -246,13 +274,14 @@ public class DeveloperController {
 	@RequestMapping("/categoryLevel")
 	@ResponseBody
 	public Object getCategoryLevel(String id) {
+		System.out.println(id);
 		Long parentId = null;
 		if(id != null) {
 			parentId = Long.parseLong(id);
 		}else {
 			
 		}
-		
+		System.out.println("+++++-------"+id);
 		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
 		return AppCategorys;
 	}
@@ -276,14 +305,16 @@ public class DeveloperController {
 	 * @param model
 	 * @return
 	 */
-	@RequestMapping("/modifyAppPage")
-	public String modifyAppPage(String id, HttpSession session, Model model) {
+	@RequestMapping("/modifyAppPage/{id}")
+	public String modifyAppPage(@PathVariable Long id, HttpSession session, Model model) {
 		System.out.println("=========modifyAppPage==========");
 		System.out.println("id : "+id);
 		AppInfo appInfo = developerService.getAppInfoById(id);
+		System.out.println(appInfo.getApkname());
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
 		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		System.out.println("=============================="+level3.getCategoryname());
 		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
 		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
 		model.addAttribute("level1",level1);
@@ -331,7 +362,7 @@ public class DeveloperController {
 		}else {
 			String fileName = picture.getOriginalFilename();
 			String suffix = FilenameUtils.getExtension(fileName);
-			if(picture.getSize() >= 500000) {
+			if(picture.getSize() >= 500000) {System.out.println("------------");
 				model.addAttribute("imgError","文件不能超过500k");
 				return "forward:/modifyAppPage?id="+appInfo.getId();
 			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
@@ -372,7 +403,7 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping("/showAppInfo")
-	public String showAppInfo(String id, Model model) {
+	public String showAppInfo(Long id, Model model) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());

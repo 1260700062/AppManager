@@ -6,8 +6,8 @@ import cn.appinfodb.pojo.AppInfo;
 
 public interface AppInfoService {
 
-	public List<AppInfo> getApp(String name,Long level3,Long flatformid);
-	public List<AppInfo> getAllApp();
+	public List<AppInfo> getApp(Long devId,String name,Long level3,Long flatformid);
+	public List<AppInfo> getAllApp(Long devId);
     
     public int modifyAppById(AppInfo appInfo);
     

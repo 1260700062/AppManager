@@ -16,7 +16,7 @@ public interface DeveloperService {
 	//閫氳繃apkname鑾峰彇APP淇℃伅
 	public AppInfo getAppInfoByAPKName(String apkname);
 	//通过id获取APP信息
-	public AppInfo getAppInfoById(String id);
+	public AppInfo getAppInfoById(Long id);
 	//通过id获取APP分类级别的信息
 	public AppCategory getAppCategoryById(Long id);
 	

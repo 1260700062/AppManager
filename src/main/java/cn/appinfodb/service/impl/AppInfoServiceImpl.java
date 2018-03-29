@@ -17,15 +17,15 @@ public class AppInfoServiceImpl implements AppInfoService {
 	private AppInfoMapper appInfoMapper;
 
 	@Override
-	public List<AppInfo> getApp(String name,Long level3,Long flatformid) {
-		List<AppInfo> list = appInfoMapper.selectApp(name, level3, flatformid);
+	public List<AppInfo> getApp(Long devId,String name,Long level3,Long flatformid) {
+		List<AppInfo> list = appInfoMapper.selectApp(devId, name, level3, flatformid);
 		return list;
 	}
 
 	
 	@Override
-	public List<AppInfo> getAllApp() {
-		List<AppInfo> list = appInfoMapper.selectAllApp();
+	public List<AppInfo> getAllApp(Long devId) {
+		List<AppInfo> list = appInfoMapper.selectAllApp(devId);
 		return list;
 	}
 

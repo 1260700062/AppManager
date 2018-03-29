@@ -146,6 +146,9 @@
     <select id="selectApp" resultType="AppInfo">
         select * from app_info 
         <where>
+        <if test="devId != null">
+        	devId =${devId }
+        </if>
         <if test="name != null">
         	softwareName like CONCAT("%","${name }","%")
         </if>
@@ -159,7 +162,7 @@
         
     </select>
     
-    <select id="getAppInfoById" parameterType="java.lang.Long" resultType="cn.appinfodb.pojo.AppInfo">
+    <select id="getAppInfoById" resultType="cn.appinfodb.pojo.AppInfo">
   	SELECT * FROM `app_info` WHERE id = #{id}
   </select>
   
@@ -173,6 +176,7 @@
   	`updateDate`= #{updatedate},
   	`appInfo`= #{appinfo},
   	`flatformId`= #{flatformid},
+  	`downloads`= #{downloads},
   	`categoryLevel3`= #{categorylevel3},
   	`categoryLevel1`= #{categorylevel1},
   	`categoryLevel2`= #{categorylevel2},
@@ -187,7 +191,7 @@
 
 
     
-    <select id="selectAllApp" resultType="cn.appinfodb.pojo.AppInfo">
-  	SELECT * FROM `app_info`
+  <select id="selectAllApp" resultType="cn.appinfodb.pojo.AppInfo">
+  	SELECT * FROM `app_info` where devId = #{devId}
   </select>
 </mapper>
