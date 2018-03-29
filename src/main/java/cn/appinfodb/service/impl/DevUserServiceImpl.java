@@ -42,4 +42,10 @@ public class DevUserServiceImpl implements DevUserService {
 		return result;
 	}
 
+	@Override
+	public DevUser getDevUserBydevCode(String userCode) {
+		DevUser du = dum.getDevUserBydevCode(userCode);
+		return du;
+	}
+
 }

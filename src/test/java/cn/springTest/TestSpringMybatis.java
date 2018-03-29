@@ -39,7 +39,7 @@ public class TestSpringMybatis {
 		}
 	}
 
-	@Test
+	/*@Test
 	public void test3() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		AppInfoService acs = ac.getBean(AppInfoService.class);
@@ -48,13 +48,13 @@ public class TestSpringMybatis {
 		for(AppInfo l:list) {
 			System.out.println(l.getSoftwarename());
 		}
-	}
+	}*/
 
-	@Test
+	/*@Test
 	public void test4() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		AppVersionService acs = ac.getBean(AppVersionService.class);
 		AppVersion appVersion = acs.getAppVersionByVersionNo("v1.1.1",55l);
 		System.out.println(appVersion.getApkfilename());
-	}
+	}*/
 }

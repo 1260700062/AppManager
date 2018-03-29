@@ -31,4 +31,10 @@ public class BackendUserServiceImpl implements BackendUserService {
 		return i;
 	}
 
+	@Override
+	public BackendUser getBackendUserByBackendCode(String userCode) {
+		BackendUser bu = bum.getBackendUserByBackendCode(userCode);
+		return bu;
+	}
+
 }

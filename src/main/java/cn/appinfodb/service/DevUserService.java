@@ -6,4 +6,5 @@ public interface DevUserService {
 	public int DevUserLogin(String userCode,String userPassword);
 	public DevUser selectByuserCode(String userCode);
 	public int addDevUser(DevUser du);
+	public DevUser getDevUserBydevCode(String userCode);
 }
