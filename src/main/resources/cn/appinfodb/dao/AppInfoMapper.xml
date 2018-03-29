@@ -169,7 +169,7 @@
   <update id="modifyApp" parameterType="cn.appinfodb.pojo.AppInfo">
   	UPDATE `app_info` 
   	<trim prefix="set" suffix="where id = #{id}" suffixOverrides=",">
-  	<!-- `softwareName` = #{softwarename},
+  	`softwareName` = #{softwarename},
   	`supportROM`= #{supportrom},
   	`interfaceLanguage`= #{interfacelanguage},
   	`softwareSize`= #{softwaresize},
@@ -179,8 +179,8 @@
   	`downloads`= #{downloads},
   	`categoryLevel3`= #{categorylevel3},
   	`categoryLevel1`= #{categorylevel1},
-  	`categoryLevel2`= #{categorylevel2}, -->
-  	<if test="softwarename != null">
+  	`categoryLevel2`= #{categorylevel2},
+  	<!-- <if test="softwarename != null">
   	`softwareName` = #{softwarename},
   	</if>
   	<if test="supportrom != null">
@@ -218,13 +218,19 @@
   	</if>
   	<if test="logolocpath != null">
   	`logoLocPath` = #{logolocpath},
-  	</if>
+  	</if> -->
   	</trim>
   </update>
 
-
+  <update id="modifyStatus" parameterType="cn.appinfodb.pojo.AppInfo">
+  	update app_info set status = #{status} where id = #{id}
+  </update>
     
   <select id="selectAllApp" resultType="cn.appinfodb.pojo.AppInfo">
   	SELECT * FROM `app_info` where devId = #{devId}
   </select>
+  
+  <delete id="deleteAppById">
+  	delete from app_info where id = #{id}
+  </delete>
 </mapper>

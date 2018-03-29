@@ -42,6 +42,18 @@ public class AppInfoServiceImpl implements AppInfoService {
 		}
 		return flag;
 	}
+
+
+	@Override
+	public int modifyStatus(Long status,Long id) {
+		return appInfoMapper.modifyStatus(status,id);
+	}
+
+
+	@Override
+	public int deleteAppById(Long id) {
+		return appInfoMapper.deleteAppById(id);
+	}
 	
 
 }

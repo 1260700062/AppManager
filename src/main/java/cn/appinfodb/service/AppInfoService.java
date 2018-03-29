@@ -11,5 +11,7 @@ public interface AppInfoService {
     
     public int modifyAppById(AppInfo appInfo);
     
-
+    public int modifyStatus(Long status,Long id);
+    
+    public int deleteAppById(Long id);
 }

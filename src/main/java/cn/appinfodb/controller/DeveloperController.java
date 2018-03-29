@@ -353,7 +353,7 @@ public class DeveloperController {
 	public String modifyApp(AppInfo appInfo, HttpSession session, Model model, 
 			@RequestParam(value="picture",required = false) MultipartFile picture) {
 		System.out.println("==========modifyApp ===========");
-		System.out.println("appInfo:    ===="+appInfo.getFlatformid());
+		System.out.println("appInfo:    ===="+appInfo.getCategorylevel1());
 		File file = null;
 		int flag = -1;
 		
@@ -427,15 +427,22 @@ public class DeveloperController {
 		return "developer/appPublish";
 	}
 	
-/*
+
 	@RequestMapping(value="/changeStatus/{id}",method=RequestMethod.GET)
 	public String changeStatus(@PathVariable Long id) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
+		
 		if(appInfo.getStatus() == 2) {
-			appInfoService.modifyStatus(4l);
+			int i = appInfoService.modifyStatus(4l,appInfo.getId());
 		}else {
-			appInfoService.modifyStatus(2l);
+			int i = appInfoService.modifyStatus(5l,appInfo.getId());
 		}
- 		return "redirect:/appList";
-	}*/
+		return "redirect:/appList";
+	}
+
+	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
+	public String deleteApp(@PathVariable Long id) {
+		appInfoService.deleteAppById(id);
+		return "redirect:/appList";
+	}
 }
