@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 
+import cn.appinfodb.dao.AppInfoMapper;
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppVersion;
@@ -425,4 +426,16 @@ public class DeveloperController {
 		
 		return "developer/appPublish";
 	}
+	
+/*
+	@RequestMapping(value="/changeStatus/{id}",method=RequestMethod.GET)
+	public String changeStatus(@PathVariable Long id) {
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		if(appInfo.getStatus() == 2) {
+			appInfoService.modifyStatus(4l);
+		}else {
+			appInfoService.modifyStatus(2l);
+		}
+ 		return "redirect:/appList";
+	}*/
 }

@@ -208,12 +208,12 @@
 												    <ul class="dropdown-menu" role="menu">
 												    <c:if test="${appinfo.status==2 }">
 												    	<li>
-												            <a href="">上架</a>
+												            <a href="${pageContext.request.contextPath }/changeStatus/${appinfo.id}">上架</a>
 												        </li>
 												    </c:if>
 												    <c:if test="${appinfo.status==4 }">
 												    	<li>
-												            <a href="">下架</a>
+												            <a href="${pageContext.request.contextPath }/changeStatus/${appinfo.id}">下架</a>
 												        </li>
 												    </c:if>
 												        <li>
