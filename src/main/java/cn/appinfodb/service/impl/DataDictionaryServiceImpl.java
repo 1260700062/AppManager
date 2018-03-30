@@ -35,4 +35,20 @@ public class DataDictionaryServiceImpl implements DataDictionaryService {
 		return flatformName;
 	}
 
+
+	@Override
+	public String getPublishStatusNameById(Long publishstatus) {
+		// TODO Auto-generated method stub
+		String pablisStatusName = dataDictionaryMapper.getPublishStatusNameById(publishstatus);
+		return pablisStatusName;
+	}
+
+
+	@Override
+	public List<DataDictionary> getAllPublishName() {
+		// TODO Auto-generated method stub
+		List<DataDictionary> publishNames = dataDictionaryMapper.getAllPublishName();
+		return publishNames;
+	}
+
 }

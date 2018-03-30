@@ -98,4 +98,11 @@
         </if>
         </where>
     </select>
+    
+    <select id="getAppVersionById" resultType="cn.appinfodb.pojo.AppVersion">
+    select * from app_version where id = #{id }
+    </select>
+    <select id="getAppVersionByAppId" resultType="cn.appinfodb.pojo.AppVersion">
+    	SELECT * FROM `app_version` WHERE `appId` = #{appId} order by id desc 
+    </select>
 </mapper>

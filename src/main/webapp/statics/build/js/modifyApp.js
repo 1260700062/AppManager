@@ -152,7 +152,7 @@ $(function(){
 	$.ajax({
 		url:"categoryLevel",
 		type:"get",
-		data:{id:$categorylevel3},
+		data:{id:$categorylevel2},
 		datatype:"json",
 		success:function(data){
 			for(var i=0; i<data.length; i++) {

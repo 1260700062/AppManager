@@ -2,9 +2,10 @@ package cn.appinfodb.controller;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -393,5 +394,29 @@ public class DeveloperController {
 	public String appPublish() {
 		
 		return "developer/appPublish";
+	}
+	/**
+	 * 需要传进来一个appVersion的id，然后，根据id查出APPversion的所有信息，保存在APPversion实体中
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/modifyAppVersion")
+	public String modifyAppVersionPage(Long id, Long appId, Model model) {
+		AppVersion appVersion = appVersionService.getAppVersionById(id);
+		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
+//		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
+		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());
+		List<DataDictionary> publish = dataDictionaryService.getAllPublishName();
+		AppInfo appInfo = developerService.getAppInfoById(String.valueOf(appVersion.getAppid()));
+		Map<Long, String> map = new HashMap<Long, String>();
+		for(DataDictionary d : publish) {
+			map.put(d.getValueid(), d.getValuename());
+		}
+		model.addAttribute("modifyAppVersion",appVersion);
+		model.addAttribute("publishStatusName",publishStatusName);
+		model.addAttribute("appVersions",appVersions);
+		model.addAttribute("publishMap",map);
+		model.addAttribute("appInfo",appInfo);
+		return "developer/modifyAppVersion";
 	}
 }
