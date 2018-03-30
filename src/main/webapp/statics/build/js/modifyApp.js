@@ -112,7 +112,7 @@ $(function(){
 	var $categorylevel3 = $("#categorylevel3_id").html();
 	//一级分类
 	$.ajax({
-		url:"categoryLevel",
+		url:"../categoryLevel",
 		type:"get",
 		data:{},
 		datatype:"json",
@@ -131,7 +131,7 @@ $(function(){
 	});
 	//二级分类
 	$.ajax({
-		url:"categoryLevel",
+		url:"../categoryLevel",
 		type:"get",
 		data:{id:$categorylevel1},
 		datatype:"json",
@@ -150,7 +150,7 @@ $(function(){
 	});
 	//三级分类
 	$.ajax({
-		url:"categoryLevel",
+		url:"../categoryLevel",
 		type:"get",
 		data:{id:$categorylevel2},
 		datatype:"json",
@@ -176,7 +176,7 @@ $(function(){
 		$("#categorylevel2").find("option").remove();
 		$("#categorylevel3").find("option").remove();
 		$.ajax({
-			url:"categoryLevel",
+			url:"../categoryLevel",
 			type:"get",
 			data:{id:parentId},
 			datatype:"json",
@@ -197,7 +197,7 @@ $(function(){
 	$("#categorylevel2").change(function(){
 		var parentId = $("#categorylevel2").val();
 		$.ajax({
-			url:"categoryLevel",
+			url:"../categoryLevel",
 			type:"get",
 			data:{id:parentId},
 			datatype:"json",

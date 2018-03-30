@@ -91,16 +91,10 @@ public class DeveloperServiceImpl implements DeveloperService {
 	}
 	
 	@Override
-	public AppInfo getAppInfoById(String id) {
-		// TODO Auto-generated method stub
-		if(id == null) {
-			
-		}
-		
-		Long apkId = Long.parseLong(id);
+	public AppInfo getAppInfoById(Long id) {
 		AppInfo appInfo = null;
 		try {
-			appInfo = appInfoMapper.getAppInfoById(apkId);
+			appInfo = appInfoMapper.getAppInfoById(id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

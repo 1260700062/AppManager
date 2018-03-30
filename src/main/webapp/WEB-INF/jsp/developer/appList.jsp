@@ -169,6 +169,7 @@
 									</tr>
 								</thead>
 								<c:forEach items="${appList }" var="appinfo">
+								<c:set var="version" value="${appinfo.versionid }"></c:set>
 									<tbody>
 										<tr class="even pointer">
 											<td class="a-center "><input type="checkbox"
@@ -177,16 +178,49 @@
 											<td class=" ">${appinfo.apkname }</td>
 											<td class=" ">${appinfo.softwaresize }</td>
 											<td class=" ">${level1 }-${level2 }-${level3 }</td>
-											<td class=" ">${appinfo.status }</td>
+											
+											<c:if test="${appinfo.status==1 }">
+												<td class=" ">待审核</td>
+											</c:if>
+											<c:if test="${appinfo.status==2 }">
+												<td class=" ">审核通过</td>
+											</c:if>
+											<c:if test="${appinfo.status==3 }">
+												<td class=" ">审核不通过</td>
+											</c:if>
+											<c:if test="${appinfo.status==4 }">
+												<td class=" ">已上架</td>
+											</c:if>
+											<c:if test="${appinfo.status==5 }">
+												<td class=" ">已下架</td>
+											</c:if>
 											<td class=" ">${appinfo.downloads }</td>
-											<td class="">${version }</td>
+											<c:if test="${empty appinfo.versionid}">
+												<td class="">暂无版本信息</td>
+											</c:if>
+											<c:if test="${!empty appinfo.versionid}">
+												<td class="">${map[version] }</td>
+											</c:if>
 											<td class=" ">
 												<div class="btn-group">
 												    <button type="button" class="btn btn-success dropdown-toggle btn-xs" data-toggle="dropdown">点击操作
 												        <span class="caret"></span></button>
 												    <ul class="dropdown-menu" role="menu">
+												    <c:if test="${appinfo.status==2 }">
+												    	<li>
+												            <a href="${pageContext.request.contextPath }/changeStatus/${appinfo.id}">上架</a>
+												        </li>
+												    </c:if>
+												    <c:if test="${appinfo.status==4 }">
+												    	<li>
+												            <a href="${pageContext.request.contextPath }/changeStatus/${appinfo.id}">下架</a>
+												        </li>
+												    </c:if>
 												        <li>
-												            <a href="#">修改信息</a>
+												            <a href="${pageContext.request.contextPath }/modifyAppPage/${appinfo.id}">修改信息</a>
+												        </li>
+												        <li>
+												            <a href="">查看</a>
 												        </li>
 												        <li>
 												            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
@@ -195,7 +229,7 @@
 												            <a href="#">修改版本</a>
 												        </li>
 												        <li>
-												            <a href="#">删除</a>
+												            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}">删除</a>
 												        </li>
 												    </ul>
 												</div>
