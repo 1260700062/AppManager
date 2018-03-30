@@ -470,7 +470,7 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
+	
 	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
 		System.out.println("删除AppInfo的id："+id);
 		int result = appInfoService.deleteAppById(id);
@@ -496,6 +496,8 @@ public class DeveloperController {
 		
 		return "developer/appList";
 		
-		
 	}
+	
+	
+	
 }
