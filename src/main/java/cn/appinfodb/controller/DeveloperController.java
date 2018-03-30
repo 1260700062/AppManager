@@ -282,7 +282,7 @@ public class DeveloperController {
 		}else {
 			
 		}
-		System.out.println("+++++-------"+id);
+		
 		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
 		return AppCategorys;
 	}
@@ -315,7 +315,6 @@ public class DeveloperController {
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
 		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
-		System.out.println("=============================="+level3.getCategoryname());
 		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
 		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
 		model.addAttribute("level1",level1);
@@ -363,7 +362,7 @@ public class DeveloperController {
 		}else {
 			String fileName = picture.getOriginalFilename();
 			String suffix = FilenameUtils.getExtension(fileName);
-			if(picture.getSize() >= 500000) {System.out.println("------------");
+			if(picture.getSize() >= 500000) {
 				model.addAttribute("imgError","文件不能超过500k");
 				return "forward:/modifyAppPage?id="+appInfo.getId();
 			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
@@ -425,6 +424,35 @@ public class DeveloperController {
 	public String appPublish() {
 		
 		return "developer/appPublish";
+	}
+	
+	
+	
+	
+	
+	/**
+	 * 需要传进来一个appVersion的id，然后，根据id查出APPversion的所有信息，保存在APPversion实体中
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/modifyAppVersion")
+	public String modifyAppVersionPage(Long id, Long appId, Model model) {
+		AppVersion appVersion = appVersionService.getAppVersionById(id);
+		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
+//		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
+		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());
+		List<DataDictionary> publish = dataDictionaryService.getAllPublishName();
+		AppInfo appInfo = developerService.getAppInfoById(appVersion.getAppid());
+		Map<Long, String> map = new HashMap<Long, String>();
+		for(DataDictionary d : publish) {
+			map.put(d.getValueid(), d.getValuename());
+		}
+		model.addAttribute("modifyAppVersion",appVersion);
+		model.addAttribute("publishStatusName",publishStatusName);
+		model.addAttribute("appVersions",appVersions);
+		model.addAttribute("publishMap",map);
+		model.addAttribute("appInfo",appInfo);
+		return "developer/modifyAppVersion";
 	}
 	
 

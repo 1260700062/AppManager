@@ -35,4 +35,11 @@ public interface DataDictionaryMapper {
     public List<DataDictionary> getFlatformName();
     //根据flatformID获取flatformname
     public String getNameByFlatformid(Long valueId);
+
+	String getPublishStatusNameById(Long publishstatus);
+	/**
+	 * 获取发布状态的所有值，放入到List
+	 * @return
+	 */
+	List<DataDictionary> getAllPublishName();
 }

@@ -12,8 +12,10 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
+import cn.appinfodb.pojo.AppVersion;
 import cn.appinfodb.pojo.DataDictionary;
 import cn.appinfodb.service.AppInfoService;
+import cn.appinfodb.service.AppVersionService;
 import cn.appinfodb.service.DataDictionaryService;
 import cn.appinfodb.service.developer.DeveloperService;
 
@@ -56,6 +58,7 @@ public class DeveloperServiceImplTest {
 	public void testgetAppInfoByAPKName() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		DeveloperService ds = (DeveloperService)ac.getBean("developerService");
+		
 		String apkname = "";
 		 ds.getAppInfoByAPKName(apkname );
 	}
@@ -100,5 +103,33 @@ public class DeveloperServiceImplTest {
 		Long l = new Long(3);
 			String nameByFlatformid = ds.getNameByFlatformid(3L);
 			log.info("valueid:  {}=====valuename",nameByFlatformid);
+	}
+	
+	@Test
+	public void testDataDictionaryFlatform() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DataDictionaryService ds = (DataDictionaryService)ac.getBean("dataDictionaryService");
+			String nameByFlatformid = ds.getNameByFlatformid(3L);
+			log.info("valueid:  {}=====valuename {}===",nameByFlatformid);
+			AppVersionService as = (AppVersionService)ac.getBean("appVersionService");
+			AppVersion app = as.getAppVersionById(33L);
+			log.info("======={}",app.getApkfilename());
+	}
+	
+	@Test
+	public void testappVersionService() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+			AppVersionService as = (AppVersionService)ac.getBean("appVersionService");
+			List<AppVersion> appVersionByAppId = as.getAppVersionByAppId(57L);
+			for(AppVersion a: appVersionByAppId) {
+				
+				log.info("======={}",a.getVersionno());
+			}
+	}
+	
+	@Test
+	public void testPublishStatusform() {
+		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
+		DataDictionaryService ds = (DataDictionaryService)ac.getBean("dataDictionaryService");
 	}
 }
