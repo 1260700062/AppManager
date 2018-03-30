@@ -180,8 +180,8 @@ public class DeveloperController {
 			flag = -1;
 			e.printStackTrace();
 		}
-		System.out.println("=======1========"+flag+"================");
-		
+		Long versionId = appVersionService.getNewVersion(appId).getId();
+		appInfoService.modifyVersionId(versionId, appId);
 		if(flag > 0) {
 			return "redirect:/appList";
 		}else {
@@ -404,8 +404,8 @@ public class DeveloperController {
 		}
 	}
 	
-	@RequestMapping("/showAppInfo")
-	public String showAppInfo(Long id, Model model) {
+	@RequestMapping("/showAppInfo/{id}")
+	public String showAppInfo(@PathVariable Long id, Model model) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
@@ -470,7 +470,7 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	
+	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
 	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
 		System.out.println("删除AppInfo的id："+id);
 		int result = appInfoService.deleteAppById(id);
@@ -496,8 +496,78 @@ public class DeveloperController {
 		
 		return "developer/appList";
 		
+		
 	}
 	
+	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
+	public String showAppPage(@PathVariable Long id,Model model) {
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
+		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
+		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
+		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
+		model.addAttribute("level1",level1);
+		model.addAttribute("level2",level2);
+		model.addAttribute("level3",level3);
+		model.addAttribute("statusName",statusName);
+		model.addAttribute("allFolatform",allFolatform);
+		model.addAttribute("appInfo", appInfo);
+		return "developer/showAPPInfo";
+	}*/
+	@RequestMapping("/downloadApk")
+	@ResponseBody
+	public String downloadApk(Long id) {
+	AppVersion appVersion = appVersionService.getAppVersionById(id);
+	String localPath = appVersion.getApklocpath();
+	String[] p = localPath.split("/");
+	String sPath = "";
+	for(int i=0 ; i< p.length; i++) {
+		sPath += p[i]+"/"; 
+	}
+	BufferedInputStream bis = null;
+	FileOutputStream out = null;
+	File file = new File(sPath);
+	String dPath = "E:\\Resource"+File.separator+appVersion.getApkfilename();
+	File dFile = new File(dPath);
 	
+	try {
+		bis = new BufferedInputStream(new FileInputStream(file));
+	} catch (FileNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		return "-1";
+	}
 	
+	try {
+		out = new FileOutputStream(dFile);
+	} catch (FileNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		return "1";
+	}
+	try {
+		
+		int len = 0;
+		byte[] b = new byte[1024];
+		while((len = bis.read(b)) != -1) {
+			out.write(b, 0, len);
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		
+		e.printStackTrace();
+		return "-2";
+	}finally {
+		try {
+			bis.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "2";
+		}
+	}
+	return "0";
+}
 }

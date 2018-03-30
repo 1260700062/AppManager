@@ -26,22 +26,22 @@
 <body class="nav-md">
     <div class="container body">
       <div class="main_container">
-        <div class="col-md-3 left_col" style="width:200px">
-          <div class="left_col scroll-view"">
+        <div class="col-md-3 left_col">
+          <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentellela Alela!</span></a>
+              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>APP信息管理</span></a>
             </div>
 
             <div class="clearfix"></div>
 
             <!-- menu profile quick info -->
-            <div class="profile" style="position: absolute;top:50px;">
+            <div class="profile">
               <div class="profile_pic">
-                <img src="${pageContext.request.contextPath }/statics/img/img.jpg" alt="..." class="img-circle profile_img">
+                <img src="${pageContext.request.contextPath }/statics/img/img1.jpg" alt="..." class="img-circle profile_img">
               </div>
               <div class="profile_info">
                 <span>Welcome,</span>
-                <h2>John Doe</h2>
+                <h2>${sessionScope.DevUser.devname }</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -49,13 +49,13 @@
             <br />
 
             <!-- sidebar menu -->
-            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu" style="position: absolute;top:180px;width:200px;">
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
-                <h3>General</h3>
+                <h3>开发者</h3>
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-edit"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
+                  <li><a><i class="fa fa-home"></i> App应用管理 <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
-                      <li><a href="form.html">App维护</a></li>
+                      <li><a href="${pageContext.request.contextPath }/appList">App基础信息维护</a></li>
                     </ul>
                   </li>
                 </ul>
@@ -94,7 +94,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="../statics/img/img.jpg" alt="">John Doe
+                    <img src="${pageContext.request.contextPath }/statics/img/img1.jpg" alt="">${sessionScope.DevUser.devname }
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -106,7 +106,7 @@
                       </a>
                     </li>
                     <li><a href="javascript:;">Help</a></li>
-                    <li><a href="login.html"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
+                    <li><a href="${pageContext.request.contextPath }/logOut"><i class="fa fa-sign-out pull-right"></i> Log Out</a></li>
                   </ul>
                 </li>
 
@@ -141,13 +141,12 @@
 						<select id="appLevel3" name="category3">
 							<option selected="selected" value="0">--请选择--</option>
 						</select>
-						<input type="submit" value="查询" />
+						<input class="btn btn-xs" type="submit" value="查询" />
 					</form>
-
 				</div>
-        
         <div class="col-md-12 col-sm-12 col-xs-12"
 				style="width: 1200px;position: absolute;top: 230px;right:400px;">
+					<button class="btn btn-sm btn-success" style="width:100px"><a href="${pageContext.request.contextPath }/addAppPage">添加app</a></button>
 				<div class="x_panel">
 					<div class="x_content">
 
@@ -220,7 +219,7 @@
 												            <a href="${pageContext.request.contextPath }/modifyAppPage/${appinfo.id}">修改信息</a>
 												        </li>
 												        <li>
-												            <a href="">查看</a>
+												            <a href="${pageContext.request.contextPath }/showAppInfo/${appinfo.id}">查看</a>
 												        </li>
 												        <li>
 												            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
@@ -246,6 +245,7 @@
 			</div>
 
      <input type="hidden" id="path" name="path" value="${pageContext.request.contextPath }"/>
+     <input type="hidden" id="appId" name="appId" value="${appinfo.id}"/>
 
         <!-- footer content -->
         <footer>
@@ -321,6 +321,27 @@
      			});	
      		}
      	} 
+    	
+    	/* $(".del").click(function(){
+    		var appId = $("#appId");
+    		var con = confirm("是否确认删除？");
+    		if(con == true){
+    			alert("a");
+    			$.post({
+    				type:"post",
+     				url:path+"/deleteApp",
+     				data:{"appId":appId},
+     				dataType:"text",
+     				success:function(data){
+     					alert("aaa");
+     				},
+     				error:function(data){
+     					alert("bbbbb");
+     				}
+    			})
+    		}
+    	}) */
+    	
     </script>
   </body>
 </html>

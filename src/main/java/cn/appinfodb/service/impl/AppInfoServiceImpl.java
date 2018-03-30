@@ -54,6 +54,12 @@ public class AppInfoServiceImpl implements AppInfoService {
 	public int deleteAppById(Long id) {
 		return appInfoMapper.deleteAppById(id);
 	}
+
+
+	@Override
+	public int modifyVersionId(Long versionId, Long id) {
+		return appInfoMapper.modifyVersionId(versionId, id);
+	}
 	
 
 }
