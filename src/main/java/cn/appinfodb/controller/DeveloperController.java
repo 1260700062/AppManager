@@ -114,7 +114,7 @@ public class DeveloperController {
 			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
 			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
 			if(app.getVersionid() == null) {
-				map.put(null, "暂无版本信息");
+				model.addAttribute("version", "暂无版本信息");
 			} else {
 				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
 				map.put(app.getVersionid(), appVersion);
@@ -403,8 +403,8 @@ public class DeveloperController {
 		}
 	}
 	
-	@RequestMapping("/showAppInfo")
-	public String showAppInfo(Long id, Model model) {
+	@RequestMapping("/showAppInfo/{id}")
+	public String showAppInfo(@PathVariable Long id, Model model) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
@@ -440,9 +440,31 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
-	public String deleteApp(@PathVariable Long id) {
-		appInfoService.deleteAppById(id);
-		return "redirect:/appList";
+	@RequestMapping(value="/deleteApp",method=RequestMethod.GET)
+	public String deleteApp(String appId) {
+		Long id = Long.parseLong(appId);
+		int i = appInfoService.deleteAppById(id);
+		if(i >0) {
+			return "true";
+		}else {
+			return "false";
+		}
 	}
+	
+	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
+	public String showAppPage(@PathVariable Long id,Model model) {
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
+		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
+		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
+		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
+		model.addAttribute("level1",level1);
+		model.addAttribute("level2",level2);
+		model.addAttribute("level3",level3);
+		model.addAttribute("statusName",statusName);
+		model.addAttribute("allFolatform",allFolatform);
+		model.addAttribute("appInfo", appInfo);
+		return "developer/showAPPInfo";
+	}*/
 }
