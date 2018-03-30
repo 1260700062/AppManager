@@ -36,6 +36,9 @@
   <insert id="addApp" parameterType="cn.appinfodb.pojo.AppInfo">
   	INSERT INTO app_info
   	<trim prefix="(" suffix=")" suffixOverrides=",">
+  	<if test="devid != null">
+  	`devId`,
+  	</if>
   	<if test="softwarename != null">
   	`softwareName`,
   	</if>
@@ -87,7 +90,10 @@
   	</trim>
   	VALUES
   	<trim prefix="(" suffix=")" suffixOverrides=",">
-  		<if test="softwarename != null">
+  	<if test="devid != null">
+  	#{devid},
+  	</if>
+  	<if test="softwarename != null">
   	#{softwarename},
   	</if>
   	<if test="apkname != null">

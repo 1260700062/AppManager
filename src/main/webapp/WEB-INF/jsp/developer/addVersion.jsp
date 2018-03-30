@@ -160,7 +160,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="publishstatus">发布状态 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                         <select id="status" style="width: 415px;height: 40px; ">
+                         <select id="status" name="publishstatus" style="width: 415px;height: 40px; ">
                        		<option style="text-align: center;" value="3">预发布</option>
                        	</select>
                         <span class="fontColor"></span>

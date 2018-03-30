@@ -136,7 +136,7 @@ public class DeveloperController {
 	public String addVersion(AppVersion appVersion,HttpSession session,Model model,HttpServletRequest request,
 			@RequestParam(value="apk",required = false) MultipartFile apk,
 			@RequestParam(value="appId",required = false) Long appId) {
-		System.out.println(appVersion.getVersionno());
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		File file = null;
 		int flag = -1;
 		if(apk.isEmpty()) {
@@ -168,7 +168,8 @@ public class DeveloperController {
 		appVersion.setAppid(appId);
 		appVersion.setCreationdate(new Date());
 		appVersion.setApkfilename(fileName);
-		appVersion.setDownloadlink(request.getContextPath());
+		appVersion.setDownloadlink(request.getContextPath()+"/statics/img/"+fileName);
+		appVersion.setCreatedby(devUser.getId());
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
 		
@@ -221,17 +222,16 @@ public class DeveloperController {
 	@RequestMapping(value="/addApp", method=RequestMethod.POST)
 	public String addApp(AppInfo appInfo, HttpSession session, Model model, 
 			@RequestParam(value="picture",required = false) MultipartFile image) {
-		System.out.println("==========addApp ===========");
-		System.out.println("appInfo"+appInfo.getFlatformid());
 		File file = null;
 		int flag = -1;
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		if(image.isEmpty()) {
 			return "developer/addApp";
 		}
 		String fileName = image.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
 		if(image.getSize() >= 500000) {
-			model.addAttribute("imgError","闁哄倸娲ｅ▎銏″緞瑜嶉惃顒佺▔瀹ュ牆鍘撮悺鎺戞嚀缁伙拷500k闁挎冻鎷�");
+			model.addAttribute("imgError","图片不得大于500k");
 			return "developer/addApp";
 		}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
         		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
@@ -246,12 +246,14 @@ public class DeveloperController {
 			
 			
 		}else {
-			model.addAttribute("imgError", "闁哄倸娲ｅ▎銏ゅ冀閻撳海纭�濞戞挸绉甸婊呮兜椤曞棛纾奸柨娑楃哎~");
+			model.addAttribute("imgError", "请上传正确文件");
 			
 			return "developer/addApp";
 		}
 		
 		appInfo.setCreationdate(new Date());
+		appInfo.setDevid(devUser.getId());
+		appInfo.setCreatedby(devUser.getId());
 		flag = developerService.addApp(appInfo);
 		
 		try {
