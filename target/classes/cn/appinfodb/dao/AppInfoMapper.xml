@@ -225,6 +225,10 @@
   <update id="modifyStatus" parameterType="cn.appinfodb.pojo.AppInfo">
   	update app_info set status = #{status} where id = #{id}
   </update>
+
+  <update id="modifyVersionId" parameterType="cn.appinfodb.pojo.AppInfo">
+  	update app_info set versionId = #{versionId} where id = #{id}
+  </update>
     
   <select id="selectAllApp" resultType="cn.appinfodb.pojo.AppInfo">
   	SELECT * FROM `app_info` where devId = #{devId}

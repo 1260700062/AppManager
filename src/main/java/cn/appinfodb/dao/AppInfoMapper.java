@@ -50,6 +50,8 @@ public interface AppInfoMapper {
     public List<AppInfo> selectAllApp(@Param("devId")Long devId);
 
     public int modifyStatus(@Param("status")Long status,@Param("id")Long id);
+
+    public int modifyVersionId(@Param("versionId")Long versionId,@Param("id")Long id);
     
     public int deleteAppById(@Param("id")Long id);
 }
