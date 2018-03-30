@@ -149,10 +149,10 @@
                         </div>
                       </div>
                       <div class="item form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="">版本大小 <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="versionsize">版本大小 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="versionsize" name="versionsize" placeholder="请输入版本大小，单位为Mb" required="required" class="form-control col-md-7 col-xs-12" value="">
+                          <input type="number" id="versionsize" name="versionsize" placeholder="请输入版本大小，单位为Mb" required="required" class="form-control col-md-7 col-xs-12" value="">
                           <span class="fontColor"></span>
                         </div>
                       </div>
