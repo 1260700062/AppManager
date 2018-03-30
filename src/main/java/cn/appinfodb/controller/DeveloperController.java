@@ -114,7 +114,7 @@ public class DeveloperController {
 			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
 			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
 			if(app.getVersionid() == null) {
-				map.put(null, "暂无版本信息");
+				model.addAttribute("version", "暂无版本信息");
 			} else {
 				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
 				map.put(app.getVersionid(), appVersion);
@@ -282,7 +282,7 @@ public class DeveloperController {
 		}else {
 			
 		}
-		System.out.println("+++++-------"+id);
+		
 		List<AppCategory> AppCategorys = developerService.getCategoryByParentId(parentId);
 		return AppCategorys;
 	}
@@ -315,7 +315,6 @@ public class DeveloperController {
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
 		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
-		System.out.println("=============================="+level3.getCategoryname());
 		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
 		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
 		model.addAttribute("level1",level1);
@@ -363,7 +362,7 @@ public class DeveloperController {
 		}else {
 			String fileName = picture.getOriginalFilename();
 			String suffix = FilenameUtils.getExtension(fileName);
-			if(picture.getSize() >= 500000) {System.out.println("------------");
+			if(picture.getSize() >= 500000) {
 				model.addAttribute("imgError","文件不能超过500k");
 				return "forward:/modifyAppPage?id="+appInfo.getId();
 			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
@@ -403,8 +402,8 @@ public class DeveloperController {
 		}
 	}
 	
-	@RequestMapping("/showAppInfo")
-	public String showAppInfo(Long id, Model model) {
+	@RequestMapping("/showAppInfo/{id}")
+	public String showAppInfo(@PathVariable Long id, Model model) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
 		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
 		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
@@ -427,6 +426,35 @@ public class DeveloperController {
 		return "developer/appPublish";
 	}
 	
+	
+	
+	
+	
+	/**
+	 * 需要传进来一个appVersion的id，然后，根据id查出APPversion的所有信息，保存在APPversion实体中
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping("/modifyAppVersion")
+	public String modifyAppVersionPage(Long id, Long appId, Model model) {
+		AppVersion appVersion = appVersionService.getAppVersionById(id);
+		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
+//		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
+		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());
+		List<DataDictionary> publish = dataDictionaryService.getAllPublishName();
+		AppInfo appInfo = developerService.getAppInfoById(appVersion.getAppid());
+		Map<Long, String> map = new HashMap<Long, String>();
+		for(DataDictionary d : publish) {
+			map.put(d.getValueid(), d.getValuename());
+		}
+		model.addAttribute("modifyAppVersion",appVersion);
+		model.addAttribute("publishStatusName",publishStatusName);
+		model.addAttribute("appVersions",appVersions);
+		model.addAttribute("publishMap",map);
+		model.addAttribute("appInfo",appInfo);
+		return "developer/modifyAppVersion";
+	}
+	
 
 	@RequestMapping(value="/changeStatus/{id}",method=RequestMethod.GET)
 	public String changeStatus(@PathVariable Long id) {
@@ -440,9 +468,31 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
-	public String deleteApp(@PathVariable Long id) {
-		appInfoService.deleteAppById(id);
-		return "redirect:/appList";
+	@RequestMapping(value="/deleteApp",method=RequestMethod.GET)
+	public String deleteApp(String appId) {
+		Long id = Long.parseLong(appId);
+		int i = appInfoService.deleteAppById(id);
+		if(i >0) {
+			return "true";
+		}else {
+			return "false";
+		}
 	}
+	
+	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
+	public String showAppPage(@PathVariable Long id,Model model) {
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
+		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
+		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
+		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
+		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
+		model.addAttribute("level1",level1);
+		model.addAttribute("level2",level2);
+		model.addAttribute("level3",level3);
+		model.addAttribute("statusName",statusName);
+		model.addAttribute("allFolatform",allFolatform);
+		model.addAttribute("appInfo", appInfo);
+		return "developer/showAPPInfo";
+	}*/
 }

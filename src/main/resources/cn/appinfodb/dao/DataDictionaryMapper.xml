@@ -12,4 +12,10 @@
   <select id="getNameByFlatformid" resultType="java.lang.String">
   SELECT * FROM `data_dictionary` WHERE `typeCode` = 'APP_FLATFORM' AND valueId= #{valueId}
   </select>
+  <select id="getPublishStatusNameById" resultType="java.lang.String">
+  SELECT valueName FROM `data_dictionary` WHERE `typeCode` = 'PUBLISH_STATUS' AND `valueId` = #{publishstatus}
+  </select>
+  <select id="getAllPublishName" resultType="cn.appinfodb.pojo.DataDictionary">
+  SELECT * FROM `data_dictionary` WHERE `typeCode` = 'PUBLISH_STATUS'
+  </select>
 </mapper>
