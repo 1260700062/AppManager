@@ -135,6 +135,7 @@
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+              <button class="btn btn-sm btn-success" style="width:70px"><a href="${pageContext.request.contextPath }/appList">返回</a></button>
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
@@ -257,7 +258,6 @@
                       <div class="form-group">
                       	<span  class="fontColor"></span>
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">取消</button>
                           <button id="send" type="submit" class="btn btn-success">提交</button>
                         </div>
                       </div>

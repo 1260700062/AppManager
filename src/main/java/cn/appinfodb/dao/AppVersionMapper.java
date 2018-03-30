@@ -38,16 +38,19 @@ public interface AppVersionMapper {
     
     AppVersion selectVersion(@Param("versionNo")String versionno,@Param("appId")Long appid);
     /**
-     * 通过参数数据库唯一id，获取APPversion的一个完整的实体信息
+     * 閫氳繃鍙傛暟鏁版嵁搴撳敮涓�id锛岃幏鍙朅PPversion鐨勪竴涓畬鏁寸殑瀹炰綋淇℃伅
      * @param id
      * @return
      */
 	AppVersion getAppVersionById(Long id);
 
 	/**
-	 * APPversion有多个版本，通过APPId获取该APP的所有历史版本
+	 * APPversion鏈夊涓増鏈紝閫氳繃APPId鑾峰彇璇PP鐨勬墍鏈夊巻鍙茬増鏈�
 	 * @param appId
 	 * @return
 	 */
 	List<AppVersion> getAppVersionByAppId(Long appId);
+	
+	AppVersion getNewVersion(Long appId);
+	
 }

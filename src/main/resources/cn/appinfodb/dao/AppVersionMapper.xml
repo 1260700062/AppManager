@@ -105,4 +105,9 @@
     <select id="getAppVersionByAppId" resultType="cn.appinfodb.pojo.AppVersion">
     	SELECT * FROM `app_version` WHERE `appId` = #{appId} order by id desc 
     </select>
+    
+    <select id="getNewVersion" resultType="cn.appinfodb.pojo.AppVersion">
+    	SELECT * FROM app_version WHERE appId = #{appId} ORDER BY versionNo DESC LIMIT 1
+    </select>
+    
 </mapper>

@@ -46,4 +46,9 @@ public class AppVersionServiceImpl implements AppVersionService {
 		return appVersions;
 	}
 
+	@Override
+	public AppVersion getNewVersion(Long appId) {
+		return appVersionMapper.getNewVersion(appId);
+	}
+
 }

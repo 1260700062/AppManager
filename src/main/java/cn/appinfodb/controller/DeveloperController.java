@@ -178,8 +178,8 @@ public class DeveloperController {
 			flag = -1;
 			e.printStackTrace();
 		}
-		System.out.println("=======1========"+flag+"================");
-		
+		Long versionId = appVersionService.getNewVersion(appId).getId();
+		appInfoService.modifyVersionId(versionId, appId);
 		if(flag > 0) {
 			return "redirect:/appList";
 		}else {

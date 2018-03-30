@@ -128,16 +128,6 @@
           <div class="">
             <div class="page-title">
               <div class="title_left">
-                <h3>历代版本信息</h3>
-              </div>
-            <div class="clearfix"></div>
-            
-            
-            
-          	</div>
-          <div class="">
-            <div class="page-title">
-              <div class="title_left">
                 <h3>添加APP版本信息</h3>
               </div>
             </div>
@@ -145,6 +135,7 @@
 
             <div class="row">
               <div class="col-md-12 col-sm-12 col-xs-12">
+              <button class="btn btn-sm btn-success" style="width:70px"><a href="${pageContext.request.contextPath }/appList">返回</a></button>
                 <div class="x_panel">
                   <div class="x_content">
                     <form class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/addVersion" method="post" enctype="multipart/form-data">
@@ -194,7 +185,6 @@
                       <div class="form-group">
                       	<span  class="fontColor"></span>
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">取消</button>
                           <button id="send" type="submit" class="btn btn-success">提交</button>
                         </div>
                       </div>
@@ -205,7 +195,6 @@
               </div>
             </div>
           </div>
-        </div>
         <!-- /page content -->
 
         <!-- footer content -->

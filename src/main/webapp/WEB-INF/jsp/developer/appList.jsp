@@ -141,13 +141,12 @@
 						<select id="appLevel3" name="category3">
 							<option selected="selected" value="0">--请选择--</option>
 						</select>
-						<input type="submit" value="查询" />
+						<input class="btn btn-xs" type="submit" value="查询" />
 					</form>
-
 				</div>
-        
         <div class="col-md-12 col-sm-12 col-xs-12"
 				style="width: 1200px;position: absolute;top: 230px;right:400px;">
+					<button class="btn btn-sm btn-success" style="width:100px"><a href="${pageContext.request.contextPath }/addAppPage">添加app</a></button>
 				<div class="x_panel">
 					<div class="x_content">
 

@@ -10,4 +10,5 @@ public interface AppVersionService {
 	public AppVersion getAppVersion(String versionNo,Long appId);
 	public AppVersion getAppVersionById(Long id);
 	public List<AppVersion> getAppVersionByAppId(Long appId);
+	public AppVersion getNewVersion(Long appId);
 }
