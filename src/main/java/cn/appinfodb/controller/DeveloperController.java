@@ -1,8 +1,11 @@
 package cn.appinfodb.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 
-import cn.appinfodb.dao.AppInfoMapper;
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppVersion;
@@ -498,8 +500,6 @@ public class DeveloperController {
 		
 		
 	}
-
-	
 	
 	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
 	public String showAppPage(@PathVariable Long id,Model model) {
@@ -517,4 +517,59 @@ public class DeveloperController {
 		model.addAttribute("appInfo", appInfo);
 		return "developer/showAPPInfo";
 	}*/
+	@RequestMapping("/downloadApk")
+	@ResponseBody
+	public String downloadApk(Long id) {
+	AppVersion appVersion = appVersionService.getAppVersionById(id);
+	String localPath = appVersion.getApklocpath();
+	String[] p = localPath.split("/");
+	String sPath = "";
+	for(int i=0 ; i< p.length; i++) {
+		sPath += p[i]+"/"; 
+	}
+	BufferedInputStream bis = null;
+	FileOutputStream out = null;
+	File file = new File(sPath);
+	String dPath = "E:\\Resource"+File.separator+appVersion.getApkfilename();
+	File dFile = new File(dPath);
+	
+	try {
+		bis = new BufferedInputStream(new FileInputStream(file));
+	} catch (FileNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		return "-1";
+	}
+	
+	try {
+		out = new FileOutputStream(dFile);
+	} catch (FileNotFoundException e1) {
+		// TODO Auto-generated catch block
+		e1.printStackTrace();
+		return "1";
+	}
+	try {
+		
+		int len = 0;
+		byte[] b = new byte[1024];
+		while((len = bis.read(b)) != -1) {
+			out.write(b, 0, len);
+		}
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		
+		e.printStackTrace();
+		return "-2";
+	}finally {
+		try {
+			bis.close();
+			out.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return "2";
+		}
+	}
+	return "0";
+}
 }

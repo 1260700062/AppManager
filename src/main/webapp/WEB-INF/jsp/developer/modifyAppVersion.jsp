@@ -181,7 +181,7 @@
 						
 						<div class="clearfix"></div>
 
-<div class="row">
+						<div class="row">
 							<div class="col-md-12 col-sm-12 col-xs-12">
 								<div class="x_panel">
 									<div class="x_content">
@@ -201,7 +201,7 @@
 											<td>${app.versionno }</td>
 											<td>${app.versionsize }</td>
 											<td>${publishMap[key] }</td>
-											<td>${app.apkfilename }</td>
+											<td><a title="点击下载" style="cursor: pointer;" class="download" value="${app.id }">${app.apkfilename }</a></td>
 											<td>${app.modifydate }</td>
 											</tr>
 										</c:forEach>
@@ -259,6 +259,7 @@
 													<!-- <select id="status" class="form-control col-md-7 col-xs-12">
 														<option style="text-align: center;" value="3">预发布</option>
 													</select>  -->
+													<input type="text" hidden value="${modifyAppVersion.publishstatus }" name="publishstatus">
 													<span>${publishStatusName }</span>
 													<span class="fontColor"></span>
 												</div>
@@ -278,15 +279,15 @@
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="apk">apk文件 <span class="required">*</span>
 												</label>
-												<div class="col-md-6 col-sm-6 col-xs-12">
+												<div class="col-md-6 col-sm-6 col-xs-12"  id="apkFileNameDiv">
 												<span id="apkFileName">${modifyAppVersion.apkfilename }</span>
-												<a>下载</a>   <a>删除</a>
+												<a style="cursor: pointer;" value="${modifyAppVersion.id }" class="download">下载</a>&nbsp;&nbsp; &nbsp;&nbsp;<a style="cursor: pointer;" id="del">删除</a>
 												</div >
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<input type="file" id="apk" name="apk" style="display:none"/>
-													<span id="apkName"></span>
+												<div class="col-md-6 col-sm-6 col-xs-12" style="display:none" id="apkNameDiv">
+													<input type="file" id="apk" name="apk" />
 													 <span class="fontColor">${imgError }</span>
 												</div>
+												  
 											</div>
 											<div class="ln_solid"></div>
 											<div class="form-group">
@@ -339,6 +340,8 @@
 		<!--自定义js表单验证-->
 		<script type="text/javascript"
 			src="${pageContext.request.contextPath }/statics/build/js/addVersion.js"></script>
+			<script type="text/javascript"
+			src="${pageContext.request.contextPath }/statics/build/js/modifyAppVersion.js"></script>
 		<!-- Custom Theme Scripts -->
 		<script
 			src="${pageContext.request.contextPath }/statics/build/js/custom.min.js"></script>
