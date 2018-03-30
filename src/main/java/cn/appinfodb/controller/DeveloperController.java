@@ -498,62 +498,6 @@ public class DeveloperController {
 		
 	}
 	
-	@RequestMapping("/downloadApk")
-	@ResponseBody
-	public String downloadApk(Long id) {
-		
-		BufferedInputStream bis = null;
-		FileOutputStream out = null;
-		
-		
-		AppVersion appVersion = appVersionService.getAppVersionById(id);
-		String localPath = appVersion.getApklocpath();
-		String[] p = localPath.split("/");
-		String sPath = "";
-		for(int i=0 ; i< p.length; i++) {
-			sPath += p[i]+"/"; 
-		}
-		File file = new File(sPath);
-		String dPath = "E:\\Resource"+File.separator+appVersion.getApkfilename();
-		File dFile = new File(dPath);
-		
-		try {
-			bis = new BufferedInputStream(new FileInputStream(file));
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return "-1";
-		}
-		
-		try {
-			out = new FileOutputStream(dFile);
-		} catch (FileNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return "1";
-		}
-		try {
-			
-			int len = 0;
-			byte[] b = new byte[1024];
-			while((len = bis.read(b)) != -1) {
-				out.write(b, 0, len);
-			}
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			
-			e.printStackTrace();
-			return "-2";
-		}finally {
-			try {
-				bis.close();
-				out.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return "2";
-			}
-		}
-		return "0";
-	}
+	
+	
 }
