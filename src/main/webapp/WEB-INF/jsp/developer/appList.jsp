@@ -229,7 +229,7 @@
 												            <a href="#">修改版本</a>
 												        </li>
 												        <li>
-												            <a href="" class="del">删除</a>
+												            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}">删除</a>
 												        </li>
 												    </ul>
 												</div>
@@ -323,7 +323,7 @@
      		}
      	} 
     	
-    	$(".del").click(function(){
+    	/* $(".del").click(function(){
     		var appId = $("#appId");
     		var con = confirm("是否确认删除？");
     		if(con == true){
@@ -341,7 +341,7 @@
      				}
     			})
     		}
-    	})
+    	}) */
     	
     </script>
   </body>

@@ -468,16 +468,36 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp",method=RequestMethod.GET)
-	public String deleteApp(String appId) {
-		Long id = Long.parseLong(appId);
-		int i = appInfoService.deleteAppById(id);
-		if(i >0) {
-			return "true";
-		}else {
-			return "false";
+	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
+	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
+		System.out.println("删除AppInfo的id："+id);
+		int result = appInfoService.deleteAppById(id);
+		System.out.println("删除结果："+result);
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
+		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
+		List<AppInfo> appList = appInfoService.getAllApp(devUser.getId());
+		Map<Long,String> map = new HashMap<Long,String>();
+		for(AppInfo app:appList) {
+			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
+			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
+			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
+			if(app.getVersionid() == null) {
+				map.put(null, "暂无版本信息");
+			} else {
+				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
+				map.put(app.getVersionid(), appVersion);
+			}
 		}
+		model.addAttribute("map", map);
+		model.addAttribute("appLevel1", appLevel1);
+		model.addAttribute("appList", appList);
+		
+		return "developer/appList";
+		
+		
 	}
+
+	
 	
 	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
 	public String showAppPage(@PathVariable Long id,Model model) {
