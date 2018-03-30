@@ -1,8 +1,11 @@
 package cn.appinfodb.controller;
 
+import java.io.BufferedInputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.lang.reflect.Method;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +28,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.alibaba.fastjson.JSONArray;
 
-import cn.appinfodb.dao.AppInfoMapper;
 import cn.appinfodb.pojo.AppCategory;
 import cn.appinfodb.pojo.AppInfo;
 import cn.appinfodb.pojo.AppVersion;
@@ -469,8 +471,90 @@ public class DeveloperController {
 	}
 
 	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
-	public String deleteApp(@PathVariable Long id) {
-		appInfoService.deleteAppById(id);
-		return "redirect:/appList";
+	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
+		System.out.println("删除AppInfo的id："+id);
+		int result = appInfoService.deleteAppById(id);
+		System.out.println("删除结果："+result);
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
+		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
+		List<AppInfo> appList = appInfoService.getAllApp(devUser.getId());
+		Map<Long,String> map = new HashMap<Long,String>();
+		for(AppInfo app:appList) {
+			model.addAttribute("level1", appCategoryService.getAppByLevel(app.getCategorylevel1()));
+			model.addAttribute("level2", appCategoryService.getAppByLevel(app.getCategorylevel2()));
+			model.addAttribute("level3", appCategoryService.getAppByLevel(app.getCategorylevel3()));
+			if(app.getVersionid() == null) {
+				map.put(null, "暂无版本信息");
+			} else {
+				String appVersion = appVersionService.getAppVersionByVersionId(app.getVersionid());
+				map.put(app.getVersionid(), appVersion);
+			}
+		}
+		model.addAttribute("map", map);
+		model.addAttribute("appLevel1", appLevel1);
+		model.addAttribute("appList", appList);
+		
+		return "developer/appList";
+		
+		
+	}
+	
+	@RequestMapping("/downloadApk")
+	@ResponseBody
+	public String downloadApk(Long id) {
+		
+		BufferedInputStream bis = null;
+		FileOutputStream out = null;
+		
+		
+		AppVersion appVersion = appVersionService.getAppVersionById(id);
+		String localPath = appVersion.getApklocpath();
+		String[] p = localPath.split("/");
+		String sPath = "";
+		for(int i=0 ; i< p.length; i++) {
+			sPath += p[i]+"/"; 
+		}
+		File file = new File(sPath);
+		String dPath = "E:\\Resource"+File.separator+appVersion.getApkfilename();
+		File dFile = new File(dPath);
+		
+		try {
+			bis = new BufferedInputStream(new FileInputStream(file));
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return "-1";
+		}
+		
+		try {
+			out = new FileOutputStream(dFile);
+		} catch (FileNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+			return "1";
+		}
+		try {
+			
+			int len = 0;
+			byte[] b = new byte[1024];
+			while((len = bis.read(b)) != -1) {
+				out.write(b, 0, len);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			
+			e.printStackTrace();
+			return "-2";
+		}finally {
+			try {
+				bis.close();
+				out.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return "2";
+			}
+		}
+		return "0";
 	}
 }
