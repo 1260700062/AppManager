@@ -122,7 +122,7 @@
         <div class="right_col" role="main" >
 		    <div class="right">
 	          <div class="wFont">
-	          	<h2>APP</h2>
+	          	<h2>欢迎登录,${sessionScope.DevUser.devname }!</h2>
 	          </div>
 		     </div>
 		</div>

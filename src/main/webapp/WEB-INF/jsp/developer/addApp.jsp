@@ -202,7 +202,7 @@
                         <label for="categorylevel1" class="control-label col-md-3 col-sm-3 col-xs-12">一级分类</label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input id="password2" type="password" name="password2" data-validate-linked="password" class="form-control col-md-7 col-xs-12" required="required">-->
-                       	<select id="categorylevel1" class="form-control col-md-7 col-xs-12">
+                       	<select id="categorylevel1" name="categorylevel1" class="form-control col-md-7 col-xs-12">
                        		<option  value="1">--请选择--</option>
                        	</select>
                        <span class="fontColor"></span>
@@ -213,7 +213,7 @@
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
                           <!--<input type="tel" id="telephone" name="phone" required="required" data-validate-length-range="8,20" class="form-control col-md-7 col-xs-12">-->
-                        <select id="categorylevel2" class="form-control col-md-7 col-xs-12">
+                        <select id="categorylevel2" name="categorylevel2" class="form-control col-md-7 col-xs-12">
                        		<!--<option style="text-align: center;" value="">--请选择--</option>-->
                        	</select>
                         <span class="fontColor"></span>
@@ -223,7 +223,7 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="categorylevel3">三级分类 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-						<select id="categorylevel3" class="form-control col-md-7 col-xs-12">
+						<select id="categorylevel3" name="categorylevel3" class="form-control col-md-7 col-xs-12">
                        	</select>
 						<span class="fontColor"></span>                        
                         </div>
@@ -232,8 +232,8 @@
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="status">APP状态 <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                         <select id="status" style="width: 415px;height: 40px; ">
-                       		<option style="text-align: center;" value="">待审核</option>
+                         <select id="status" name="status" style="width: 415px;height: 40px; ">
+                       		<option style="text-align: center;" value="1">待审核</option>
                        	</select>
                         <span class="fontColor"></span>
                         </div>

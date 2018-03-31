@@ -39,6 +39,7 @@ public class DeveloperServiceImplTest {
 		AppInfo appInfo = new AppInfo();
 		appInfo.setSoftwarename("aaaaa");
 		appInfo.setCreationdate(new Date());
+		appInfo.setStatus(3l);
 		int flag = ds.addApp(appInfo);
 		System.out.println(flag);
 	}

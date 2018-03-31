@@ -34,7 +34,7 @@ public class RegisterController {
 	public String register(HttpSession session,Model model) {
 		String identify = (String)session.getAttribute("identify");
 		if(identify.equals("developper")) {
-			identify = "å¼€å‘è€…";
+			identify = "¿ª·¢Õß";
 			model.addAttribute("idtf", identify);
 			return "register";
 		}else {
