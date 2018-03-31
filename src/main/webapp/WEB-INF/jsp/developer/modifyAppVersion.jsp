@@ -227,8 +227,17 @@
 <!--form start  -->
 										<form class="form-horizontal form-label-left" novalidate
 											action="${pageContext.request.contextPath }/modifyAppVersion"
-											method="post" enctype="multipart/form-data">
-
+											method="post" enctype="multipart/form-data" id="myForm">
+											<div class="item form-group" hidden>
+												<label class="control-label col-md-3 col-sm-3 col-xs-12"
+													for="a_id">id<span class="required">*</span>
+												</label>
+												<div class="col-md-6 col-sm-6 col-xs-12">
+													<input id="id"
+														class="form-control col-md-7 col-xs-12" name="id"
+														 required="required" type="text" value="${modifyAppVersion.id }"/> 
+												</div>
+											</div>
 											<div class="item form-group">
 												<label class="control-label col-md-3 col-sm-3 col-xs-12"
 													for="versionno">版本号 <span class="required">*</span>
@@ -282,10 +291,10 @@
 												<div class="col-md-6 col-sm-6 col-xs-12"  id="apkFileNameDiv">
 												<span id="apkFileName">${modifyAppVersion.apkfilename }</span>
 												<a style="cursor: pointer;" value="${modifyAppVersion.id }" class="download">下载</a>&nbsp;&nbsp; &nbsp;&nbsp;<a style="cursor: pointer;" id="del">删除</a>
+												<span class="fontColor">${modifyApkError }</span>
 												</div >
 												<div class="col-md-6 col-sm-6 col-xs-12" style="display:none" id="apkNameDiv">
 													<input type="file" id="apk" name="apk" />
-													 <span class="fontColor">${imgError }</span>
 												</div>
 												  
 											</div>
@@ -293,7 +302,7 @@
 											<div class="form-group">
 												<span class="fontColor"></span>
 												<div class="col-md-6 col-md-offset-3">
-													<button type="submit" class="btn btn-primary">取消</button>
+													<button onclick="window.history.back(-1)" class="btn btn-primary">取消</button>
 													<button id="send" type="submit" class="btn btn-success">提交</button>
 												</div>
 											</div>
@@ -338,8 +347,8 @@
 		<!-- validator -->
 		<!--<script src="../vendors/validator/validator.js"></script>-->
 		<!--自定义js表单验证-->
-		<script type="text/javascript"
-			src="${pageContext.request.contextPath }/statics/build/js/addVersion.js"></script>
+		<%-- <script type="text/javascript"
+			src="${pageContext.request.contextPath }/statics/build/js/addVersion.js"></script> --%>
 			<script type="text/javascript"
 			src="${pageContext.request.contextPath }/statics/build/js/modifyAppVersion.js"></script>
 		<!-- Custom Theme Scripts -->

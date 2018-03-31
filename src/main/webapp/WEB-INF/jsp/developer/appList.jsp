@@ -175,7 +175,6 @@
 													<td class=" ">${appinfo.apkname }</td>
 													<td class=" ">${appinfo.softwaresize }</td>
 													<td class=" ">${level1 }-${level2 }-${level3 }</td>
-													
 													<c:if test="${appinfo.status==1 }">
 														<td class=" ">待审核</td>
 													</c:if>
@@ -223,7 +222,8 @@
 														            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
 														        </li>
 														        <li>
-														            <a href="#">修改版本</a>
+														            <a id="goToModifyVersion" onclick="canModifyVersion(${appinfo.id}, ${appinfo.status }, ${appinfo.versionid })">修改版本</a>
+														           <%--  ${pageContext.request.contextPath }/canGoToModifyAppVersionPage?id=${appinfo.id} --%>
 														        </li>
 														        <li>
 														            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" id="">删除</a>
@@ -231,8 +231,8 @@
 														    </ul>
 														</div>
 													</td>
-													<div class="btn-group">
-													</div>
+													<!-- <div class="btn-group">
+													</div> -->
 												</tr>
 											</tbody>
 										</c:forEach>
@@ -341,6 +341,19 @@
     			})
     		}
     	}) */
+    	
+    	function canModifyVersion(appId, status, versionId){
+    		var flag = -1;
+    		if(status == 1 || status == 3) {
+    			if(versionId != null || versionId != undefined) {
+    				window.location.href="canGoToModifyAppVersionPage?id="+appId;
+    			}else {
+    				alert("暂无版本");
+    			}
+    		}else {
+    			alert("APP已通过审核");
+    		}
+    	}
     	
     </script>
   </body>

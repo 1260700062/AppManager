@@ -430,7 +430,20 @@ public class DeveloperController {
 		return "developer/appPublish";
 	}
 	
-	
+	@RequestMapping("/canGoToModifyAppVersionPage")
+	public String CanGoToModifyAppVersionPage(Long id) {
+		
+		System.out.println("==================canGoToModifyAppVersionPage=============="+id);
+		AppInfo appInfo = developerService.getAppInfoById(id);
+		Long status = appInfo.getStatus();
+		Long versionid = appInfo.getVersionid();
+		if(status == 1 || status == 3) {
+			if(versionid != null) {
+				return "redirect:/modifyAppVersionPage?id="+versionid;
+			}
+		};
+		return "forward:/appList";
+	}
 	
 	
 	
@@ -440,8 +453,12 @@ public class DeveloperController {
 	 * @return
 	 */
 	@RequestMapping("/modifyAppVersionPage")
-	public String modifyAppVersionPage(Long id, Long appId, Model model) {
-		AppVersion appVersion = appVersionService.getAppVersionById(id);
+	public String modifyAppVersionPage(String id, Model model) {
+		Long sid = null;
+		if(id != null) {
+			sid = Long.parseLong(id);
+		}
+		AppVersion appVersion = appVersionService.getAppVersionById(sid);
 		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
 //		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
 		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());
@@ -573,18 +590,51 @@ public class DeveloperController {
 		return "0";
 	}
 	
+	/**
+	 * 修改APPversion信息，保存，更新数据库
+	 * @param appVersion
+	 * @param model
+	 * @param session
+	 * @param apk
+	 * @return
+	 */
+	
 	@RequestMapping("/modifyAppVersion")
-	public String modifyAppVersion(AppVersion appVersion, @RequestParam(value="apk", required=false)MultipartFile apk) {
-		
+	public String modifyAppVersion(AppVersion appVersion, Model model,HttpSession session,
+			@RequestParam(value="apk", required=false)MultipartFile apk) {
+		System.out.println("==================modifyAppVersion=============="+appVersion.getId());
 		if(apk == null || apk.isEmpty()) {
 			appVersion.setApklocpath(null);
 			appVersion.setDownloadlink(null);
 			appVersion.setApkfilename(null);
 		}else {
-			
+			File file = null;
+			String fileName = apk.getOriginalFilename();
+			String suffix = FilenameUtils.getExtension(fileName);
+			if(apk.getSize() >= 500000000) {
+				model.addAttribute("modifyApkError","apk文件不得大于500Mb");
+				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+			}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
+				String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
+				file=new File(path);
+				if(!file.exists()){//如果不存在该文件夹
+				file.mkdir();//新建
+				}
+				System.out.println("====path==========: "+path);
+				
+				file = new File(path,fileName);
+				System.out.println(file.getPath());
+				String apklocpath = path + File.separator+fileName;
+				appVersion.setApklocpath(apklocpath);
+			}else {
+				model.addAttribute("modifyApkError", "请上传正确文件");
+				System.out.println("请上传正确文件");
+				System.out.println(appVersion.getId());
+				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+			}
 		}
 		
 		
-		return "";
+		return "redirect:/appList";
 	}
 }
