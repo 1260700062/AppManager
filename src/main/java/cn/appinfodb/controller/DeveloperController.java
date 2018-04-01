@@ -431,10 +431,11 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping("/canGoToModifyAppVersionPage")
-	public String CanGoToModifyAppVersionPage(Long id) {
+	public String CanGoToModifyAppVersionPage(String id) {
 		
 		System.out.println("==================canGoToModifyAppVersionPage=============="+id);
-		AppInfo appInfo = developerService.getAppInfoById(id);
+		Long sid = Long.parseLong(id);
+		AppInfo appInfo = developerService.getAppInfoById(sid);
 		Long status = appInfo.getStatus();
 		Long versionid = appInfo.getVersionid();
 		if(status == 1 || status == 3) {
@@ -489,8 +490,8 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp",method=RequestMethod.GET)
-	public String deleteApp(long id,HttpSession session,Model model ) {
+	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
+	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
 		System.out.println("删除AppInfo的id："+id);
 		int result = appInfoService.deleteAppById(id);
 		System.out.println("删除结果："+result);
