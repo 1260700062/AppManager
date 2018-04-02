@@ -536,7 +536,6 @@ public class DeveloperController {
 	try {
 		bis = new BufferedInputStream(new FileInputStream(file));
 	} catch (FileNotFoundException e1) {
-		// TODO Auto-generated catch block
 		e1.printStackTrace();
 		return "-1";
 	}
