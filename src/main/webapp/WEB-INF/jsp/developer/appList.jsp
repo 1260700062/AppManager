@@ -226,7 +226,8 @@
 														           <%--  ${pageContext.request.contextPath }/canGoToModifyAppVersionPage?id=${appinfo.id} --%>
 														        </li>
 														        <li>
-														            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" id="">删除</a>
+														        	<a id="deleteApp" onclick="deleteApp(${appinfo.id})">删除</a>
+														            <%-- <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" id="">删除</a> --%>
 														        </li>
 														    </ul>
 														</div>
@@ -347,11 +348,22 @@
     		if(status == 1 || status == 3) {
     			if(versionId != null || versionId != undefined) {
     				window.location.href="canGoToModifyAppVersionPage?id="+appId;
-    			}else {
+    			}else{
     				alert("暂无版本");
     			}
     		}else {
     			alert("APP已通过审核");
+    		}
+    	}
+    	
+    	function deleteApp(id){
+    		var flag = confirm("确认删除？");
+    		if(flag==true){
+    			alert("开始删除");
+    			window.location.href="deleteApp?id="+id;
+    			alert("删除成功");
+    		}else{
+    			alert("取消删除！")
     		}
     	}
     	
