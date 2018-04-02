@@ -359,6 +359,7 @@
     	function deleteApp(id){
     		var flag = confirm("确认删除？");
     		if(flag==true){
+    			alert("开始删除");
     			window.location.href="deleteApp?id="+id;
     			alert("删除成功");
     		}else{
