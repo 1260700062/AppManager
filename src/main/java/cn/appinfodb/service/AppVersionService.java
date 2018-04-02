@@ -11,4 +11,7 @@ public interface AppVersionService {
 	public AppVersion getAppVersionById(Long id);
 	public List<AppVersion> getAppVersionByAppId(Long appId);
 	public AppVersion getNewVersion(Long appId);
+	
+	
+	public int modifyAppVersion(AppVersion appVersion);
 }

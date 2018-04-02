@@ -571,4 +571,57 @@ public class DeveloperController {
 	}
 	return "0";
 }
+	
+	/**
+	 * 修改APPversion信息，保存，更新数据库
+	 * @param appVersion
+	 * @param model
+	 * @param session
+	 * @param apk
+	 * @return
+	 */
+	
+	@RequestMapping("/modifyAppVersion")
+	public String modifyAppVersion(AppVersion appVersion, Model model,HttpSession session,
+			@RequestParam(value="apk", required=false)MultipartFile apk) {
+		System.out.println("==================modifyAppVersion=============="+appVersion.getId());
+		if(apk == null || apk.isEmpty()) {
+			appVersion.setApklocpath(null);
+			appVersion.setDownloadlink(null);
+			appVersion.setApkfilename(null);
+		}else {
+			File file = null;
+			String fileName = apk.getOriginalFilename();
+			String suffix = FilenameUtils.getExtension(fileName);
+			if(apk.getSize() >= 500000000) {
+				model.addAttribute("modifyApkError","apk文件不得大于500Mb");
+				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+			}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
+				String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
+				file=new File(path);
+				if(!file.exists()){//如果不存在该文件夹
+				file.mkdir();//新建
+				}
+				System.out.println("====path==========: "+path);
+				
+				file = new File(path,fileName);
+				System.out.println(file.getPath());
+				String apklocpath = path + File.separator+fileName;
+				appVersion.setApklocpath(apklocpath);
+				appVersion.setApkfilename(fileName);
+				String contextPath = session.getServletContext().getContextPath();
+				String downloadlink = contextPath+"/statics/apk/" + fileName;
+				appVersion.setDownloadlink(downloadlink);
+			}else {
+				model.addAttribute("modifyApkError", "请上传正确文件");
+				System.out.println("请上传正确文件");
+				System.out.println(appVersion.getId());
+				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+			}
+		}
+		
+		int flag = appVersionService.modifyAppVersion(appVersion);
+		
+		return "redirect:/appList";
+	}
 }
