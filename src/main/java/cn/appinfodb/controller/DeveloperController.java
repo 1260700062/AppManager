@@ -368,7 +368,7 @@ public class DeveloperController {
 			String suffix = FilenameUtils.getExtension(fileName);
 			if(picture.getSize() >= 500000) {
 				model.addAttribute("imgError","文件不能超过500k");
-				return "forward:/modifyAppPage?id="+appInfo.getId();
+				return "forward:/modifyAppPage/"+appInfo.getId();
 			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
 	        		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
 				String path = session.getServletContext().getRealPath("statics"+File.separator+"img");
@@ -394,15 +394,12 @@ public class DeveloperController {
 				return "forward:/modifyAppPage?id="+appInfo.getId();
 			}
 		}
-		
-		appInfo.setUpdatedate(new Date());
-		flag = appInfoService.modifyAppById(appInfo);
-		
+
 		if(flag > 0) {
 			return "redirect:/appList";
 		}else {
 			System.out.println("error=================查询出错");
-			return "forward:/modifyAppPageid="+appInfo.getId();
+			return "forward:/modifyAppPage/"+appInfo.getId();
 		}
 	}
 	
@@ -463,9 +460,13 @@ public class DeveloperController {
 	@RequestMapping(value="/changeStatus/{id}",method=RequestMethod.GET)
 	public String changeStatus(@PathVariable Long id) {
 		AppInfo appInfo = developerService.getAppInfoById(id);
+		AppVersion appVersion = appVersionService.getNewVersion(id);
 		
 		if(appInfo.getStatus() == 2) {
 			int i = appInfoService.modifyStatus(4l,appInfo.getId());
+			appVersion.setPublishstatus(2l);
+			int a = appVersionService.modifyAppVersion(appVersion);
+			System.out.println(a+"======================");
 		}else {
 			int i = appInfoService.modifyStatus(5l,appInfo.getId());
 		}
@@ -623,5 +624,21 @@ public class DeveloperController {
 		int flag = appVersionService.modifyAppVersion(appVersion);
 		
 		return "redirect:/appList";
+	}
+	
+	@RequestMapping("/canGoToModifyAppVersionPage")
+	public String CanGoToModifyAppVersionPage(String id) {
+		
+		System.out.println("==================canGoToModifyAppVersionPage=============="+id);
+		Long sid = Long.parseLong(id);
+		AppInfo appInfo = developerService.getAppInfoById(sid);
+		Long status = appInfo.getStatus();
+		Long versionid = appInfo.getVersionid();
+		if(status == 1 || status == 3) {
+			if(versionid != null) {
+				return "redirect:/modifyAppVersionPage?id="+versionid;
+			}
+		};
+		return "forward:/appList";
 	}
 }

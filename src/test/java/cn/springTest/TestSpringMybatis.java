@@ -15,6 +15,7 @@ import cn.appinfodb.pojo.AppVersion;
 import cn.appinfodb.service.AppCategoryService;
 import cn.appinfodb.service.AppInfoService;
 import cn.appinfodb.service.AppVersionService;
+import cn.appinfodb.service.developer.DeveloperService;
 
 
 public class TestSpringMybatis {
@@ -50,11 +51,12 @@ public class TestSpringMybatis {
 		}
 	}*/
 
-	/*@Test
+	@Test
 	public void test4() {
 		ApplicationContext ac = new ClassPathXmlApplicationContext("applicationContext-mybatis.xml");
 		AppVersionService acs = ac.getBean(AppVersionService.class);
-		AppVersion appVersion = acs.getAppVersionByVersionNo("v1.1.1",55l);
+		AppVersion appVersion = acs.getNewVersion(49l);
+		System.out.println(appVersion.getAppid()+appVersion.getVersionno());
 		System.out.println(appVersion.getApkfilename());
-	}*/
+	}
 }

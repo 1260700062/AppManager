@@ -174,10 +174,13 @@
     		`apkLocPath` = #{apklocpath},
     		</if>
     		<if test="apkfilename != null">
-    			`apkFileName` = #{apkfilename}
+    			`apkFileName` = #{apkfilename},
     		</if>
     		<if test="modifyby != null">
     		`modifyBy` = #{modifyby},
+    		</if>
+    		<if test="publishstatus != null">
+    			`publishStatus` = #{publishstatus},
     		</if>
     	</set> 
     	WHERE id = #{id}
