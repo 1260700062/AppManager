@@ -48,7 +48,7 @@
 <!--登录用户显示-->
               <div class="profile_info">
                 <span>欢迎,</span>
-                <h2>John Doe</h2>
+                <h2>${sessionScope.DevUser.devname }</h2>
               </div>
             </div>
             <!-- /menu profile quick info -->
@@ -102,7 +102,7 @@
               <ul class="nav navbar-nav navbar-right">
                 <li class="">
                   <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                    <img src="images/img.jpg" alt="">John Doe
+                    <img src="images/img.jpg" alt="">${sessionScope.DevUser.devname }
                     <span class=" fa fa-angle-down"></span>
                   </a>
                   <ul class="dropdown-menu dropdown-usermenu pull-right">

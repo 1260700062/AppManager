@@ -442,13 +442,6 @@ public class DeveloperController {
 	@RequestMapping("/modifyAppVersionPage/{id}")
 	public String modifyAppVersionPage(@PathVariable Long id,Model model) {
 		AppVersion appVersion = appVersionService.getAppVersionById(id);
-	@RequestMapping("/modifyAppVersionPage")
-	public String modifyAppVersionPage(String id, Model model) {
-		Long sid = null;
-		if(id != null) {
-			sid = Long.parseLong(id);
-		}
-		AppVersion appVersion = appVersionService.getAppVersionById(sid);
 		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
 //		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
 		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());
@@ -479,8 +472,8 @@ public class DeveloperController {
 		return "redirect:/appList";
 	}
 
-	@RequestMapping(value="/deleteApp/{id}",method=RequestMethod.GET)
-	public String deleteApp(@PathVariable("id") long id,HttpSession session,Model model ) {
+	@RequestMapping(value="/deleteApp",method=RequestMethod.GET)
+	public String deleteApp(long id,HttpSession session,Model model ) {
 		System.out.println("删除AppInfo的id："+id);
 		int result = appInfoService.deleteAppById(id);
 		System.out.println("删除结果："+result);

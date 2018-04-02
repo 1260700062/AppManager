@@ -175,7 +175,6 @@
 													<td class=" ">${appinfo.apkname }</td>
 													<td class=" ">${appinfo.softwaresize }</td>
 													<td class=" ">${level1 }-${level2 }-${level3 }</td>
-													
 													<c:if test="${appinfo.status==1 }">
 														<td class=" ">待审核</td>
 													</c:if>
@@ -223,16 +222,16 @@
 														            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
 														        </li>
 														        <li>
-														            <a href="${pageContext.request.contextPath }/modifyAppVersionPage/${appinfo.versionid}">修改版本</a>
+														            <a id="goToModifyVersion" onclick="canModifyVersion(${appinfo.id}, ${appinfo.status }, ${appinfo.versionid })">修改版本</a>
 														        </li>
 														        <li>
-														            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" class="del">删除</a>
+														        	<a id="deleteApp" onclick="deleteApp(${appinfo.id})">删除</a>
 														        </li>
 														    </ul>
 														</div>
 													</td>
-													<div class="btn-group">
-													</div>
+													<!-- <div class="btn-group">
+													</div> -->
 												</tr>
 											</tbody>
 										</c:forEach>
@@ -322,25 +321,28 @@
      		}
      	} 
     	
-    	/* $(".del").click(function(){
-    		var appId = $("#appId");
-    		var con = confirm("是否确认删除？");
-    		if(con == true){
-    			alert("a");
-    			$.post({
-    				type:"post",
-     				url:path+"/deleteApp",
-     				data:{"appId":appId},
-     				dataType:"text",
-     				success:function(data){
-     					alert("aaa");
-     				},
-     				error:function(data){
-     					alert("bbbbb");
-     				}
-    			})
+    	function canModifyVersion(appId, status, versionId){
+    		var flag = -1;
+    		if(status == 1 || status == 3) {
+    			if(versionId != null || versionId != undefined) {
+    				window.location.href="canGoToModifyAppVersionPage?id="+appId;
+    			}else{
+    				alert("暂无版本");
+    			}
+    		}else {
+    			alert("APP已通过审核");
     		}
-    	}) */
+    	}
+    	
+    	function deleteApp(id){
+    		var flag = confirm("确认删除？");
+    		if(flag==true){
+    			window.location.href="deleteApp?id="+id;
+    			alert("删除成功");
+    		}else{
+    			alert("取消删除！")
+    		}
+    	}
     	
     </script>
   </body>
