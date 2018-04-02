@@ -24,9 +24,9 @@ $(function(){
 				datatype:"json",
 				success:function(data){
 					if(data.length == 0){
-						vno = true;alert(vno);
+						vno = true;
 					}else {
-						vno = false;alert(vno);alert(data.length);
+						vno = false;
 						$span.html("版本号已存在！");
 					}
 				},

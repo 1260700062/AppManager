@@ -10,7 +10,7 @@ $(document).ready(function(){
 		var id = $(this).attr("value");
 		
 		$.ajax({
-			url:"downloadApk",
+			url:"../downloadApk",
 			type:"get",
 			data:{id:id},
 			datatype:"json",

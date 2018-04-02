@@ -3,6 +3,8 @@ package cn.appinfodb.pojo;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 public class AppVersion {
     private Long id;
 
@@ -23,7 +25,8 @@ public class AppVersion {
     private Date creationdate;
 
     private Long modifyby;
-
+    
+    @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date modifydate;
 
     private String apklocpath;

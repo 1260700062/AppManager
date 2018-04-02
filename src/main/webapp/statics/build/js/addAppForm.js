@@ -34,7 +34,6 @@ $(function(){
 			//ajax 验证唯一性
 			var name = $(this).val();
 			var $span = $(this).next();
-			alert(name.trim());
 			$.ajax({
 				url:"virafyApkName",
 				type:"get",

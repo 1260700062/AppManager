@@ -255,6 +255,7 @@ public class DeveloperController {
 		
 		appInfo.setCreationdate(new Date());
 		appInfo.setDevid(devUser.getId());
+		System.out.println(appInfo.getDevid()+"===========");
 		appInfo.setCreatedby(devUser.getId());
 		flag = developerService.addApp(appInfo);
 		
@@ -452,6 +453,9 @@ public class DeveloperController {
 		model.addAttribute("appVersions",appVersions);
 		model.addAttribute("publishMap",map);
 		model.addAttribute("appInfo",appInfo);
+		
+		System.out.println(appVersion.getModifydate()+"---------------------");
+		
 		return "developer/modifyAppVersion";
 	}
 	
@@ -530,8 +534,12 @@ public class DeveloperController {
 	BufferedInputStream bis = null;
 	FileOutputStream out = null;
 	File file = new File(sPath);
-	String dPath = "E:\\Resource"+File.separator+appVersion.getApkfilename();
+	String dPath = "E:\\apk"+File.separator+appVersion.getApkfilename();
 	File dFile = new File(dPath);
+	File dir = new File("E:\\apk");
+	if(!dir.exists()) {
+		dir.mkdir();
+	}
 	
 	try {
 		bis = new BufferedInputStream(new FileInputStream(file));
@@ -584,6 +592,7 @@ public class DeveloperController {
 	@RequestMapping("/modifyAppVersion")
 	public String modifyAppVersion(AppVersion appVersion, Model model,HttpSession session,
 			@RequestParam(value="apk", required=false)MultipartFile apk) {
+		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		System.out.println("==================modifyAppVersion=============="+appVersion.getId());
 		if(apk == null || apk.isEmpty()) {
 			appVersion.setApklocpath(null);
@@ -595,7 +604,7 @@ public class DeveloperController {
 			String suffix = FilenameUtils.getExtension(fileName);
 			if(apk.getSize() >= 500000000) {
 				model.addAttribute("modifyApkError","apk文件不得大于500Mb");
-				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+				return "forward:/modifyAppVersionPage/"+appVersion.getId();
 			}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
 				String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
 				file=new File(path);
@@ -616,11 +625,13 @@ public class DeveloperController {
 				model.addAttribute("modifyApkError", "请上传正确文件");
 				System.out.println("请上传正确文件");
 				System.out.println(appVersion.getId());
-				return "forward:/modifyAppVersionPage?id="+appVersion.getId();
+				return "forward:/modifyAppVersionPage/"+appVersion.getId();
 			}
 		}
-		
+		appVersion.setModifydate(new Date());
+		appVersion.setModifyby(devUser.getId());
 		int flag = appVersionService.modifyAppVersion(appVersion);
+		System.out.println(appVersion.getModifydate()+"---------------------");
 		
 		return "redirect:/appList";
 	}
@@ -635,7 +646,7 @@ public class DeveloperController {
 		Long versionid = appInfo.getVersionid();
 		if(status == 1 || status == 3) {
 			if(versionid != null) {
-				return "redirect:/modifyAppVersionPage?id="+versionid;
+				return "redirect:/modifyAppVersionPage/"+versionid;
 			}
 		};
 		return "forward:/appList";

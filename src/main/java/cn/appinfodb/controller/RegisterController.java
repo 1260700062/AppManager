@@ -59,8 +59,7 @@ public class RegisterController {
 		du.setDevinfo(info);
 		int result = dus.addDevUser(du);
 		log.info("result==="+result);
-		session.setAttribute("DevUser", du);
-		return "developer/dUserLoginIn";
+		return "redirect:/login";
 	}
 	@ResponseBody
 	@RequestMapping(value="/registeryz",method=RequestMethod.GET)

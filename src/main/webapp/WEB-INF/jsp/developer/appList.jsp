@@ -29,7 +29,7 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>APP信息管理</span></a>
+              <a href="${pageContext.request.contextPath }/appList" class="site_title"><i class="fa fa-paw"></i> <span>APP信息管理</span></a>
             </div>
 
             <div class="clearfix"></div>
@@ -122,29 +122,29 @@
         	<div class="col-md-12 col-xs-12">
 		    	<div class="col-md-12 col-xs-12" >
 					<form id="select_app" method="post" action="${pageContext.request.contextPath }/appSearch" >
-						软件名称:<input type="text" name="appName" /> 
+						软件名称:<input type="text" name="appName" /> &nbsp;&nbsp;&nbsp;
 						所属平台:
 						<select id="flatform" name="flatform">
 							<option selected value="0">--请选择--</option>
 						   	<option value="1">手机</option>
 						   	<option value="2">平板</option>
 						   	<option value="3">通用</option>
-						</select>
+						</select>&nbsp;&nbsp;&nbsp;
 						一级分类: 
 						<select id="appLevel1" name="category1" onchange="getListLevel2()">
 							<option selected>--请选择--</option>
 							<c:forEach var="appLevel1" items="${appLevel1}">
 						   		<option value="${appLevel1.id}">${appLevel1.categoryname}</option>
 						   </c:forEach>
-						</select>
+						</select>&nbsp;&nbsp;&nbsp;
 						二级分类: 
 						<select id="appLevel2" name="category2" onchange="getListLevel3()">
 							<option selected="selected">--请选择--</option>
-						</select> 
+						</select> &nbsp;&nbsp;&nbsp;
 						三级分类: 
 						<select id="appLevel3" name="category3">
 							<option selected="selected" value="0">--请选择--</option>
-						</select>
+						</select>&nbsp;&nbsp;&nbsp;
 						<input class="btn btn-xs" type="submit" value="查询" />
 					</form>
 				</div>
