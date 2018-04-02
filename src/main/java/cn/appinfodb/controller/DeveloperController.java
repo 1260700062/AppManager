@@ -368,7 +368,7 @@ public class DeveloperController {
 			String suffix = FilenameUtils.getExtension(fileName);
 			if(picture.getSize() >= 500000) {
 				model.addAttribute("imgError","文件不能超过500k");
-				return "forward:/modifyAppPage?id="+appInfo.getId();
+				return "forward:/modifyAppPage/"+appInfo.getId();
 			}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
 	        		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
 				String path = session.getServletContext().getRealPath("statics"+File.separator+"img");
@@ -395,14 +395,11 @@ public class DeveloperController {
 			}
 		}
 		
-		appInfo.setUpdatedate(new Date());
-		flag = appInfoService.modifyAppById(appInfo);
-		
 		if(flag > 0) {
 			return "redirect:/appList";
 		}else {
 			System.out.println("error=================查询出错");
-			return "forward:/modifyAppPageid="+appInfo.getId();
+			return "forward:/modifyAppPage/"+appInfo.getId();
 		}
 	}
 	
