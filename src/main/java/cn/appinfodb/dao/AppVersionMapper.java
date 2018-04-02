@@ -52,5 +52,7 @@ public interface AppVersionMapper {
 	List<AppVersion> getAppVersionByAppId(Long appId);
 	
 	AppVersion getNewVersion(Long appId);
+
+	int modifyAppVersion(AppVersion appVersion);
 	
 }

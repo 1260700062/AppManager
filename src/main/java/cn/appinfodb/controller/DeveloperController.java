@@ -627,6 +627,10 @@ public class DeveloperController {
 				System.out.println(file.getPath());
 				String apklocpath = path + File.separator+fileName;
 				appVersion.setApklocpath(apklocpath);
+				appVersion.setApkfilename(fileName);
+				String contextPath = session.getServletContext().getContextPath();
+				String downloadlink = contextPath+"/statics/apk/" + fileName;
+				appVersion.setDownloadlink(downloadlink);
 			}else {
 				model.addAttribute("modifyApkError", "请上传正确文件");
 				System.out.println("请上传正确文件");
@@ -635,6 +639,7 @@ public class DeveloperController {
 			}
 		}
 		
+		int flag = appVersionService.modifyAppVersion(appVersion);
 		
 		return "redirect:/appList";
 	}
