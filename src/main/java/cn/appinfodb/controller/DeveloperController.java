@@ -439,9 +439,16 @@ public class DeveloperController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping("/modifyAppVersion")
-	public String modifyAppVersionPage(Long id, Long appId, Model model) {
+	@RequestMapping("/modifyAppVersionPage/{id}")
+	public String modifyAppVersionPage(@PathVariable Long id,Model model) {
 		AppVersion appVersion = appVersionService.getAppVersionById(id);
+	@RequestMapping("/modifyAppVersionPage")
+	public String modifyAppVersionPage(String id, Model model) {
+		Long sid = null;
+		if(id != null) {
+			sid = Long.parseLong(id);
+		}
+		AppVersion appVersion = appVersionService.getAppVersionById(sid);
 		List<AppVersion> appVersions = appVersionService.getAppVersionByAppId(appVersion.getAppid());
 //		AppVersion appVersion = appVersionService.getAppVersion(versionNo, appId);
 		String publishStatusName = dataDictionaryService.getPublishStatusNameById(appVersion.getPublishstatus());

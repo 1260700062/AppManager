@@ -110,4 +110,49 @@
     	SELECT * FROM app_version WHERE appId = #{appId} ORDER BY versionNo DESC LIMIT 1
     </select>
     
+    <update id="modifyApp" parameterType="cn.appinfodb.pojo.AppInfo">
+  	UPDATE `app_info` 
+  	<trim prefix="set" suffix="where id = #{id}" suffixOverrides=",">
+  	<if test="softwarename != null">
+  	`softwareName` = #{softwarename},
+  	</if>
+  	<if test="supportrom != null">
+  	`supportROM` = #{supportrom},
+  	</if>
+  	<if test="interfacelanguage != null">
+  	`interfaceLanguage` = #{interfacelanguage},
+  	</if>
+  	<if test="softwaresize != null">
+  	`softwareSize` = #{softwaresize},
+  	</if>
+  	<if test="updatedate != null">
+  	`updateDate` = #{updatedate},
+  	</if>
+  	<if test="appinfo != null">
+  	`appInfo` = #{appinfo},
+  	</if>
+  	<if test="flatformid != null">
+  	`flatformId` = #{flatformid},
+  	</if>
+  	<if test="downloads != null">
+  	`downloads` = #{downloads},
+  	</if>
+  	<if test="categorylevel3 != null">
+  	`categoryLevel3` = #{categorylevel3},
+  	</if>
+  	<if test="categoryLevel1 != null">
+  	`categoryLevel1` = #{categorylevel1},
+  	</if>
+  	<if test="categorylevel2 != null">
+  	`categoryLevel2` = #{categorylevel2},
+  	</if>
+  	<if test="logopicpath != null">
+  	`logoPicPath` = #{logopicpath},
+  	</if>
+  	<if test="logolocpath != null">
+  	`logoLocPath` = #{logolocpath},
+  	</if>
+  	</trim>
+  </update>
+    
 </mapper>

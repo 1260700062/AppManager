@@ -223,10 +223,10 @@
 														            <a href="${pageContext.request.contextPath }/addVersionPage/${appinfo.id}">增加版本</a>
 														        </li>
 														        <li>
-														            <a href="#">修改版本</a>
+														            <a href="${pageContext.request.contextPath }/modifyAppVersionPage/${appinfo.versionid}">修改版本</a>
 														        </li>
 														        <li>
-														            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" id="">删除</a>
+														            <a href="${pageContext.request.contextPath }/deleteApp/${appinfo.id}" class="del">删除</a>
 														        </li>
 														    </ul>
 														</div>
