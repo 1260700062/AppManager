@@ -186,6 +186,13 @@
   	`categoryLevel3`= #{categorylevel3},
   	`categoryLevel1`= #{categorylevel1},
   	`categoryLevel2`= #{categorylevel2},
+  	
+  	<if test="logopicpath != null">
+  	`logoPicPath` = #{logopicpath},
+  	</if>
+  	<if test="logolocpath != null">
+  	`logoLocPath` = #{logolocpath},
+  	</if>
   	<!-- <if test="softwarename != null">
   	`softwareName` = #{softwarename},
   	</if>

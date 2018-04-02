@@ -98,14 +98,14 @@ $(function(){
 		$("#pictureDiv").show();
 		alert("del");
 	});
-	$("#picture").change(function(){
+	/*$("#picture").change(function(){
 		var path = $(this).val();
 		alert(path);
 		
 		$("#pictureDiv").hide();
 		$("#image").attr("src");
 		$("#imageDiv").show();
-	});
+	});*/
 	
 	var $categorylevel1 = $("#categorylevel1_id").html();
 	var $categorylevel2 = $("#categorylevel2_id").html();

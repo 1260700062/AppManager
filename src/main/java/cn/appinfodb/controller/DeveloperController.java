@@ -394,7 +394,6 @@ public class DeveloperController {
 				return "forward:/modifyAppPage?id="+appInfo.getId();
 			}
 		}
-
 		if(flag > 0) {
 			return "redirect:/appList";
 		}else {
