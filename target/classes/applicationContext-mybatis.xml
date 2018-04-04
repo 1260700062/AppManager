@@ -46,7 +46,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 	</tx:advice>
 	
 	<aop:config>
-		<aop:pointcut id="pc" expression="execution(* cn.sd1.service..*.*(..))"/>
+		<aop:pointcut id="pc" expression="execution(* cn.appinfodb.service..*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
 	</aop:config>
 	

@@ -163,7 +163,7 @@
 												<th class="column-title">状态</th>
 												<th class="column-title no-link last"><span class="nobr">下载次数</span>
 												<th class="column-title no-link last"><span class="nobr">最新版本号</span>
-												<th class="column-title no-link last"><span class="nobr">操作</span>
+												<th class="column-title no-link last" width="180px;"><span class="nobr">操作</span>
 												</th>
 											</tr>
 										</thead>
@@ -201,9 +201,9 @@
 														<div class="btn-group">
 														    <button type="button" class="btn btn-success dropdown-toggle btn-xs" data-toggle="dropdown">点击操作
 														        <span class="caret"></span></button>
-														    <ul class="dropdown-menu" role="menu">
+														    <ul class="dropdown-menu" role="menu"  >
 														    <c:if test="${appinfo.status==2 }">
-														    	<li>
+														    	<li >
 														            <a href="${pageContext.request.contextPath }/changeStatus/${appinfo.id}">上架</a>
 														        </li>
 														    </c:if>

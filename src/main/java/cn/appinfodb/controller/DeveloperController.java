@@ -367,6 +367,7 @@ public class DeveloperController {
 		if(picture == null || picture.isEmpty()) {
 			appInfo.setLogopicpath(null);
 			appInfo.setLogolocpath(null);
+			model.addAttribute("imgError", "上传文件不能为空");
 		}else {
 			String fileName = picture.getOriginalFilename();
 			String suffix = FilenameUtils.getExtension(fileName);
