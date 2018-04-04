@@ -139,7 +139,7 @@
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
-                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/modifyApp" method="post" enctype="multipart/form-data">
+                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/modifyApp/${appInfo.id }" method="post" enctype="multipart/form-data">
 					<div hidden class="item form-group">
                      <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="id">软件名称 <span class="required">*</span>
                         </label>
