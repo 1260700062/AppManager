@@ -58,4 +58,9 @@ public class AppVersionServiceImpl implements AppVersionService {
 		return flag;
 	}
 
+	@Override
+	public int deleteVersionByAppId(Long appid) {
+		return appVersionMapper.deleteVersionByAppId(appid);
+	}
+
 }

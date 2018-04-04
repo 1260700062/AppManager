@@ -32,7 +32,7 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		<property name="basePackage" value="cn.appinfodb.dao"></property>
 	</bean>
 	
-	<context:component-scan base-package="cn.appinfodb" />
+	<context:component-scan base-package="cn.appinfodb.service" />
 	
 	<bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"/>
@@ -45,9 +45,9 @@ http://www.springframework.org/schema/context/spring-context.xsd">
 		</tx:attributes>
 	</tx:advice>
 	
-	<!-- <aop:config>
+	<aop:config>
 		<aop:pointcut id="pc" expression="execution(* cn.sd1.service..*.*(..))"/>
 		<aop:advisor advice-ref="txAdvice" pointcut-ref="pc"/>
-	</aop:config> -->
+	</aop:config>
 	
 </beans>

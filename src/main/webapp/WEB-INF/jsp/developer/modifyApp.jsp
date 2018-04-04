@@ -139,7 +139,7 @@
                 <div class="x_panel">
                   <div class="x_content">
 <!-- enctype="multipart/form-data" -->
-                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/modifyApp" method="post" enctype="multipart/form-data">
+                    <form id="myForm" class="form-horizontal form-label-left" novalidate action="${pageContext.request.contextPath }/modifyApp/${appInfo.id }" method="post" enctype="multipart/form-data">
 					<div hidden class="item form-group">
                      <label  class="control-label col-md-3 col-sm-3 col-xs-12" for="id">软件名称 <span class="required">*</span>
                         </label>
@@ -277,7 +277,7 @@
                       <div class="form-group">
                       	<span  class="fontColor"></span>
                         <div class="col-md-6 col-md-offset-3">
-                          <button type="submit" class="btn btn-primary">取消</button>
+                          <span onclick="window.history.back(-1)" class="btn btn-primary">取消</span>
                           <button id="send" type="submit" class="btn btn-success">保存</button>
                         </div>
                       </div>

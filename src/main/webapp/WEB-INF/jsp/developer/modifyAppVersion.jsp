@@ -263,7 +263,7 @@
 											<div class="form-group">
 												<span class="fontColor"></span>
 												<div class="col-md-6 col-md-offset-3">
-													<button onclick="window.history.back(-1)" class="btn btn-primary">取消</button>
+													<span onclick="window.history.back(-1)" class="btn btn-primary">取消</span>
 													<button id="send" type="submit" class="btn btn-success">提交</button>
 												</div>
 											</div>

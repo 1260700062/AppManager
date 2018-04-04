@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mysql.jdbc.log.Log;
 
@@ -38,7 +39,7 @@ public class RegisterController {
 			model.addAttribute("idtf", identify);
 			return "register";
 		}else {
-			model.addAttribute("error", "鎶辨瓑锛屾偍鏃犳硶娉ㄥ唽绠＄悊鍛橈紒");
+			model.addAttribute("error", "管理员无法直接注册");
 			return "login";
 		}		
 	}
@@ -50,6 +51,7 @@ public class RegisterController {
 							String email,
 							String info,
 							HttpSession session,
+							RedirectAttributes attr,
 							Model model) {
 		DevUser du = new DevUser();
 		du.setdevcode(userCode);
@@ -59,12 +61,12 @@ public class RegisterController {
 		du.setDevinfo(info);
 		int result = dus.addDevUser(du);
 		log.info("result==="+result);
+		attr.addAttribute("succ", "true");
 		return "redirect:/login";
 	}
 	@ResponseBody
 	@RequestMapping(value="/registeryz",method=RequestMethod.GET)
 	public String register3(HttpServletRequest request) {
-		System.out.println("杩涘叆");
 		String userCode = request.getParameter("userCode");
 		if( dus.selectByuserCode(userCode)!=null) {
 			System.out.println("false");

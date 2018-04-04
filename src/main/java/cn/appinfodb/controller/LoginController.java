@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.mysql.jdbc.log.Log;
 
@@ -35,7 +36,8 @@ public class LoginController {
 	}
 	
 	@RequestMapping(value="/login",method=RequestMethod.GET)
-	public String login() {
+	public String login(String succ,Model model) {
+		model.addAttribute("succ", succ);
 		return "login";
 	}
 	
@@ -69,7 +71,7 @@ public class LoginController {
 				if(bu.getUserpassword().equals(userPassword)) {
 					session.setAttribute("BackendUser", bu);
 					session.setMaxInactiveInterval(10*60);
-					return "manager";
+					return "redirect:http://192.168.199.171:8081/index/"+bu.getUsercode();
 				}else {
 					model.addAttribute("error", "用户名或密码不正确");
 					return "login";

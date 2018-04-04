@@ -96,7 +96,7 @@ $(function(){
 	$("#del").click(function(){
 		$("#imageDiv").hide();
 		$("#pictureDiv").show();
-		alert("del");
+		alert("请选择文件");
 	});
 	/*$("#picture").change(function(){
 		var path = $(this).val();

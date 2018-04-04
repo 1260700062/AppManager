@@ -11,7 +11,7 @@
        http://www.springframework.org/schema/context
 		http://www.springframework.org/schema/context/spring-context.xsd">
 		
-	<context:component-scan base-package="cn.appinfodb"/>
+	<context:component-scan base-package="cn.appinfodb.controller"/>
 	<mvc:annotation-driven/>
 	<mvc:default-servlet-handler/>
 		

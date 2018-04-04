@@ -74,7 +74,7 @@
                 <p class="change_link">
                   <a href="${pageContext.request.contextPath }/loginIdChange" class="to_register"> 切换身份 </a>
                 </p>
-
+				<div hidden id="succ"> ${succ }</div>
                 <div class="clearfix"></div>
                 <br />
 

@@ -144,4 +144,8 @@
     	WHERE id = #{id}
     </update>
     
+    <delete id="deleteVersionByAppId">
+  	delete from app_version where appId = #{appid}
+  </delete>
+    
 </mapper>

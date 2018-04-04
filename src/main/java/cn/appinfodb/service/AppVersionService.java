@@ -14,4 +14,6 @@ public interface AppVersionService {
 	
 	
 	public int modifyAppVersion(AppVersion appVersion);
+	
+	int deleteVersionByAppId(Long appid);
 }

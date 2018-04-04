@@ -61,8 +61,12 @@ public class DeveloperController {
 	public void setDeveloperService(DeveloperService developerService) {
 		this.developerService = developerService;
 	}
-	
-	
+	/**
+	 * app列表
+	 * @param path
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/appList")
 	public String appList(HttpSession session,Model model) {
 		DevUser devUser = (DevUser) session.getAttribute("DevUser");
@@ -86,8 +90,12 @@ public class DeveloperController {
 		
 		return "developer/appList";
 	}
-	
-	//ajax获取category
+	/**
+	 * ajax获取category
+	 * @param path
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/getAppList",produces = "application/json; charset=utf-8")
 	@ResponseBody
 	public String getAppList1(Long parentId) {
@@ -100,8 +108,12 @@ public class DeveloperController {
 		System.out.println(json);
 		return json;
 	}
-	
-	//app查询
+	/**
+	 * app查询
+	 * @param path
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping("/appSearch")
 	public String appSearch(HttpSession session,Model model,
 			@RequestParam(value="appName",required=false)String appName,
@@ -129,11 +141,17 @@ public class DeveloperController {
 	}
 	
 	@RequestMapping("/addVersionPage/{id}")
-	public String addVersionPage(@PathVariable Long id,Model model) {
+	public String addVersionPage(@PathVariable Long id,Model model,String imgError) {
 		model.addAttribute("appId", id);
+		model.addAttribute("imgError",imgError);
 		return "developer/addVersion";
 	}
-	
+	/**
+	 * 增加版本
+	 * @param path
+	 * @param session
+	 * @return
+	 */
 	@RequestMapping(value="/addVersion", method=RequestMethod.POST)
 	public String addVersion(AppVersion appVersion,HttpSession session,Model model,HttpServletRequest request,
 			@RequestParam(value="apk",required = false) MultipartFile apk,
@@ -142,19 +160,17 @@ public class DeveloperController {
 		File file = null;
 		int flag = -1;
 		if(apk.isEmpty()) {
-			return "developer/addVersion";
+			model.addAttribute("imgError", "请添加文件");
+			return "redirect:/addVersionPage/"+appId;
 		}
 		String fileName = apk.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
 		System.out.println(fileName);
-		if(apk.getSize() >= 500000000) {
-			model.addAttribute("imgError","apk文件不得大于500Mb");
-			return "developer/addVersion";
-		}else if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
+		if(suffix.equalsIgnoreCase("apk") || suffix.equalsIgnoreCase("rar") || suffix.equalsIgnoreCase("zip")) {
 			String path = session.getServletContext().getRealPath("statics"+File.separator+"apk");
 			file=new File(path);
-			if(!file.exists()){//如果不存在该文件夹
-			file.mkdir();//新建
+			if(!file.exists()){
+			file.mkdir();
 			}
 			System.out.println("====path==========: "+path);
 			
@@ -162,15 +178,20 @@ public class DeveloperController {
 			System.out.println(file.getPath());
 			String apklocpath = path + File.separator+fileName;
 			appVersion.setApklocpath(apklocpath);
+			
+			if(apk.getSize() >= 500000000) {
+				model.addAttribute("imgError","apk文件不得大于500Mb");
+				return "developer/addVersion";
+			}
 		}else {
 			model.addAttribute("imgError", "请上传正确文件");
 			
-			return "developer/addVersion";
+			return "redirect:/addVersionPage/"+appId;
 		}
 		appVersion.setAppid(appId);
 		appVersion.setCreationdate(new Date());
 		appVersion.setApkfilename(fileName);
-		appVersion.setDownloadlink(request.getContextPath()+"/statics/img/"+fileName);
+		appVersion.setDownloadlink(request.getContextPath()+"/statics/apk/"+fileName);
 		appVersion.setCreatedby(devUser.getId());
 		flag = appVersionService.addAppVersion(appVersion);
 		System.out.println("=======1========"+flag+"================");
@@ -199,27 +220,14 @@ public class DeveloperController {
 		return appVersion;
 	}
 	
-	/**
-	 * 
-	 * @return
-	 * 
-	 * 閻犲搫鐤囧ù鍝竏dApp濡炪倗鏁诲锟�
-	 * 
-	 */
-	@RequestMapping(value="/addAppPage", method=RequestMethod.GET)
+	
+	@RequestMapping(value="/addAppPage")
 	public String addAppPage() {
 		
 		return "developer/addApp";
 	}
 	
-	/**
-	 * 闁兼儳鍢茶ぐ鍢篸dApp濡炪倗鏁诲浼存儍閸曨亙绻嗛柟顓у灲缁辨繈鐛捄鐑樺�婚柡浣哄瀹撲焦鎯旈幘鏉戞綉闁告梻濮虫穱濠囧箒閿燂拷
-	 * @param appInfo
-	 * @param session
-	 * @param model
-	 * @param image
-	 * @return
-	 */
+	
 	
 	@RequestMapping(value="/addApp", method=RequestMethod.POST)
 	public String addApp(AppInfo appInfo, HttpSession session, Model model, 
@@ -228,14 +236,12 @@ public class DeveloperController {
 		int flag = -1;
 		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		if(image.isEmpty()) {
+			model.addAttribute("imgError", "上传文件不能为空");
 			return "developer/addApp";
 		}
 		String fileName = image.getOriginalFilename();
 		String suffix = FilenameUtils.getExtension(fileName);
-		if(image.getSize() >= 500000) {
-			model.addAttribute("imgError","图片不得大于500k");
-			return "developer/addApp";
-		}else if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
+		if(suffix.equalsIgnoreCase("jpg") || suffix.equalsIgnoreCase("png") 
         		|| suffix.equalsIgnoreCase("jpeg") || suffix.equalsIgnoreCase("pneg")) {
 			String path = session.getServletContext().getRealPath("statics"+File.separator+"img");
 			System.out.println("====path==========: "+path);
@@ -246,6 +252,10 @@ public class DeveloperController {
 			String logopicpath = session.getServletContext().getContextPath()+"/statics/img/"+fileName;
 			appInfo.setLogopicpath(logopicpath);
 			
+			if(image.getSize() >= 500000) {
+				model.addAttribute("imgError","图片不得大于500k");
+				return "developer/addApp";
+			}
 			
 		}else {
 			model.addAttribute("imgError", "请上传正确文件");
@@ -272,11 +282,7 @@ public class DeveloperController {
 			return "forward:/addAppPage";
 		}
 	}
-	/**
-	 * addApp濡炪倗鏁诲鏉壳庣拠鎻掝潱APP濞ｅ洠鍓濇导鍛村籍鐠佸湱绀夊ù锝堟硶閺侇棫jax闁兼儳鍢茶ぐ鍥ㄧ▔閿熺晫鐥閿熸垝妞掔花鈺冪棯瑜嬮敓鎴掓缁椾胶鐥閸ㄥ海鐚炬导娆戠闁烩偓鍔嬬花顒勬焻婢跺顏ラ柛鎺戞鐞氼偆鐥閸╋拷
-	 * @param id
-	 * @return
-	 */
+	
 	@RequestMapping("/categoryLevel")
 	@ResponseBody
 	public Object getCategoryLevel(String id) {
@@ -304,13 +310,7 @@ public class DeveloperController {
 		return "false";
 	}
 	
-	/**
-	 * 跳转modifyAPP页面，显示所选APP的相关信息
-	 * @param id
-	 * @param session
-	 * @param model
-	 * @return
-	 */
+	
 	@RequestMapping("/modifyAppPage/{id}")
 	public String modifyAppPage(@PathVariable Long id, HttpSession session, Model model) {
 		System.out.println("=========modifyAppPage==========");
@@ -353,7 +353,7 @@ public class DeveloperController {
 		return "";
 	}
 	
-	@RequestMapping(value = "/modifyApp", method= RequestMethod.POST)
+	@RequestMapping(value = "/modifyApp/{id}", method= RequestMethod.POST)
 	public String modifyApp(AppInfo appInfo, HttpSession session, Model model, 
 			@RequestParam(value="picture",required = false) MultipartFile picture) {
 		System.out.println("==========modifyApp ===========");
@@ -392,7 +392,7 @@ public class DeveloperController {
 			}else {
 				model.addAttribute("imgError", "文件格式不正确");
 				System.out.println("文件格式不正确");
-				return "forward:/modifyAppPage?id="+appInfo.getId();
+				return "forward:/modifyAppPage/"+appInfo.getId();
 			}
 		}
 		if(flag > 0) {
@@ -480,6 +480,7 @@ public class DeveloperController {
 	public String deleteApp(long id,HttpSession session,Model model ) {
 		System.out.println("删除AppInfo的id："+id);
 		int result = appInfoService.deleteAppById(id);
+		appVersionService.deleteVersionByAppId(id);
 		System.out.println("删除结果："+result);
 		DevUser devUser = (DevUser) session.getAttribute("DevUser");
 		List<AppCategory> appLevel1 = developerService.getCategoryByParentId(null);
@@ -505,22 +506,6 @@ public class DeveloperController {
 		
 	}
 	
-	/*@RequestMapping(value="/showAppPage/{id}",method=RequestMethod.GET)
-	public String showAppPage(@PathVariable Long id,Model model) {
-		AppInfo appInfo = developerService.getAppInfoById(id);
-		AppCategory level1 = developerService.getAppCategoryById(appInfo.getCategorylevel1());
-		AppCategory level2 = developerService.getAppCategoryById(appInfo.getCategorylevel2());
-		AppCategory level3 = developerService.getAppCategoryById(appInfo.getCategorylevel3());
-		String statusName = developerService.getNameByStatusValue(appInfo.getStatus());
-		List<DataDictionary> allFolatform = dataDictionaryService.getAllDataDictionaryFlatform();
-		model.addAttribute("level1",level1);
-		model.addAttribute("level2",level2);
-		model.addAttribute("level3",level3);
-		model.addAttribute("statusName",statusName);
-		model.addAttribute("allFolatform",allFolatform);
-		model.addAttribute("appInfo", appInfo);
-		return "developer/showAPPInfo";
-	}*/
 	@RequestMapping("/downloadApk")
 	@ResponseBody
 	public String downloadApk(Long id) {

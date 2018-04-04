@@ -55,4 +55,6 @@ public interface AppVersionMapper {
 
 	int modifyAppVersion(AppVersion appVersion);
 	
+	int deleteVersionByAppId(Long appid);
+	
 }

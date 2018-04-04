@@ -47,7 +47,6 @@
 
               <div class="separator">
                 
-
                 <div class="clearfix"></div>
                 <br />
 
@@ -62,5 +61,10 @@
 
       </div>
     </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+    	alert("aaaaa");
+    })
+    </script>
   </body>
 </html>
