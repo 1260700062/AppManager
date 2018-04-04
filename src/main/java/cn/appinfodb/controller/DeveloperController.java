@@ -325,6 +325,9 @@ public class DeveloperController {
 		model.addAttribute("level1",level1);
 		model.addAttribute("level2",level2);
 		model.addAttribute("level3",level3);
+		System.out.println(level1.getCategoryname());
+		System.out.println(level2.getCategoryname());
+		System.out.println(level3.getCategoryname());
 		model.addAttribute("statusName",statusName);
 		model.addAttribute("allFolatform",allFolatform);
 		model.addAttribute("appInfo", appInfo);
